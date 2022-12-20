@@ -1,0 +1,15 @@
+// Typography
+@font-face {
+  font-family: "Noir-Bold";
+  src: url("@/assets/fonts/Noir_medium") format("otf");
+}
+
+@font-face {
+  font-family: "Noir-Regular";
+  src: url("@/assets/fonts/Noir_regular") format("otf");
+}
+
+$h1: 44px;
+$h2: 30px;
+$h3: 24px;
+$p: 16px;
