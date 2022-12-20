@@ -1,0 +1,20 @@
+@use '@/styles/Fonts.scss'
+@use '@/styles/Colors.scss'
+.home
+    display: flex
+    flex-direction: column
+    gap: 4rem
+    height: 100vh
+    justify-content: center
+    align-items: center
+
+    &>.link
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: Fonts.$h1
+        border-bottom: 1px solid Colors.$white
+        
+        & > a
+            text-decoration: none
+            color: Colors.$white
