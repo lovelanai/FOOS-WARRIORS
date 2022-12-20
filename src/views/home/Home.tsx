@@ -1,22 +1,40 @@
+import Logo from "@/assets/logos/logos";
 import { Link } from "react-router-dom";
 import "./Home.sass";
 export const Home = () => {
   return (
     <div className="home">
-      <div className="link">
-        <Link to="/playground">Playground</Link>
+      <Link className="playground" to="/playground">
+        Playground <br />
+        {`(dev)`}
+      </Link>
+      <div className="title">
+        <h1 className="text">
+          FOOS <br /> WARRIORS
+        </h1>
+        <Logo.Player className="logo" />
       </div>
-      <div className="link">
-        <Link to="/leaderboard">LeaderBoard</Link>
-      </div>
-      <div className="link">
-        <Link to="/findPlayers">FindPlayers</Link>
-      </div>
-      <div className="link">
-        <Link to="/matchHistory">MatchHistory</Link>
-      </div>
-      <div className="link">
-        <Link to="/profile">Profile</Link>
+      <div className="navigation">
+        <div className="button">
+          <Link to="/findPlayers" className="link">
+            Find Players
+          </Link>
+        </div>
+        <div className="button">
+          <Link to="/leaderboard" className="link">
+            LeaderBoard
+          </Link>
+        </div>
+        <div className="button">
+          <Link to="/matchHistory" className="link">
+            Todays Battles
+          </Link>
+        </div>
+        <div className="button">
+          <Link to="/profile" className="link">
+            Profile
+          </Link>
+        </div>
       </div>
     </div>
   );

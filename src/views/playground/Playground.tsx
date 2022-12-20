@@ -8,7 +8,7 @@ export const Playground = () => {
       <Link to="/">
         <ICON.Arrow />
       </Link>
-      <h1 className="test">playground</h1>
+      <h1 className="h1">playground</h1>
     </div>
   );
 };
