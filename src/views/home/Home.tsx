@@ -1,27 +1,26 @@
-import Logo from "@/assets/logos/logos";
 import { FrontPageLogo } from "@/components/front-page-logo/FrontPageLogo";
 import { Navigation } from "@/components/navigation/Navigation";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { Link } from "react-router-dom";
-import { Startup } from "../startup/Startup";
+import { LandingPage } from "../landing-page/LandingPage";
 import "./Home.sass";
 export const Home = () => {
-  const { isLoggedIn } = useUser();
+  const { viewGreetingPage } = useUser();
+
   return (
     <div className={`home`}>
       <Link className="playground" to="/playground">
         Playground <br />
         {`(dev)`}
       </Link>
-      {isLoggedIn ? (
+      {viewGreetingPage ? (
         <>
           <FrontPageLogo />
           <Navigation />
         </>
       ) : (
         <>
-          <Startup />
+          <LandingPage />
         </>
       )}
     </div>

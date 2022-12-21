@@ -1,10 +1,17 @@
+import "./LandingPage.sass";
 import Logo from "@/assets/logos/logos";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
-import "./Startup.sass";
+import { useUser } from "@/context/UserContext";
 
-export const Startup = () => {
+export const LandingPage = () => {
+  const { setViewGreetingPage, viewGreetingPage } = useUser();
+  const test = () => {
+    setViewGreetingPage(true);
+    console.log("hej");
+    console.log(viewGreetingPage);
+  };
   return (
-    <div className="startup">
+    <div className="landingPage">
       <div className="frontPageLogo">
         <Logo.BigPlayer className="logo" />
       </div>
@@ -13,7 +20,7 @@ export const Startup = () => {
         <h1 className="text">WARRIORS</h1>
       </div>
       <div className="aside">
-        <PrimaryButton secondary title="Enter Battlefield" />
+        <PrimaryButton onClick={test} secondary title="Enter Battlefield" />
       </div>
     </div>
   );
