@@ -1,0 +1,37 @@
+@use '@/styles/Fonts.scss'
+@use '@/styles/Colors.scss'
+.startup
+    height: 100%
+    width: 100%
+    display: flex
+    flex-direction: column
+    
+    & > .frontPageLogo
+        height: 70vh
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        background: Colors.$white
+
+    & > .title
+        display: flex
+        flex-direction: column
+        align-items: center
+        background: linear-gradient(to bottom, Colors.$white 25% 50%,  Colors.$black 50% 100%)
+        & > .text
+            font-size: Fonts.$h1
+            font-family: Fonts.$bold
+
+    
+            &:first-child
+                color: Colors.$black
+                
+
+
+    & > .aside
+        height: 30%
+        display: flex
+        align-items: center
+        justify-content: center
+        background: Colors.$black
