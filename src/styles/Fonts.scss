@@ -1,16 +1,16 @@
 // Typography
 @font-face {
   font-family: "Noir-Bold";
-  src: url("../assets/fonts/Noir_medium.woff2") format("woff2");
+  src: url("@/assets/fonts/Noir_medium.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Noir-Regular";
-  src: url("../assets/fonts/Noir_regular.woff2") format("woff2");
+  src: url("@/assets/fonts/Noir_regular.woff2") format("woff2");
 }
 
-$font-regular: "Noir-Regular";
-$font-bold: "Noir-Bold";
+$regular: "Noir-Regular";
+$bold: "Noir-Bold";
 $h1: 44px;
 $h2: 30px;
 $h3: 24px;

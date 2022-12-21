@@ -1,0 +1,46 @@
+@use '@/styles/Fonts.scss'
+@use '@/styles/Colors.scss'
+.home
+    align-items: center
+    display: flex
+    flex-direction: column
+    height: 100vh
+
+    & > .playground
+        background: #161616
+        border-radius: 0 0 1rem 0
+        color: white
+        font-size: 1.2rem
+        height: 3rem
+        left: 0
+        position: absolute
+        top: 0
+        text-align: center
+        width: 7rem
+
+
+    & > .title
+        text-align: center
+        & > .text
+            margin-bottom: 1rem
+            font-family: Fonts.$bold
+            font-size: Fonts.$h1
+        
+
+    & > .navigation
+        display: flex
+        flex-direction: column
+        height: 100%
+        width: 100%
+        & > .button
+            align-items: center
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3)
+            display: flex
+            height: 100%
+            justify-content: center
+            &:last-child
+                border: none
+            & > .link
+                color: Colors.$white
+                font-size: Fonts.$h2
+                text-decoration: none
