@@ -1,0 +1,21 @@
+@use '@/styles/Fonts.scss'
+@use '@/styles/Colors.scss'
+    
+.primaryButton
+    width: 33.0rem
+    height: 6.0rem
+    border-radius: 10.0rem
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    background: Colors.$black
+    color: Colors.$white
+    & > .title
+        font-size: Fonts.$buttonText
+
+.-secondary
+        background: Colors.$white
+        color: Colors.$black
+
+    
