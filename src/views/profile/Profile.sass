@@ -1,41 +1,30 @@
 @use '@/styles/Fonts.scss'
 @use '@/styles/Colors.scss'
 
-.main
+.profile
     background: Colors.$white
     height: 100vh
    
     & > .header
-        background: transparentize(Colors.$black, 0.5) 
+        align-items: center
+        background: transparentize(Colors.$black, 0.5)
         display: flex
         height: 10rem
         position: absolute
         z-index: 100
     
-    & > .img
-        border: solid red 2px
-        height: 65%
-        width: 100vw
-        top: 0
-        z-index: 1
-        display: flex
-        position: relative
-        overflow: hidden
-        background: linear-gradient(170deg, #ff87dd 85%, #fc6464 85%)
-
-        // img
-        //     width: 100%
-        //     height: 100%
-
-        // & > .img-border
-        //     position: absolute
-        //     top: 65vw
-        //     height: 10rem
-        //     width: 100vw
-        //     background-color: Colors.$white
-        //     transform: skewY(-12deg)
-
-    
+    & > .img-container
+        filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5))
+        
+        & > .img
+            background-position: center
+            background-repeat: no-repeat
+            background-size: cover
+            box-shadow: 0 8px 6px -6px black
+            clip-path: polygon(0 0, 1600px 0, 1600px 53%, 0 100%)
+            display: flex
+            height: 65vh
+            width: 100vw
 
     & > .info 
         align-items: center
@@ -54,9 +43,8 @@
             font-size: Fonts.$h3
             margin: 0
 
-
         & > .bio
-            color: gray
+            color: Colors.$gray
             font-family: Fonts.$regular
             font-size: Fonts.$p
 
@@ -77,8 +65,7 @@
                     margin: .5rem
 
                 & > .type
-                    color: gray
-                    font-family: Fonts.$regular
+                    color: Colors.$gray
                     font-size: Fonts.$h3
                     margin: .5rem
 
