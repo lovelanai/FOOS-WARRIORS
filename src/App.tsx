@@ -5,6 +5,7 @@ import { LeaderBoard } from "./views/leader-board/LeaderBoard";
 import { MatchHistory } from "./views/match-history/MatchHistory";
 import { Playground } from "./views/playground/Playground";
 import { Profile } from "./views/profile/Profile";
+import "./main.sass";
 
 function App() {
   return (
