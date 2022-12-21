@@ -4,7 +4,7 @@ import "./FindPlayers.sass";
 
 export const FindPlayers = () => {
   return (
-    <div>
+    <div className="test">
       <Link to="/">
         <ICON.Arrow />
       </Link>
