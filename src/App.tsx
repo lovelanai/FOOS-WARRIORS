@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import "./main.sass";
+import { mockedUsers } from "./mockedUsers/mockedUsers";
 import { FindPlayers } from "./views/find-players/FindPlayers";
 import { Home } from "./views/home/Home";
 import { LeaderBoard } from "./views/leader-board/LeaderBoard";
@@ -6,9 +8,9 @@ import { LogIn } from "./views/login/LogIn";
 import { MatchHistory } from "./views/match-history/MatchHistory";
 import { Playground } from "./views/playground/Playground";
 import { Profile } from "./views/profile/Profile";
-import "./main.sass";
 
 function App() {
+  console.log(mockedUsers);
   return (
     <div>
       <Routes>
