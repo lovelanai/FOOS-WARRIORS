@@ -4,17 +4,37 @@
 .profile
     background: Colors.$white
     height: 100vh
+    width: 100%
    
     & > .header
         align-items: center
-        background: transparentize(Colors.$black, 0.5)
+        background: transparentize(Colors.$black, 0.3)
         display: flex
         height: 10rem
+        justify-content: space-between
         position: absolute
         z-index: 100
+        width: 100%
+
+        > div:nth-child(1)
+            padding-left: 1rem
+            width: 4rem
+
+        > div:nth-child(2)
+            color: Colors.$white
+            font-family: Fonts.$regular
+            font-size: Fonts.$h3
+            text-align: center
+            width: 10rem
+        
+        > div:nth-child(3)
+            padding-right: 1rem
+            width: 4rem
+
     
     & > .img-container
         filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5))
+       
         
         & > .img
             background-position: center
@@ -25,10 +45,28 @@
             display: flex
             height: 65vh
             width: 100vw
+            transition: height 1s ease
+            &--edit
+                height: 50vh
+                transition: height 1s ease
+
+    & > .icon-div
+        display: flex
+        justify-content: center
+        transform: translateY(-6rem)
+        width: 100%
+
+        & > .icon
+            align-items: center
+            background: Colors.$black
+            border-radius: 100%
+            display: flex
+            height: 5.7rem
+            justify-content: center
+            width: 5.7rem
 
     & > .info 
         align-items: center
-        border: solid yellow 2px
         bottom: 0
         display: flex
         flex-direction: column
@@ -53,10 +91,9 @@
             flex-direction: row
             justify-content: space-between
             margin: 1rem
-            width: 60%
+            width: 80%
 
             & > div
-
 
                 & > .value
                     color: Colors.$black
@@ -66,9 +103,74 @@
 
                 & > .type
                     color: Colors.$gray
+                    font-family: Fonts.$regular
                     font-size: Fonts.$h3
                     margin: .5rem
+                    padding-bottom: 1rem
+                
+                & > .border
+                    border-bottom: solid Colors.$gray 1px
+                    margin-left: .5rem
+                    width: 30%
 
+    & > .form
+        align-items: center
+        bottom: 0
+        display: flex
+        flex-direction: column
+        height: 50%
+        gap: 3rem
+        justify-content: center
+        position: absolute
+        width: 100%
+        color: Colors.$black
+        font-family: Fonts.$regular
+        font-size: Fonts.$h3
+
+        & > label
+            display: flex
+            flex-direction: column
+            gap: 1rem
+            width: 80%
+
+            & > input
+                border: none
+                background: none
+                color: Colors.$gray
+                font-family: Fonts.$regular
+                font-size: Fonts.$h3
+            
+            & > textarea
+                border: none
+                background: none
+                color: Colors.$gray
+                font-family: Fonts.$regular
+                font-size: Fonts.$h3
+
+            & > .input-name
+                border-bottom: solid Colors.$gray 2px
+                height: 3rem
+
+            & > .input-bio
+                border-bottom: solid Colors.$gray 2px
+                height: 6rem
+                
+
+        & > .button
+            background: Colors.$black
+            border: none
+            border-radius: 10rem
+            color: Colors.$white
+            font-family: Fonts.$regular
+            font-size: Fonts.$h3
+            height: 5.7rem
+            width: 31rem
         
+        & > .button-exit
+            border: none
+            background: none  
+            text-decoration: underline
+            color: Colors.$black   
+            font-size: Fonts.$p   
         
        
