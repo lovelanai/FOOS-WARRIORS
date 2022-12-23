@@ -11,6 +11,8 @@ interface UserContextValue {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
+  isMyProfile: boolean;
+  setIsMyProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -18,11 +20,14 @@ export const UserContext = createContext<UserContextValue>({
   setIsLoggedIn: () => undefined,
   viewGreetingPage: false,
   setViewGreetingPage: () => undefined,
+  isMyProfile: false,
+  setIsMyProfile: () => undefined
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
+  const [isMyProfile, setIsMyProfile] = useState<boolean>(false);
 
   return (
     <UserContext.Provider
@@ -31,6 +36,8 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setIsLoggedIn,
         viewGreetingPage,
         setViewGreetingPage,
+        isMyProfile,
+        setIsMyProfile
       }}
     >
       {children}
