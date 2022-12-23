@@ -3,10 +3,13 @@ import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Profile.sass";
+import { mockedUsers } from "@/mockedUsers/mockedUsers";
 
 export const Profile = () => {
   const { isMyProfile } = useUser();
   const [isEditMode, setIsEditMode] = useState(false);
+
+  console.log(mockedUsers)
 
   return (
     <div className="profile">
@@ -51,8 +54,8 @@ export const Profile = () => {
       </div>
       {!isEditMode ? (
         <div className="info">
-          <h3 className="name">Johnny Depp</h3>
-          <p className="bio">Big baller high roller NPC</p>
+          <h3 className="name">{mockedUsers[0].name}</h3>
+          <p className="bio">{mockedUsers[0].desc}</p>
           <div className="stats">
             <div>
               <p className="value">26</p>
@@ -74,12 +77,10 @@ export const Profile = () => {
       ) : (
         <form className="form">
         <label>Name
-          {/* change placeholder to value */}
-          <input className='input-name' type="text" placeholder="Johnny Depp"/>
+          <input className='input-name' type="text" defaultValue={mockedUsers[0].name}/>
         </label>
         <label>Bio
-          {/* change placeholder to value */}
-          <textarea className='input-bio' placeholder="Big baller high roller NPC"/>
+          <textarea className='input-bio' defaultValue={mockedUsers[0].desc}/>
         </label>
         <button className="button">Update profile</button>
         <button className="button-exit" onClick={ () => setIsEditMode(false)}>Exit</button>
