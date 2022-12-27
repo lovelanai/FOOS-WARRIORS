@@ -18,7 +18,7 @@ export const PlayerCard = ({ img, title }: playerCard) => {
       />
       <div className="aside">
         <h3 className="title">{title}</h3>
-        <PrimaryButton title="hej" profileButton />
+        <PrimaryButton title="view profile" profileButton />
       </div>
     </div>
   );

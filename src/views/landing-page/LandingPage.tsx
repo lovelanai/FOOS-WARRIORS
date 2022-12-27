@@ -7,7 +7,6 @@ export const LandingPage = () => {
   const { setViewGreetingPage, viewGreetingPage } = useUser();
   const test = () => {
     setViewGreetingPage(true);
-    console.log("hej");
     console.log(viewGreetingPage);
   };
   return (
