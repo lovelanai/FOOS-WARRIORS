@@ -6,6 +6,7 @@ import { ReactComponent as Online } from "./skulls/green.svg";
 import { ReactComponent as Away } from "./skulls/orange.svg";
 import { ReactComponent as Offline } from "./skulls/red.svg";
 import { ReactComponent as Camera } from "./essentials/camera.svg";
+import { ReactComponent as Search } from "./essentials/magnify.svg";
 
 const ICON = {
   Arrow,
@@ -15,7 +16,8 @@ const ICON = {
   Online,
   Away,
   Offline,
-  Camera
+  Camera,
+  Search,
 };
 
 export default ICON;
