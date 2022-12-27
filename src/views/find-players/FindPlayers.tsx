@@ -8,7 +8,7 @@ export const FindPlayers = () => {
       <Link to="/">
         <ICON.Arrow />
       </Link>
-      Find Players
+      Find Players view
     </div>
   );
 };
