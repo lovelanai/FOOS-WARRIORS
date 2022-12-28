@@ -1,8 +1,8 @@
-import ICON from "@/assets/icons/icons";
-import { Header } from "@/components/header/Header";
-import { InputField } from "@/components/input-field/InputField";
-import { PlayerCard } from "@/components/player-card/PlayerCard";
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
+import ICON from "../../assets/icons/icons";
+import { Header } from "../../components/header/Header";
+import { InputField } from "../../components/input-field/InputField";
+import { PlayerCard } from "../../components/player-card/PlayerCard";
+import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import "./FindPlayers.sass";
 
 export const FindPlayers = () => {

@@ -1,4 +1,3 @@
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { PrimaryButton } from "../primary-button/PrimaryButton";
 import "./PlayerCard.sass";
 

@@ -4,15 +4,24 @@
   "description": "Foosball Tourmanent-Application for HiQ headquarters ",
   "icons": [
     {
-      "src": "/src/assets/logos/appLogo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
     },
     {
-      "src": "/src/assets/logos/appLogoMasked.png",
-      "sizes": "512x512",
+      "src": "logo192.png",
       "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "LogoMasked.png",
+      "type": "image/png",
+      "sizes": "512x512",
       "purpose": "maskable"
     }
   ],

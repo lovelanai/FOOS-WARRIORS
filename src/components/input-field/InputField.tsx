@@ -1,4 +1,4 @@
-import ICON from "@/assets/icons/icons";
+import ICON from "../../assets/icons/icons";
 import "./InputField.sass";
 
 interface inputFieldProps {
