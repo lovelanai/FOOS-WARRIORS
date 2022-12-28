@@ -1,28 +1,34 @@
-import ICON from "@/assets/icons/icons";
-import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ICON from "src/assets/icons/icons";
+import { useUser } from "src/context/UserContext";
+import { mockedUsers } from "src/mockedUsers/mockedUsers";
 import "./Profile.sass";
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
 
 export const Profile = () => {
   const { isMyProfile } = useUser();
   const [isEditMode, setIsEditMode] = useState(false);
 
-  console.log(mockedUsers)
+  console.log(mockedUsers);
 
   return (
     <div className="profile">
       <div className="header">
         <div>
-          {isEditMode ? "" : <Link to="/">
-            <ICON.Arrow />
-          </Link>}
-          
+          {isEditMode ? (
+            ""
+          ) : (
+            <Link to="/">
+              <ICON.Arrow />
+            </Link>
+          )}
         </div>
         <div>
-          {isEditMode ? <h2 className="title">Edit</h2> : <h2 className="title">Profile</h2>}
-          
+          {isEditMode ? (
+            <h2 className="title">Edit</h2>
+          ) : (
+            <h2 className="title">Profile</h2>
+          )}
         </div>
         <div></div>
       </div>
@@ -39,7 +45,7 @@ export const Profile = () => {
         {/* change to isMyProfile when db is implemented,
         also handle isMyProfile and isEditMode so the camera icon is shown */}
         {!isMyProfile ? (
-          <div className="icon" onClick={ () => setIsEditMode(true)}>
+          <div className="icon" onClick={() => setIsEditMode(true)}>
             <ICON.Pen />
           </div>
         ) : !isMyProfile && isEditMode ? (
@@ -76,17 +82,26 @@ export const Profile = () => {
         </div>
       ) : (
         <form className="form">
-        <label>Name
-          <input className='input-name' type="text" defaultValue={mockedUsers[0].name}/>
-        </label>
-        <label>Bio
-          <textarea className='input-bio' defaultValue={mockedUsers[0].desc}/>
-        </label>
-        <button className="button">Update profile</button>
-        <button className="button-exit" onClick={ () => setIsEditMode(false)}>Exit</button>
-      </form>
-  
-      
+          <label>
+            Name
+            <input
+              className="input-name"
+              type="text"
+              defaultValue={mockedUsers[0].name}
+            />
+          </label>
+          <label>
+            Bio
+            <textarea
+              className="input-bio"
+              defaultValue={mockedUsers[0].desc}
+            />
+          </label>
+          <button className="button">Update profile</button>
+          <button className="button-exit" onClick={() => setIsEditMode(false)}>
+            Exit
+          </button>
+        </form>
       )}
     </div>
   );

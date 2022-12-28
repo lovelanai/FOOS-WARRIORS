@@ -1,8 +1,8 @@
-import { ReactComponent as Player } from "@/assets/logos/player.svg";
-import { ReactComponent as BigPlayer } from "@/assets/logos/bigPlayer.svg";
-import { ReactComponent as Teams } from "@/assets/logos/teams-logo.svg";
-import { ReactComponent as Swords } from "@/assets/logos/swords.svg";
-import { ReactComponent as Ball } from "@/assets/logos/ball.svg";
+import { ReactComponent as Player } from "./player.svg";
+import { ReactComponent as BigPlayer } from "./bigPlayer.svg";
+import { ReactComponent as Teams } from "./teams-logo.svg";
+import { ReactComponent as Swords } from "./swords.svg";
+import { ReactComponent as Ball } from "./ball.svg";
 
 const Logo = {
   Player,

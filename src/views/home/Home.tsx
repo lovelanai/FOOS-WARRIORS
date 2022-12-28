@@ -1,7 +1,7 @@
-import { FrontPageLogo } from "@/components/front-page-logo/FrontPageLogo";
-import { Navigation } from "@/components/navigation/Navigation";
-import { useUser } from "@/context/UserContext";
 import { Link } from "react-router-dom";
+import { FrontPageLogo } from "src/components/front-page-logo/FrontPageLogo";
+import { Navigation } from "src/components/navigation/Navigation";
+import { useUser } from "src/context/UserContext";
 import { LandingPage } from "../landing-page/LandingPage";
 import "./Home.sass";
 export const Home = () => {
