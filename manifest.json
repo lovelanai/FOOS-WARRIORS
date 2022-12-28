@@ -16,7 +16,7 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "https://www.foos-warriors.vercel.app/",
+  "start_url": "https://foos-warriors.vercel.app/",
   "display": "standalone",
   "theme_color": "#333",
   "background_color": "#fffdf9"
