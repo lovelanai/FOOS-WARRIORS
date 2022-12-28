@@ -4,19 +4,19 @@
   "description": "Foosball Tourmanent-Application for HiQ headquarters ",
   "icons": [
     {
-      "src": "./src/assets/logos/appLogo.png",
+      "src": "/src/assets/logos/appLogo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./src/assets/logos/appLogoMasked.png",
+      "src": "/src/assets/logos/appLogoMasked.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
-  "start_url": "https://foos-warriors.vercel.app/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#333",
   "background_color": "#fffdf9"
