@@ -1,5 +1,5 @@
-import Logo from "src/assets/logos/logos";
-import { mockedUser } from "src/mockedUsers/mockedUsers";
+import Logo from "../../assets/logos/logos";
+import { mockedUser } from "../../mockedUsers/mockedUsers";
 import "./BattleCard.sass";
 
 export interface TeamProps {

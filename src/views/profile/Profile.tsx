@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ICON from "src/assets/icons/icons";
-import { useUser } from "src/context/UserContext";
-import { mockedUsers } from "src/mockedUsers/mockedUsers";
+import ICON from "../../assets/icons/icons";
+import { useUser } from "../../context/UserContext";
+import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import "./Profile.sass";
 
 export const Profile = () => {

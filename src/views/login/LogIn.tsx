@@ -1,4 +1,4 @@
-import Logo from "src/assets/logos/logos";
+import Logo from "../../assets/logos/logos";
 import "./LogIn.sass";
 
 export const LogIn = () => {

@@ -1,5 +1,6 @@
-import ICON from "src/assets/icons/icons";
-import { Header } from "src/components/header/Header";
+import ICON from "../../assets/icons/icons";
+import { Header } from "../../components/header/Header";
+
 import "./LeaderBoard.sass";
 export const LeaderBoard = () => {
   return (

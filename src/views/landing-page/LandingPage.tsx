@@ -1,7 +1,7 @@
 import "./LandingPage.sass";
-import Logo from "src/assets/logos/logos";
-import { PrimaryButton } from "src/components/primary-button/PrimaryButton";
-import { useUser } from "src/context/UserContext";
+import Logo from "../../assets/logos/logos";
+import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
+import { useUser } from "../../context/UserContext";
 
 export const LandingPage = () => {
   const { setViewGreetingPage, viewGreetingPage } = useUser();
