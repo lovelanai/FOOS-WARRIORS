@@ -41,12 +41,12 @@ self.addEventListener("fetch", (event) => {
       return (
         cacheRes ||
         fetch(event.request)
-          // .then((fetchRes) => {
-          //   return caches.open(dynamicCache).then((cache) => {
-          //     cache.put(event.request.url, fetchRes.clone());
-          //     return fetchRes;
-          //   });
-          // }) // maybe use this to store dynamic cache for later stages
+          .then((fetchRes) => {
+            return caches.open(dynamicCache).then((cache) => {
+              cache.put(event.request.url, fetchRes.clone());
+              return fetchRes;
+            });
+          }) // maybe use this to store dynamic cache for later stages
           .catch(() => caches.match("offline.html"))
       );
     })
