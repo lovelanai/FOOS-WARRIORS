@@ -5,7 +5,7 @@ const assets = [
   "index.html",
   "offline.html",
   "script/useSW.js",
-  "images/Logo-offline.png",
+  "assets/Logo-offline.png",
 ];
 
 self.addEventListener("install", (event) => {

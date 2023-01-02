@@ -4,17 +4,17 @@
   "description": "Foosball Tourmanent-Application for HiQ headquarters ",
   "icons": [
     {
-      "src": "images/Logo192.png",
+      "src": "assets/Logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "images/Logo512.png",
+      "src": "assets/Logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "images/LogoMasked.png",
+      "src": "assets/LogoMasked.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
