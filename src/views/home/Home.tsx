@@ -4,6 +4,7 @@ import { Navigation } from "../../components/navigation/Navigation";
 import { useUser } from "../../context/UserContext";
 import { LandingPage } from "../landing-page/LandingPage";
 import "./Home.sass";
+
 export const Home = () => {
   const { viewGreetingPage } = useUser();
 
