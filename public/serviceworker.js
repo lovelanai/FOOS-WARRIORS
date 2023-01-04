@@ -1,3 +1,4 @@
+
 const staticCache = "site-static-v1";
 const dynamicCache = "site-dynamic-v1";
 
@@ -7,6 +8,7 @@ const assets = [
   "script/useSW.js",
   "assets/Logo-offline.png",
 ];
+
 
 self.addEventListener("install", (event) => {
   // console.log("serviceworker has been installed");
