@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { mockedUsers } from "./mockedUsers/mockedUsers";
 import { FindPlayers } from "./views/find-players/FindPlayers";
 import { Home } from "./views/home/Home";
 import { LeaderBoard } from "./views/leader-board/LeaderBoard";
@@ -9,6 +10,7 @@ import { Profile } from "./views/profile/Profile";
 import "./main.sass";
 
 function App() {
+  console.log(mockedUsers);
   return (
     <div>
       <Routes>

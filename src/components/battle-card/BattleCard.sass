@@ -1,0 +1,83 @@
+@use "../../styles/Fonts.scss"
+@use "../../styles/Colors.scss"
+
+.battleCard
+    display: flex
+    height: 30rem
+    justify-content: space-between
+    margin-bottom: 1rem
+    text-align: center
+    
+    & > .pinkTeam
+        height: 100%
+        width: 33%
+        
+        & > .player
+            background-position: center
+            background-size: cover
+            height: 50%
+            position: relative
+            width: 100%
+            
+            & > .overlay
+                background: Colors.$pink
+                bottom: 0
+                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
+                height: 100%
+                position: absolute
+                right: 0
+                width: 100%
+
+                & > .name
+                    bottom: 0
+                    color:  Colors.$black
+                    font-size: Fonts.$p
+                    margin: 3%
+                    position: absolute
+                    right: 0
+
+    & > .redTeam
+        height: 100%
+        width: 33%
+        & > .player
+            background-position: center
+            background-size: cover
+            height: 50%
+            position: relative
+            width: 100%
+            
+            & > .overlay
+                background: Colors.$red
+                bottom: 0
+                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
+                height: 100%
+                position: absolute
+                right: 0
+                transform: scale(-1, 1)
+                width: 100%
+                
+                & > .name
+                    bottom: 0
+                    color:  Colors.$black
+                    font-size: Fonts.$p
+                    margin: 3%
+                    position: absolute
+                    right: 0
+                    transform: scale(-1, 1)
+
+    & > .matchContent
+        align-items: center
+        display: flex
+        flex-direction: column
+        justify-content: space-evenly
+        width: 33%
+
+        & > .info
+
+            & > .title
+                font-size: Fonts.$h3
+
+            & > .text
+                font-size: Fonts.$p
+
+    
