@@ -9,20 +9,32 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
   useEffect(() => {
     if (!userId) {
       if (!id) {
-        getDocs(collection(db, api)).then((res) => {
-          setResponse(
-            res.docs.map((item) => {
-              return { ...item.data(), id: item.id };
-            }) as any
-          );
-          setIsLoading(false);
-        });
+        getDocs(collection(db, api))
+          .then((res) => {
+            setResponse(
+              res.docs.map((item) => {
+                return { ...item.data(), id: item.id };
+              }) as any
+            );
+          })
+          .then(() => {
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         const postById = doc(db, api, id);
-        getDoc(postById).then((item) => {
-          setResponse({ ...item.data(), id: item.id } as any);
-        });
-        setIsLoading(false);
+        getDoc(postById)
+          .then((item) => {
+            setResponse({ ...item.data(), id: item.id } as any);
+          })
+          .then(() => {
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
   }, [api, id, userId]);

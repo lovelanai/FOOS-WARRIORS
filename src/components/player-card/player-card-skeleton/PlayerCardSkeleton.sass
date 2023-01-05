@@ -2,7 +2,6 @@
 @use "../../../styles/Colors.scss"
 .playerCardSkeleton
     animation: loading 1s infinite
-   
     background: linear-gradient(to right, #ff87dd 50%, #fc6464 100%)
     display: flex
     height: 10rem
@@ -18,10 +17,25 @@
         height: 100%
         width: 18vh
         animation: bounce 1s ease infinite
-        background: #00000047
+        background: #ffffffaf
         background-size: cover
         background-position: center
         clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
+
+    & > .aside
+        align-items: flex-end
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        justify-content: center
+        margin-right: 4vw
+        & > .title
+            margin: 0
+            width: 16rem
+            height: 2.2rem
+            background: #ffffffaf
+            border-radius: 2rem
+
 
 @keyframes loading
     0%
