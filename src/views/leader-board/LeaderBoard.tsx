@@ -26,7 +26,7 @@ let month = months[d.getMonth()];
 let year = d.getFullYear();
 const navigate = useNavigate();
 
-export const Leaderboard = () => {
+export const LeaderBoard = () => {
   return (
     <div className="leaderBoard">
       <Header
