@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { app, db } from "./firebase.config";
 
