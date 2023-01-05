@@ -10,6 +10,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface UserContextValue {
   isLoggedIn: boolean;
+  loggedInUserId: string;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   isMyProfile: boolean;
@@ -18,6 +19,7 @@ interface UserContextValue {
 
 export const UserContext = createContext<UserContextValue>({
   isLoggedIn: false,
+  loggedInUserId: "",
   viewGreetingPage: false,
   setViewGreetingPage: () => undefined,
   isMyProfile: false,
@@ -30,27 +32,31 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [loggedInUserId, setIsLoggedInUserId] = useState("");
 
     useEffect(() => {
       getAuth().onAuthStateChanged(function (user) {
         if (user) {
           console.log(user);
           setIsLoggedIn(true);
+          setIsLoggedInUserId(user.uid);
         } else {
           console.log("ej inloggad");
           setIsLoggedIn(false);
+          setIsLoggedInUserId("");
         }
       });
     }, []);
-    return { isLoggedIn };
+    return { isLoggedIn, loggedInUserId };
   };
 
-  const { isLoggedIn } = UserStatus();
+  const { isLoggedIn, loggedInUserId } = UserStatus();
 
   return (
     <UserContext.Provider
       value={{
         isLoggedIn,
+        loggedInUserId,
         viewGreetingPage,
         setViewGreetingPage,
         isMyProfile,
