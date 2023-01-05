@@ -3,10 +3,11 @@ import { FrontPageLogo } from "../../components/front-page-logo/FrontPageLogo";
 import { Navigation } from "../../components/navigation/Navigation";
 import { useUser } from "../../context/UserContext";
 import { LandingPage } from "../landing-page/LandingPage";
+import { LogIn } from "../login/LogIn";
 import "./Home.sass";
 
 export const Home = () => {
-  const { viewGreetingPage } = useUser();
+  const { isLoggedIn } = useUser();
 
   return (
     <div className={`home`}>
@@ -14,16 +15,8 @@ export const Home = () => {
         Playground <br />
         {`(dev)`}
       </Link>
-      {viewGreetingPage ? (
-        <>
-          <FrontPageLogo />
-          <Navigation />
-        </>
-      ) : (
-        <>
-          <LandingPage />
-        </>
-      )}
+      <FrontPageLogo />
+      <Navigation />
     </div>
   );
 };

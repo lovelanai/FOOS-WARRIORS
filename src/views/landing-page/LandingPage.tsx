@@ -4,15 +4,11 @@ import Logo from "../../assets/logos/logos";
 import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
 import { useUser } from "../../context/UserContext";
 import { signInWithMicrosoft } from "../../firebase/microsoftAuth";
+import { useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
-  const { setViewGreetingPage, viewGreetingPage } = useUser();
-  const login = () => {
-    signInWithMicrosoft().then(() => {
-      setViewGreetingPage(true);
-    });
-    console.log(viewGreetingPage);
-  };
+  const navigate = useNavigate();
+  const { setViewGreetingPage, viewGreetingPage, isLoggedIn } = useUser();
 
   return (
     <div className="landingPage">
@@ -24,7 +20,11 @@ export const LandingPage = () => {
         <h1 className="text">WARRIORS</h1>
       </div>
       <div className="aside">
-        <PrimaryButton onClick={login} secondary title="Enter Battlefield" />
+        <PrimaryButton
+          onClick={() => (isLoggedIn ? navigate("/home") : navigate("logIn"))}
+          secondary
+          title="Enter Battlefield"
+        />
       </div>
     </div>
   );

@@ -3,12 +3,13 @@ import {
   FC,
   PropsWithChildren,
   useContext,
+  useEffect,
   useState,
 } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface UserContextValue {
   isLoggedIn: boolean;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   isMyProfile: boolean;
@@ -17,27 +18,43 @@ interface UserContextValue {
 
 export const UserContext = createContext<UserContextValue>({
   isLoggedIn: false,
-  setIsLoggedIn: () => undefined,
   viewGreetingPage: false,
   setViewGreetingPage: () => undefined,
   isMyProfile: false,
-  setIsMyProfile: () => undefined
+  setIsMyProfile: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
   const [isMyProfile, setIsMyProfile] = useState<boolean>(false);
+
+  const UserStatus = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+    useEffect(() => {
+      getAuth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log(user);
+          setIsLoggedIn(true);
+        } else {
+          console.log("ej inloggad");
+          setIsLoggedIn(false);
+        }
+      });
+    }, []);
+    return { isLoggedIn };
+  };
+
+  const { isLoggedIn } = UserStatus();
 
   return (
     <UserContext.Provider
       value={{
         isLoggedIn,
-        setIsLoggedIn,
         viewGreetingPage,
         setViewGreetingPage,
         isMyProfile,
-        setIsMyProfile
+        setIsMyProfile,
       }}
     >
       {children}
