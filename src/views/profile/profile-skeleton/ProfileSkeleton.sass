@@ -1,0 +1,105 @@
+@use "../../../styles/Fonts.scss"
+@use "../../../styles/Colors.scss"
+
+.profileSkeleton
+    background: Colors.$white
+    height: 100vh
+    width: 100%
+           
+    & > .img-container
+        filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5))
+
+        & > .img
+            border-radius: 0
+            display: flex
+            align-items: center
+            justify-content: center
+            clip-path: polygon(0 0, 1600px 0, 1600px 53%, 0 100%)
+            height: 65vh
+            background: gray
+            width: 100vw
+
+    & > .icon-div
+        display: flex
+        justify-content: center
+        transform: translateY(-6rem)
+        width: 100%
+
+        & > .icon
+            border-radius: 100%
+            height: 5.7rem
+            width: 5.7rem
+
+    & > .info 
+        align-items: center
+        bottom: 0
+        display: flex
+        flex-direction: column
+        height: 27rem
+        justify-content: center
+        position: absolute
+        width: 100vw
+
+        & > .name
+            width: 12rem
+            height: 2.5rem
+ 
+        & > .bio
+            width: 9rem
+            height:  1.5rem
+            margin: 1.6rem
+
+        & > .stats
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            margin: 1rem
+            width: 80%
+
+            & > .infoContainers               
+                & > .value
+                    margin: .5rem 0
+                    width: 7rem
+                    height: 2.5rem
+
+                & > .type
+                    height: 3rem
+                    width: 7rem
+                    padding-bottom: 1rem
+
+.animation-black
+    animation: profileLoading 1s ease infinite
+    background: Colors.$skeletonGradient
+    background-size: 200% 200%
+    border-radius: 2rem
+
+
+.animation-gray
+    animation: profileLoading 1s ease infinite
+    background: Colors.$skeletonGradientGray
+    background-size: 200% 200%
+    border-radius: 2rem
+
+@keyframes profileLoading
+    0%
+        background-position: 0% 50%
+        opacity: 0.8
+        transform: scaleX(1)
+
+        
+    50%
+        background-position: 100% 50%
+        opacity: 0.5
+        transform: scaleX(1.04)
+
+    75%
+        background-position: 100% 70%
+        
+    
+    100%
+        background-position: 0% 50%
+        opacity: 0.8
+        transform: scaleX(1)
+
+
+    
