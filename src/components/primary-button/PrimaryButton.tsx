@@ -5,6 +5,7 @@ interface ButtonProps {
   onClick?: () => void;
   secondary?: boolean;
   profileButton?: boolean;
+  icon?: JSX.Element;
 }
 
 export const PrimaryButton = ({
@@ -12,6 +13,7 @@ export const PrimaryButton = ({
   onClick,
   secondary = false,
   profileButton = false,
+  icon,
 }: ButtonProps) => {
   return (
     <div
@@ -23,6 +25,7 @@ export const PrimaryButton = ({
       }
     >
       <span className="title">{title}</span>
+      <div className="icon">{icon}</div>
     </div>
   );
 };

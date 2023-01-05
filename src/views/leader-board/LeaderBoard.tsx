@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
 import Logo from "../../assets/logos/logos";
 import { Header } from "../../components/header/Header";
@@ -23,11 +24,19 @@ const months = [
 const d = new Date();
 let month = months[d.getMonth()];
 let year = d.getFullYear();
+const navigate = useNavigate();
 
 export const Leaderboard = () => {
   return (
     <div className="leaderBoard">
-      <Header icon={<ICON.Arrow />} link="/" title="Leaderboard" />
+      <Header
+        element={
+          <div onClick={() => navigate(-1)}>
+            <ICON.Arrow />
+          </div>
+        }
+        title="Leaderboard"
+      />
       <div className="banner">
         <Logo.HiqLogo />
         <div className="date">

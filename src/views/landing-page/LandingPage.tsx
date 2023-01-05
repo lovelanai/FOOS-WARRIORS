@@ -1,14 +1,13 @@
-import "./LandingPage.sass";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logos/logos";
 import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
 import { useUser } from "../../context/UserContext";
+import "./LandingPage.sass";
 
 export const LandingPage = () => {
-  const { setViewGreetingPage, viewGreetingPage } = useUser();
-  const test = () => {
-    setViewGreetingPage(true);
-    console.log(viewGreetingPage);
-  };
+  const navigate = useNavigate();
+  const { isLoggedIn } = useUser();
+
   return (
     <div className="landingPage">
       <div className="frontPageLogo">
@@ -19,7 +18,11 @@ export const LandingPage = () => {
         <h1 className="text">WARRIORS</h1>
       </div>
       <div className="aside">
-        <PrimaryButton onClick={test} secondary title="Enter Battlefield" />
+        <PrimaryButton
+          onClick={() => (isLoggedIn ? navigate("/home") : navigate("logIn"))}
+          secondary
+          title="Enter Battlefield"
+        />
       </div>
     </div>
   );

@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom";
 import "./Header.sass";
 
 interface HeaderProps {
-  link: string;
-  icon: JSX.Element;
+  element: JSX.Element;
+  asideElement?: JSX.Element;
   title: string;
-  altField?: JSX.Element;
 }
 
-export const Header = ({ link, icon, title, altField }: HeaderProps) => {
+export const Header = ({ element, asideElement, title }: HeaderProps) => {
   return (
     <div className="header">
-      <Link to={link}>{icon}</Link>
-      <h2>{title}</h2>
-      <div className="altField">{altField ? altField : null}</div>
+      <div className="icon">{element}</div>
+      <div className="text">
+        <h2 className="title">{title}</h2>
+      </div>
+      <div className="icon">{asideElement}</div>
     </div>
   );
 };
