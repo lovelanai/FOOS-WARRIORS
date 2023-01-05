@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import "./Navigation.sass";
 
 export const Navigation = () => {
+  const { loggedInUserId } = useUser();
   return (
     <div className="navigation">
       <div className="button">
@@ -20,7 +22,7 @@ export const Navigation = () => {
         </Link>
       </div>
       <div className="button">
-        <Link to="/profile" className="link">
+        <Link to={`/profile/${loggedInUserId}`} className="link">
           Profile
         </Link>
       </div>

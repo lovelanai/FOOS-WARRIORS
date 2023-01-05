@@ -10,7 +10,7 @@ export const MatchHistory = () => {
   return (
     <div className="matchHistory">
       <div className="nav">
-        <Header icon={<ICON.Arrow />} link="/" title="Todays Battles" />
+        <Header icon={<ICON.Arrow />} link="/home" title="Todays Battles" />
         <div className="banner">
           <Logo.Swords />
         </div>

@@ -19,7 +19,7 @@ function App() {
         <Route path="/findPlayers" element={<FindPlayers />} />
         <Route path="/leaderBoard" element={<LeaderBoard />} />
         <Route path="/matchHistory" element={<MatchHistory />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/playground" element={<Playground />} />
       </Routes>
     </div>
