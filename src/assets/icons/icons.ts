@@ -7,6 +7,8 @@ import { ReactComponent as Away } from "./skulls/orange.svg";
 import { ReactComponent as Offline } from "./skulls/red.svg";
 import { ReactComponent as Camera } from "./essentials/camera.svg";
 import { ReactComponent as Search } from "./essentials/magnify.svg";
+import { ReactComponent as Microsoft } from "./loginProviders/microsoft.svg";
+import { ReactComponent as Gmail } from "./loginProviders/gmail.svg";
 
 const ICON = {
   Arrow,
@@ -18,6 +20,8 @@ const ICON = {
   Offline,
   Camera,
   Search,
+  Microsoft,
+  Gmail,
 };
 
 export default ICON;

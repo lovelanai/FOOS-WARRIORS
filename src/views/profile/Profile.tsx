@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
 import { useUser } from "../../context/UserContext";
 import { mockedUsers } from "../../mockedUsers/mockedUsers";
+import { useFetch } from "../../utils/hooks";
+import { UserProps } from "../../utils/props";
 import "./Profile.sass";
 
 export const Profile = () => {
   const { isMyProfile } = useUser();
   const [isEditMode, setIsEditMode] = useState(false);
-
-  console.log(mockedUsers);
+  const { loggedInUserId } = useUser();
+  const { response } = useFetch("users", loggedInUserId);
+  const profileData = { ...(response as unknown as UserProps) };
 
   return (
     <div className="profile">
@@ -36,8 +39,9 @@ export const Profile = () => {
         <div
           className={`img ${isEditMode ? "img--edit" : ""}`}
           style={{
-            backgroundImage:
-              "url(https://nationaltoday.com/wp-content/uploads/2022/05/107-Johnny-Depp.jpg)",
+            backgroundImage: `url({${
+              profileData ? profileData.img : "assets/404Image.png"
+            }})`,
           }}
         />
       </div>
@@ -60,8 +64,8 @@ export const Profile = () => {
       </div>
       {!isEditMode ? (
         <div className="info">
-          <h3 className="name">{mockedUsers[0].name}</h3>
-          <p className="bio">{mockedUsers[0].desc}</p>
+          <h3 className="name">{profileData.name}</h3>
+          <p className="bio">{profileData.desc}</p>
           <div className="stats">
             <div>
               <p className="value">26</p>
@@ -87,15 +91,12 @@ export const Profile = () => {
             <input
               className="input-name"
               type="text"
-              defaultValue={mockedUsers[0].name}
+              defaultValue={profileData.name}
             />
           </label>
           <label>
             Bio
-            <textarea
-              className="input-bio"
-              defaultValue={mockedUsers[0].desc}
-            />
+            <textarea className="input-bio" defaultValue={profileData.desc} />
           </label>
           <button className="button">Update profile</button>
           <button className="button-exit" onClick={() => setIsEditMode(false)}>

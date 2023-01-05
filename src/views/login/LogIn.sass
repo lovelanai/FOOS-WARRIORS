@@ -1,7 +1,7 @@
 @use "../../styles/Fonts.scss"
 @use "../../styles/Colors.scss"
 
-.container
+.login
     background: Colors.$white
     height: 100vh
     display: flex
@@ -28,12 +28,8 @@
         text-align: center
         width: 80%   
 
-    & > .button
-        background: Colors.$black
-        border: none
-        border-radius: 10rem
-        color: Colors.$white
-        font-family: Fonts.$regular
-        font-size: Fonts.$h3
-        height: 5.7rem
-        width: 31rem
+    & > .buttonsContainer
+        display: flex
+        flex-direction: column
+        gap: 2rem
+

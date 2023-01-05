@@ -11,12 +11,21 @@
     cursor: pointer
     background: Colors.$black
     color: Colors.$white
+    position: relative
     & > .title
         font-size: Fonts.$buttonText
+
+    & > .icon
+        height: 3rem
+        width: 3rem
+        position: absolute
+        right: 10%
+        top: calc(50% - 1.5rem)
 
 .-secondary
         background: Colors.$white
         color: Colors.$black
+
 
 
 .profileButton
@@ -32,4 +41,4 @@
     & > .title
         font-size: Fonts.$p
 
-    
+
