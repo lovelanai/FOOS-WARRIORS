@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
+import { Header } from "../../components/header/Header";
 import { useUser } from "../../context/UserContext";
-import { mockedUsers } from "../../mockedUsers/mockedUsers";
+import { HandleSignOut } from "../../firebase/authHooks";
 import { useFetch } from "../../utils/hooks";
 import { UserProps } from "../../utils/props";
 import "./Profile.sass";
 
 export const Profile = () => {
+  const navigate = useNavigate();
   const { isMyProfile } = useUser();
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -19,26 +21,32 @@ export const Profile = () => {
 
   const profileData = { ...(response as unknown as UserProps) };
 
+  const logout = () => {
+    HandleSignOut();
+    navigate("/");
+  };
+
   return (
     <div className="profile">
       <div className="header">
-        <div>
-          {isEditMode ? (
-            ""
-          ) : (
-            <Link to="/home">
-              <ICON.Arrow />
-            </Link>
-          )}
-        </div>
-        <div>
-          {isEditMode ? (
-            <h2 className="title">Edit</h2>
-          ) : (
-            <h2 className="title">Profile</h2>
-          )}
-        </div>
-        <div></div>
+        <Header
+          element={
+            isEditMode ? (
+              <></>
+            ) : (
+              <div onClick={() => navigate(-1)}>
+                <ICON.Arrow />
+              </div>
+            )
+          }
+          title={`${isEditMode ? "Edit" : "Profile"}`}
+          asideElement={
+            <div className="asideElement" onClick={logout}>
+              Logout
+              <ICON.Exit />
+            </div>
+          }
+        />
       </div>
       <div className="img-container">
         <div

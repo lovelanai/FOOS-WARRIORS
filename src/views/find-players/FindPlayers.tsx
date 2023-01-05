@@ -1,19 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
 import { Header } from "../../components/header/Header";
 import { InputField } from "../../components/input-field/InputField";
-import { PlayerCard } from "../../components/player-card/PlayerCard";
 import { PlayerCardSkeleton } from "../../components/player-card/player-card-skeleton/PlayerCardSkeleton";
+import { PlayerCard } from "../../components/player-card/PlayerCard";
 import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import { useFetch } from "../../utils/hooks";
 import { UserProps } from "../../utils/props";
 import "./FindPlayers.sass";
 
 export const FindPlayers = () => {
+  const navigate = useNavigate();
   const { response, isLoading } = useFetch("users");
   return (
     <div className="findPlayers">
       <div className="nav">
-        <Header icon={<ICON.Arrow />} link="/home" title="Find Players" />
+        <Header
+          element={
+            <div onClick={() => navigate(-1)}>
+              <ICON.Arrow />
+            </div>
+          }
+          title="Find Players"
+        />
         <div className="banner">
           <InputField placeholder="Search..." />
         </div>

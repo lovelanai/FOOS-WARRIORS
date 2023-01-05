@@ -15,7 +15,7 @@ export const LogIn = () => {
     if (isLoggedIn) {
       navigate("/home");
     } else return;
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="login">

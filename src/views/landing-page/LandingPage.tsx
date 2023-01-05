@@ -1,14 +1,12 @@
-import React from "react";
-import "./LandingPage.sass";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logos/logos";
 import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
 import { useUser } from "../../context/UserContext";
-import { signInWithMicrosoft } from "../../firebase/microsoftAuth";
-import { useNavigate } from "react-router-dom";
+import "./LandingPage.sass";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const { setViewGreetingPage, viewGreetingPage, isLoggedIn } = useUser();
+  const { isLoggedIn } = useUser();
 
   return (
     <div className="landingPage">
