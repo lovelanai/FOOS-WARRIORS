@@ -7,13 +7,22 @@ import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import { useFetch } from "../../utils/hooks";
 import { UserProps } from "../../utils/props";
 import "./FindPlayers.sass";
+import { useNavigate } from "react-router-dom";
 
 export const FindPlayers = () => {
+  const navigate = useNavigate();
   const { response, isLoading } = useFetch("users");
   return (
     <div className="findPlayers">
       <div className="nav">
-        <Header icon={<ICON.Arrow />} link="/home" title="Find Players" />
+        <Header
+          element={
+            <div onClick={() => navigate(-1)}>
+              <ICON.Arrow />
+            </div>
+          }
+          title="Find Players"
+        />
         <div className="banner">
           <InputField placeholder="Search..." />
         </div>

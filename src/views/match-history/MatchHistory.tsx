@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
 import Logo from "../../assets/logos/logos";
 import { BattleCard } from "../../components/battle-card/BattleCard";
@@ -6,11 +7,20 @@ import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import "./MatchHistory.sass";
 
 export const MatchHistory = () => {
+  const navigate = useNavigate();
   console.log(mockedUsers[0]);
+
   return (
     <div className="matchHistory">
       <div className="nav">
-        <Header icon={<ICON.Arrow />} link="/home" title="Todays Battles" />
+        <Header
+          element={
+            <div onClick={() => navigate(-1)}>
+              <ICON.Arrow />
+            </div>
+          }
+          title="Todays Battles"
+        />
         <div className="banner">
           <Logo.Swords />
         </div>

@@ -2,13 +2,25 @@
 @use "../../styles/Colors.scss"
     
 .header
-    align-items: center
-    display: flex
-    justify-content: space-around
-    align-items: center
-    user-select: none
-    width: 100%
+        align-items: center
+        background: transparentize(Colors.$black, 0.3)
+        display: flex
+        justify-content: space-between
+        width: 100%
 
-    & > .altField
-        min-height: 1rem
-        min-width: 3.1rem
+        & > .icon
+            align-items: center
+            display: flex
+            justify-content: center
+            margin: 0 1rem
+            width: 8rem
+            cursor: pointer
+            
+
+        & > .text
+            & > .title
+                color: Colors.$white
+                font-family: Fonts.$regular
+                font-size: Fonts.$h2
+                text-align: center
+       
