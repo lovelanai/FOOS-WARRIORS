@@ -39,7 +39,9 @@ export const Profile = () => {
         <div
           className={`img ${isEditMode ? "img--edit" : ""}`}
           style={{
-            backgroundImage: "url(assets/404Image.png)",
+            backgroundImage: `url({${
+              profileData ? profileData.img : "assets/404Image.png"
+            }})`,
           }}
         />
       </div>
