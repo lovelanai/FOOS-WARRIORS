@@ -5,7 +5,7 @@ import "./LeaderBoard.sass";
 export const LeaderBoard = () => {
   return (
     <div className="leaderBoard">
-      <Header icon={<ICON.Arrow />} link="/" title="Leaderboard" />
+      <Header icon={<ICON.Arrow />} link="/home" title="Leaderboard" />
     </div>
   );
 };
