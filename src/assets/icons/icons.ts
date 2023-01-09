@@ -25,7 +25,7 @@ const ICON = {
   Camera,
   Search,
   Crown,
-  Head
+  Head,
   Microsoft,
   Gmail,
 
