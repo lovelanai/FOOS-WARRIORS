@@ -87,6 +87,15 @@
             & > .loser
                 display: flex
                 justify-content: center
+                align-items: center
+                color: Colors.$white
+                border: none
+                border-radius: 10rem 
+                height: 5rem
+                width: 11rem
+                font-size: Fonts.$p
+                font-family: Fonts.$regular
+                margin: 0rem 3rem 3rem 3rem
                 
                 & > .number-container
                     width: 70%
@@ -96,8 +105,16 @@
                     gap: .5rem
                     overflow: scroll
                     padding: 0 .2rem
+                    & > .goal-value
+                        border: none
+                        background: none   
+                    & > .goal-value:focus
+                        color: blue
+                        font-size: 2rem
                 & > .number-container::-webkit-scrollbar
                     display: none
+                   
+               
                     
         
         & > .cancel-btn
