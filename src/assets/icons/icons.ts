@@ -8,6 +8,8 @@ import { ReactComponent as Away } from "./skulls/orange.svg";
 import { ReactComponent as Offline } from "./skulls/red.svg";
 import { ReactComponent as Camera } from "./essentials/camera.svg";
 import { ReactComponent as Search } from "./essentials/magnify.svg";
+import { ReactComponent as Crown } from "./essentials/crown.svg";
+import { ReactComponent as Head } from "./essentials/head.svg";
 import { ReactComponent as Microsoft } from "./loginProviders/microsoft.svg";
 import { ReactComponent as Gmail } from "./loginProviders/gmail.svg";
 
@@ -22,8 +24,11 @@ const ICON = {
   Offline,
   Camera,
   Search,
+  Crown,
+  Head,
   Microsoft,
   Gmail,
+
 };
 
 export default ICON;
