@@ -1,13 +1,13 @@
-import Logo from "../../assets/logos/logos";
+import Logo from "@/assets/logos/logos";
 import "./Battlefield.sass";
-import { mockedUsers } from "../../mockedUsers/mockedUsers";
+import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
-} from "../../components/battlefield-card/BattlefieldCard";
-import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
+} from "@/components/battlefield-card/BattlefieldCard";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useState } from "react";
-import ICON from "../../assets/icons/icons";
+import ICON from "@/assets/icons/icons";
 
 export const Battlefield = () => {
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -119,7 +119,7 @@ export const Battlefield = () => {
           </div>
         ) : winnerTeam === "pinkTeam" && results ? (
           <div className="team-btns">
-              <button className="pink-team winner">
+            <button className="pink-team winner">
               <ICON.Crown />
               10
             </button>
@@ -136,7 +136,6 @@ export const Battlefield = () => {
                 ))}
               </div>
             </div>
-            
           </div>
         ) : winnerTeam === "redTeam" && results ? (
           <div className="team-btns">

@@ -1,4 +1,4 @@
-import { PrimaryButton } from "../../primary-button/PrimaryButton";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import "./PlayerCardSkeleton.sass";
 
 export const PlayerCardSkeleton = () => {

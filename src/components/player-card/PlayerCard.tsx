@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../primary-button/PrimaryButton";
+
 import "./PlayerCard.sass";
 
 interface playerCard {

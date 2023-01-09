@@ -28,7 +28,6 @@ const ICON = {
   Head,
   Microsoft,
   Gmail,
-
 };
 
 export default ICON;

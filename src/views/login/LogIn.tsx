@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ICON from "../../assets/icons/icons";
-import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
-import { useUser } from "../../context/UserContext";
-import { signInWithGoogle } from "../../firebase/googleAuth";
-import { signInWithMicrosoft } from "../../firebase/microsoftAuth";
+import ICON from "@/assets/icons/icons";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { useUser } from "@/context/UserContext";
+import { signInWithGoogle } from "@/firebase/googleAuth";
+import { signInWithMicrosoft } from "@/firebase/microsoftAuth";
 import "./LogIn.sass";
 
 export const LogIn = () => {

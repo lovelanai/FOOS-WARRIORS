@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import ICON from "../../assets/icons/icons";
+import ICON from "@/assets/icons/icons";
 import "./ImageUploader.sass";
 
 interface ImageUploaderInterface {

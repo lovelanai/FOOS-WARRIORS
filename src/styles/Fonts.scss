@@ -1,12 +1,12 @@
 // Typography
 @font-face {
   font-family: "Noir-Bold";
-  src: url("../assets/fonts/Noir_medium.woff2") format("woff2");
+  src: url("/Noir_medium.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Noir-Regular";
-  src: url("../assets/fonts/Noir_regular.woff2") format("woff2");
+  src: url("/Noir_regular.woff2") format("woff2");
 }
 
 $regular: "Noir-Regular";

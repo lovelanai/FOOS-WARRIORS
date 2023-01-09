@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import ICON from "../../assets/icons/icons";
-import Logo from "../../assets/logos/logos";
-import { BattleCard } from "../../components/battle-card/BattleCard";
-import { Header } from "../../components/header/Header";
-import { mockedUsers } from "../../mockedUsers/mockedUsers";
+import ICON from "@/assets/icons/icons";
+import Logo from "@/assets/logos/logos";
+import { BattleCard } from "@/components/battle-card/BattleCard";
+import { Header } from "@/components/header/Header";
+import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import "./MatchHistory.sass";
 
 export const MatchHistory = () => {

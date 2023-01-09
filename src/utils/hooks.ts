@@ -1,7 +1,7 @@
-import { useUser } from "./../context/UserContext";
+import { useUser } from "@/context/UserContext";
 import { getDocs, collection, doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase.config";
+import { db } from "@/firebase/firebase.config.js";
 
 export const useFetch = (api: string, id?: string, userId?: string) => {
   const { fetchUser } = useUser();

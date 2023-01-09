@@ -11,7 +11,7 @@ const Logo = {
   Teams,
   Swords,
   Ball,
-  PlayerOnField
+  PlayerOnField,
 };
 
 export default Logo;
