@@ -13,6 +13,7 @@ export default defineConfig({
     VitePWA({
       manifest,
       injectRegister: "script",
+      registerType: "autoUpdate",
       includeAssets: [
         "Logo.192.png",
         "Logo.512.png",
