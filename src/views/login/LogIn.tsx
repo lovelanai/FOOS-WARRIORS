@@ -1,28 +1,61 @@
-import Logo from "../../assets/logos/logos";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ICON from "../../assets/icons/icons";
+import { PrimaryButton } from "../../components/primary-button/PrimaryButton";
+import { useUser } from "../../context/UserContext";
+import { signInWithGoogle } from "../../firebase/googleAuth";
+import { signInWithMicrosoft } from "../../firebase/microsoftAuth";
 import "./LogIn.sass";
 
 export const LogIn = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useUser();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    } else return;
+  }, [isLoggedIn, navigate]);
+
   return (
-    <div className="container">
+    <div className="login">
       <h1 className="title">
         Connect
         <br></br>
-        with
+        to
         <br></br>
-        Teams
+        FOOS WARRIORS
       </h1>
-      <Logo.Teams className="logo" />
       <p className="description">
         {" "}
-        To be able to play, you have to connect your microsoft teams account.
-        <br></br>
-        <br></br>
-        Your WARRIOR profile will be setup with your teams-profile information.
-        <br></br>
-        <br></br>
-        You will recieve push-notifications and updates via teams.
+        To be able to play, you have to login with Microsoft or Google Account
       </p>
-      <button className="button">Connect with Teams</button>
+      <div className="buttonsContainer">
+        <PrimaryButton
+          icon={<ICON.Microsoft />}
+          title="Microsoft"
+          onClick={() =>
+            signInWithMicrosoft()
+              .then(() => {
+                if (isLoggedIn) {
+                  navigate("/home");
+                }
+              })
+              .catch((error) => console.log(error))
+          }
+        />
+        <PrimaryButton
+          icon={<ICON.Gmail />}
+          title="Gmail"
+          onClick={() =>
+            signInWithGoogle()
+              .then(() => {
+                navigate("/home");
+              })
+              .catch((error) => console.log(error))
+          }
+        />
+      </div>
     </div>
   );
 };
