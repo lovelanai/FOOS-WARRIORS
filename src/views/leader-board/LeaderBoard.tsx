@@ -5,6 +5,7 @@ import { Header } from "../../components/header/Header";
 import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import { LeaderboardCard } from "../../components/leaderboard-card/leaderboardCard";
 import "./LeaderBoard.sass";
+import React, { useState } from "react";
 
 const months = [
   "January",
@@ -26,6 +27,16 @@ let month = months[d.getMonth()];
 let year = d.getFullYear();
 const navigate = useNavigate();
 
+const [sortAcending, setSortAscending] = useState(true);
+
+const sortedUsers = [...mockedUsers].sort((a, b) => {
+  if (sortAcending) {
+    return a.score - b.score;
+  } else {
+    return b.score - a.score;
+  }
+});
+
 export const LeaderBoard = () => {
   return (
     <div className="leaderBoard">
@@ -45,36 +56,14 @@ export const LeaderBoard = () => {
       </div>
 
       <div className="content">
-        <LeaderboardCard
-          title={mockedUsers[0].name}
-          img={mockedUsers[0].img}
-          rank={1}
-        />
-        <LeaderboardCard
-          title={mockedUsers[1].name}
-          img={mockedUsers[1].img}
-          rank={2}
-        />
-        <LeaderboardCard
-          title={mockedUsers[2].name}
-          img={mockedUsers[2].img}
-          rank={3}
-        />
-        <LeaderboardCard
-          title={mockedUsers[3].name}
-          img={mockedUsers[3].img}
-          rank={4}
-        />
-        <LeaderboardCard
-          title={mockedUsers[4].name}
-          img={mockedUsers[4].img}
-          rank={5}
-        />
-        <LeaderboardCard
-          title={mockedUsers[5].name}
-          img={mockedUsers[5].img}
-          rank={6}
-        />
+        <button onClick={() => setSortAscending(!sortAcending)}></button>
+        {sortedUsers.map((mockedUsers) => (
+          <LeaderboardCard
+            title={mockedUsers.name}
+            img={mockedUsers.img}
+            rank={mockedUsers.score}
+          />
+        ))}
       </div>
     </div>
   );
