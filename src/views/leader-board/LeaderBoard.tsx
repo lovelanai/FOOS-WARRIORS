@@ -6,6 +6,9 @@ import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import { LeaderboardCard } from "../../components/leaderboard-card/leaderboardCard";
 import "./LeaderBoard.sass";
 import React, { useState } from "react";
+import { useFetch } from "../../utils/hooks";
+import { UserProps } from "../../utils/props";
+import { PlayerCardSkeleton } from "../../components/player-card/player-card-skeleton/PlayerCardSkeleton";
 
 const months = [
   "January",
@@ -25,19 +28,22 @@ const months = [
 const d = new Date();
 let month = months[d.getMonth()];
 let year = d.getFullYear();
-const navigate = useNavigate();
-
-const [sortAcending, setSortAscending] = useState(true);
-
-const sortedUsers = [...mockedUsers].sort((a, b) => {
-  if (sortAcending) {
-    return a.score - b.score;
-  } else {
-    return b.score - a.score;
-  }
-});
 
 export const LeaderBoard = () => {
+  const navigate = useNavigate();
+
+  const [sortAcending, setSortAscending] = useState(true);
+
+  const { response, isLoading } = useFetch("users");
+
+  const sortedUsers = [(user: UserProps)].sort((a, b) => {
+    if (sortAcending) {
+      return a.score - b.score;
+    } else {
+      return b.score - a.score;
+    }
+  });
+
   return (
     <div className="leaderBoard">
       <Header
@@ -56,14 +62,34 @@ export const LeaderBoard = () => {
       </div>
 
       <div className="content">
-        <button onClick={() => setSortAscending(!sortAcending)}></button>
-        {sortedUsers.map((mockedUsers) => (
-          <LeaderboardCard
-            title={mockedUsers.name}
-            img={mockedUsers.img}
-            rank={mockedUsers.score}
-          />
+        <button onClick={() => setSortAscending(!sortAcending)}>
+          Change order
+        </button>
+        {response && !isLoading ? (
+        {sortedUsers.map((user: UserProps) => (
+                    <>
+                    {response.map((user: UserProps) => (
+                      <LeaderboardCard
+                        profileLink={user.id}
+                        title={user.name}
+                        img={user.img}
+                        wins={user.wins}
+                        losses={user.losses}
+                        key={user.id}
+                      />
+                    ))}
+                  </>
+
         ))}
+        ) : (
+          <>
+            {Array(6)
+              .fill(null)
+              .map((key, index) => (
+                <PlayerCardSkeleton key={index} />
+              ))}
+          </>
+        )}
       </div>
     </div>
   );
