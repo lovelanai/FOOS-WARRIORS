@@ -1,31 +1,90 @@
-import { useState } from "react";
+import { getAuth, updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ICON from "../../assets/icons/icons";
 import { Header } from "../../components/header/Header";
+import { ImageUploader } from "../../components/image-uploader/ImageUploader";
 import { useUser } from "../../context/UserContext";
-import { HandleSignOut } from "../../firebase/authHooks";
+import { logout } from "../../firebase/authHooks";
+import { db, storage } from "../../firebase/firebase.config";
 import { useFetch } from "../../utils/hooks";
 import { UserProps } from "../../utils/props";
 import { ProfileSkeleton } from "./profile-skeleton/ProfileSkeleton";
 import "./Profile.sass";
+import { uuidv4 } from "@firebase/util";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const { loggedInUserId } = useUser();
-  const [isEditMode, setIsEditMode] = useState(false);
+
+  const { loggedInUserId, fetchUser, setFetchUser } = useUser();
 
   const params = useParams();
   const id = params.id;
-
   const { response, isLoading } = useFetch("users", id);
-  const profileData = { ...(response as unknown as UserProps) };
 
+  const profileData = { ...(response as unknown as UserProps) };
   const personalProfileCheck = loggedInUserId === profileData.id;
 
-  const logout = () => {
-    HandleSignOut();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [imageUpload, setImageUpload] = useState();
+  const [photoURL, setPhotoURL] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  // gets imageUrl to state
+  useEffect(() => {
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `${uuidv4()}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setPhotoURL(url);
+        console.log(url);
+      });
+    });
+  }, [imageUpload]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const auth = getAuth();
+    const userRef = doc(db, `users/${loggedInUserId}`);
+
+    // update img
+    if (photoURL) {
+      updateProfile(auth.currentUser!, { photoURL: photoURL }).catch(
+        (error) => {
+          console.error(error.message);
+        }
+      );
+      updateDoc(userRef, {
+        img: photoURL,
+      });
+    }
+
+    // update name
+    if (name) {
+      updateDoc(userRef, {
+        name: name,
+      });
+    }
+
+    // update description
+    if (description) {
+      updateDoc(userRef, {
+        description: description,
+      });
+    }
+    setFetchUser(!fetchUser);
+    setIsEditMode(false);
+  };
+
+  const HandleSignOut = () => {
+    logout();
     navigate("/");
   };
+
+  console.log("desc", description);
 
   return (
     <>
@@ -44,7 +103,7 @@ export const Profile = () => {
             title={`${isEditMode ? "Edit" : "Profile"}`}
             asideElement={
               personalProfileCheck ? (
-                <div className="asideElement" onClick={logout}>
+                <div className="asideElement" onClick={HandleSignOut}>
                   Logout
                   <ICON.Exit />
                 </div>
@@ -63,24 +122,32 @@ export const Profile = () => {
                 className={`img ${isEditMode ? "img--edit" : ""}`}
                 style={{
                   backgroundImage: `url(${
-                    profileData.img === null
-                      ? "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/404Image.png?alt=media&token=77da1a91-55bd-47ca-a732-152bf9a4107e"
+                    isEditMode
+                      ? photoURL
+                        ? photoURL
+                        : profileData.img
                       : profileData.img
                   })`,
                 }}
               />
             </div>
             <div className="icon-div">
-              {/* change to isMyProfile when db is implemented,
-        also handle isMyProfile and isEditMode so the camera icon is shown */}
               {personalProfileCheck ? (
-                <div className="icon" onClick={() => setIsEditMode(true)}>
-                  <ICON.Pen />
-                </div>
-              ) : personalProfileCheck && isEditMode ? (
-                <div className="icon">
-                  <ICON.Camera />
-                </div>
+                <>
+                  {!isEditMode ? (
+                    <div className="icon" onClick={() => setIsEditMode(true)}>
+                      <ICON.Pen />
+                    </div>
+                  ) : (
+                    <div className="icon">
+                      <ImageUploader
+                        onChange={(e: any) =>
+                          setImageUpload(e.currentTarget.files[0])
+                        }
+                      />
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="icon">
                   <ICON.Invite />
@@ -110,23 +177,31 @@ export const Profile = () => {
                 </div>
               </div>
             ) : (
-              <form className="form">
+              <form className="form" onSubmit={handleSubmit}>
                 <label>
                   Name
                   <input
                     className="input-name"
                     type="text"
-                    defaultValue={profileData.name}
+                    value={name ? name : profileData.name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder={name ? name : profileData.name}
                   />
                 </label>
                 <label>
                   Bio
                   <textarea
                     className="input-bio"
-                    defaultValue={profileData.description}
+                    value={description ? description : profileData.description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder={
+                      description ? description : profileData.description
+                    }
                   />
                 </label>
-                <button className="button">Update profile</button>
+                <button className="button" type="submit">
+                  Update profile
+                </button>
                 <button
                   className="button-exit"
                   onClick={() => setIsEditMode(false)}

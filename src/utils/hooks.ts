@@ -1,8 +1,10 @@
+import { useUser } from "./../context/UserContext";
 import { getDocs, collection, doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase.config";
 
 export const useFetch = (api: string, id?: string, userId?: string) => {
+  const { fetchUser } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,7 +14,8 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
         getDocs(collection(db, api))
           .then((res: any) => {
             setResponse(
-              res.docs.map((item: any) => {
+              res.docs.map((item) => {
+                console.log(item.data());
                 return { ...item.data(), id: item.id };
               }) as any
             );
@@ -20,24 +23,25 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           .then(() => {
             setIsLoading(false);
           })
-          .catch((error: any) => {
-            console.log(error);
+          .catch((error) => {
+            console.log("error", error);
           });
       } else {
         const postById = doc(db, api, id);
         getDoc(postById)
           .then((item: any) => {
             setResponse({ ...item.data(), id: item.id } as any);
+            console.log(item.data());
           })
           .then(() => {
             setIsLoading(false);
           })
-          .catch((error: any) => {
-            console.log(error);
+          .catch((error) => {
+            console.log("error", error);
           });
       }
     }
-  }, [api, id, userId]);
+  }, [api, id, userId, fetchUser]);
 
   return { response, isLoading };
 };
