@@ -119,7 +119,7 @@ export const Battlefield = () => {
           </div>
         ) : winnerTeam === "pinkTeam" && results ? (
           <div className="team-btns">
-            <button className="pink-team winner">
+              <button className="pink-team winner">
               <ICON.Crown />
               10
             </button>
@@ -136,6 +136,7 @@ export const Battlefield = () => {
                 ))}
               </div>
             </div>
+            
           </div>
         ) : winnerTeam === "redTeam" && results ? (
           <div className="team-btns">

@@ -71,8 +71,7 @@
 
             & > .pink-team
                 background: Colors.$pink
-            & > .red-team
-                background: Colors.$red
+
 
             & > .winner
                 display: flex
@@ -83,6 +82,42 @@
                 gap: .2rem
                 padding: .2rem
                 color: Colors.$black
+            & > .loser
+                display: flex
+                justify-content: center
+                align-items: center
+                color: Colors.$white
+                border: none
+                border-radius: 10rem 
+                height: 5rem
+                width: 11rem
+                font-size: Fonts.$p
+                font-family: Fonts.$regular
+                margin: 0rem 3rem 3rem 3rem
+
+                & > .number-container
+                    width: 70%
+                    display: flex
+                    flex-direction: row
+                    align-items: center
+                    gap: .5rem
+                    overflow: scroll
+                    padding: 0 .2rem
+                    & > .goal-value
+                        border: none
+                        background: none   
+                    & > .goal-value:focus
+                        color: Colors.$white
+                        font-size: Fonts.$h3
+                & > .number-container::-webkit-scrollbar
+                    display: none
+
+
+
+
+           
+
+            
 
             & > .loser
                 display: flex
@@ -109,11 +144,21 @@
                         border: none
                         background: none   
                     & > .goal-value:focus
-                        color: blue
-                        font-size: 2rem
+                        color: Colors.$white
+                        font-size: Fonts.$h3
                 & > .number-container::-webkit-scrollbar
                     display: none
-                   
+            & > .red-team
+                background: Colors.$red      
+            & > .winner
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+                font-size: Fonts.$h2
+                gap: .2rem
+                padding: .2rem
+                color: Colors.$black
                
                     
         
