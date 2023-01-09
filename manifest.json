@@ -1,7 +1,12 @@
 {
-  "short_name": "Foos Warriors",
   "name": "Foos Warriors PWA",
-  "description": "Foosball Tourmanent-Application for HiQ headquarters ",
+  "short_name": "Foos Warriors",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdf9",
+  "lang": "en",
+  "scope": "/",
+  "description": "Foosball tournament application.",
   "icons": [
     {
       "src": "Logo192.png",
@@ -11,7 +16,8 @@
     {
       "src": "Logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
     },
     {
       "src": "LogoMasked.png",
@@ -20,8 +26,8 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
-  "display": "standalone",
   "theme_color": "#333",
-  "background_color": "#fffdf9"
+  "categories": ["games", "social"],
+  "dir": "auto",
+  "orientation": "portrait-primary"
 }
