@@ -4,10 +4,11 @@ import "./leaderboardCard.sass";
 interface leaderboardCard {
   title: string;
   img: string;
-  rank: number;
+  score: number;
+  profileLink?: string;
 }
 
-export const LeaderboardCard = ({ img, title, rank }: leaderboardCard) => {
+export const LeaderboardCard = ({ img, title, score }: leaderboardCard) => {
   return (
     <div className="leaderboardCard">
       <div
@@ -18,7 +19,7 @@ export const LeaderboardCard = ({ img, title, rank }: leaderboardCard) => {
       />
 
       <div className="aside">
-        <div className="rank">{rank}</div>
+        <div className="rank">{score}</div>
         <div className="column">
           <h3 className="title">{title}</h3>
           <PrimaryButton title="view profile" profileButton />

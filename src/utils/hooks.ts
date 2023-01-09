@@ -10,9 +10,9 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
     if (!userId) {
       if (!id) {
         getDocs(collection(db, api))
-          .then((res) => {
+          .then((res: any) => {
             setResponse(
-              res.docs.map((item) => {
+              res.docs.map((item: any) => {
                 return { ...item.data(), id: item.id };
               }) as any
             );
@@ -20,19 +20,19 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           .then(() => {
             setIsLoading(false);
           })
-          .catch((error) => {
+          .catch((error: any) => {
             console.log(error);
           });
       } else {
         const postById = doc(db, api, id);
         getDoc(postById)
-          .then((item) => {
+          .then((item: any) => {
             setResponse({ ...item.data(), id: item.id } as any);
           })
           .then(() => {
             setIsLoading(false);
           })
-          .catch((error) => {
+          .catch((error: any) => {
             console.log(error);
           });
       }

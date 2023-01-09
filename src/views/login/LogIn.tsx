@@ -41,7 +41,7 @@ export const LogIn = () => {
                   navigate("/home");
                 }
               })
-              .catch((error) => console.log(error))
+              .catch((error: any) => console.log(error))
           }
         />
         <PrimaryButton
@@ -52,7 +52,7 @@ export const LogIn = () => {
               .then(() => {
                 navigate("/home");
               })
-              .catch((error) => console.log(error))
+              .catch((error: any) => console.log(error))
           }
         />
       </div>

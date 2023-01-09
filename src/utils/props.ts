@@ -4,4 +4,6 @@ export interface UserProps {
   img: string;
   id: string;
   email: string;
+  wins: number;
+  losses: number;
 }
