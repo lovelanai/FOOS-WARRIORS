@@ -17,7 +17,13 @@ export const ImageUploader = ({ onChange }: ImageUploaderInterface) => {
 
   return (
     <div className="imageUploader">
-      <input ref={inputRef} onChange={onChange} className="input" type="file" />
+      <input
+        accept="image/*"
+        ref={inputRef}
+        onChange={onChange}
+        className="input"
+        type="file"
+      />
       <label onClick={handeClick} htmlFor="input">
         <ICON.Camera />
       </label>
