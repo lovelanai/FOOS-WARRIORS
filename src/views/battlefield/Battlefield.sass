@@ -1,0 +1,173 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.battlefield
+    height: 100vh
+    display: flex
+    flex-direction: column
+    padding-top: 2rem
+
+
+    & > .head
+        display: flex
+        flex-direction: column
+        align-items: center
+        font-size: Fonts.$h2
+        color: Colors.$white
+        padding-bottom: 2rem
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+        & > h2 
+            margin: 0rem
+
+    & > .pink-winner
+        & > div
+            display: flex
+            flex-direction: column
+            align-items: center
+            margin-top: 2rem
+            & > h3
+                color: Colors.$pink
+                margin: 2rem
+            & > .icon path
+                fill: Colors.$pink
+    
+    & > .red-winner
+        & > div
+            display: flex
+            flex-direction: column
+            align-items: center
+            margin-top: 2rem
+            & > h3
+                color: Colors.$red
+                margin: 2rem
+            & > .icon path
+                fill: Colors.$red
+
+    & > .card-view
+        margin: 2rem 1rem
+    
+    & > .register-result-section
+        display: flex
+        flex-direction: column
+        align-items: center
+
+        & > h2
+            font-size: Fonts.$h2
+
+
+        & > .team-btns
+            display: flex
+            justify-content: center
+            align-items: center
+            & > button
+                color: Colors.$white
+                border: none
+                border-radius: 10rem 
+                height: 5rem
+                width: 11rem
+                font-size: Fonts.$p
+                font-family: Fonts.$regular
+                margin: 0rem 3rem 3rem 3rem
+
+            & > .pink-team
+                background: Colors.$pink
+
+
+            & > .winner
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+                font-size: Fonts.$h2
+                gap: .2rem
+                padding: .2rem
+                color: Colors.$black
+            & > .loser
+                display: flex
+                justify-content: center
+                align-items: center
+                color: Colors.$white
+                border: none
+                border-radius: 10rem 
+                height: 5rem
+                width: 11rem
+                font-size: Fonts.$p
+                font-family: Fonts.$regular
+                margin: 0rem 3rem 3rem 3rem
+
+                & > .number-container
+                    width: 70%
+                    display: flex
+                    flex-direction: row
+                    align-items: center
+                    gap: .5rem
+                    overflow: scroll
+                    padding: 0 .2rem
+                    & > .goal-value
+                        border: none
+                        background: none   
+                    & > .goal-value:focus
+                        color: Colors.$white
+                        font-size: Fonts.$h3
+                & > .number-container::-webkit-scrollbar
+                    display: none
+
+
+
+
+           
+
+            
+
+            & > .loser
+                display: flex
+                justify-content: center
+                align-items: center
+                color: Colors.$white
+                border: none
+                border-radius: 10rem 
+                height: 5rem
+                width: 11rem
+                font-size: Fonts.$p
+                font-family: Fonts.$regular
+                margin: 0rem 3rem 3rem 3rem
+                
+                & > .number-container
+                    width: 70%
+                    display: flex
+                    flex-direction: row
+                    align-items: center
+                    gap: .5rem
+                    overflow: scroll
+                    padding: 0 .2rem
+                    & > .goal-value
+                        border: none
+                        background: none   
+                    & > .goal-value:focus
+                        color: Colors.$white
+                        font-size: Fonts.$h3
+                & > .number-container::-webkit-scrollbar
+                    display: none
+            & > .red-team
+                background: Colors.$red      
+            & > .winner
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+                font-size: Fonts.$h2
+                gap: .2rem
+                padding: .2rem
+                color: Colors.$black
+               
+                    
+        
+        & > .cancel-btn
+            color: Colors.$red
+            font-size: Fonts.$p
+            border: none
+            background: none
+            text-decoration: underline
+            margin: 2rem
+            
+            

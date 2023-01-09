@@ -1,0 +1,18 @@
+// Typography
+@font-face {
+  font-family: "Noir-Bold";
+  src: url("/Noir_medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Noir-Regular";
+  src: url("/Noir_regular.woff2") format("woff2");
+}
+
+$regular: "Noir-Regular";
+$bold: "Noir-Bold";
+$h1: 4.4rem;
+$h2: 3rem;
+$h3: 2.4rem;
+$buttonText: 2rem;
+$p: 1.6rem;

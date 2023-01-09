@@ -1,0 +1,27 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+.playerCard
+    background: Colors.$gradient
+    display: flex
+    height: 10rem
+    justify-content: space-between
+    margin: 0.3rem 0
+    width: 100%
+
+    & > .img
+        height: 100%
+        width: 18vh
+        background-size: cover
+        background-position: center
+        clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
+
+    & > .aside
+        align-items: flex-end
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        justify-content: center
+        margin-right: 4vw
+        & > .title
+            font-size: Fonts.$h3
+            margin: 0
