@@ -17,10 +17,13 @@ import { uuidv4 } from "@firebase/util";
 
 export const Profile = () => {
   const navigate = useNavigate();
+
   const { loggedInUserId, fetchUser, setFetchUser } = useUser();
+
   const params = useParams();
   const id = params.id;
   const { response, isLoading } = useFetch("users", id);
+
   const profileData = { ...(response as unknown as UserProps) };
   const personalProfileCheck = loggedInUserId === profileData.id;
 
@@ -30,6 +33,7 @@ export const Profile = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  // gets imageUrl to state
   useEffect(() => {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `${uuidv4()}`);
@@ -46,22 +50,26 @@ export const Profile = () => {
     const auth = getAuth();
     const userRef = doc(db, `users/${loggedInUserId}`);
 
+    // update img
     if (photoURL) {
       updateProfile(auth.currentUser!, { photoURL: photoURL }).catch(
         (error) => {
           console.error(error.message);
         }
       );
-
       updateDoc(userRef, {
         img: photoURL,
       });
     }
+
+    // update name
     if (name) {
       updateDoc(userRef, {
         name: name,
       });
     }
+
+    // update description
     if (description) {
       updateDoc(userRef, {
         description: description,
