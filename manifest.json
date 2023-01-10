@@ -7,6 +7,9 @@
   "lang": "en",
   "scope": "/",
   "description": "Foosball tournament application.",
+  "theme_color": "#333",
+  "categories": ["games", "social"],
+
   "icons": [
     {
       "src": "Logo192.png",
@@ -25,9 +28,5 @@
       "sizes": "512x512",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#333",
-  "categories": ["games", "social"],
-  "dir": "auto",
-  "orientation": "portrait-primary"
+  ]
 }
