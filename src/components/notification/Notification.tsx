@@ -2,6 +2,7 @@ import { onMessageListener, requestForToken } from "@/firebase/messaging";
 import { useEffect } from "react";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { ToastContent } from "./toast-content/ToastContent";
 
 export const Notification = () => {
   const [message, setMessage] = useState({
@@ -11,21 +12,23 @@ export const Notification = () => {
   });
   const ToastDisplay = () => {
     return (
-      <div>
-        <img src={message?.image} alt="toast-image" />
-        <div>
-          <p>
-            <b>{message?.title}</b>
-          </p>
-          <p>{message?.body}</p>
-        </div>
-      </div>
+      <ToastContent
+        image={message?.image}
+        title={message?.title}
+        body={message?.body}
+      />
     );
   };
   const notify = () =>
     toast(<ToastDisplay />, {
       duration: 99999999,
       position: "top-center",
+      style: {
+        color: "#363636",
+        background: "#fff",
+        margin: 0,
+        padding: 0,
+      },
     });
 
   useEffect(() => {
