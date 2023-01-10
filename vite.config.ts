@@ -28,6 +28,7 @@ export default defineConfig({
       },
 
       workbox: {
+        sourcemap: true,
         globPatterns: ["**/*.{js,css,html}", "**/*.{svg,png,jpg,gif}"],
       },
     }),

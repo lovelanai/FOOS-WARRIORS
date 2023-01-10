@@ -36,7 +36,7 @@ export const Profile = () => {
   // gets imageUrl to state
   useEffect(() => {
     if (imageUpload == null) return;
-    const imageRef = ref(storage, `${uuidv4()}`);
+    const imageRef = ref(storage, `profilePictures/${uuidv4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setPhotoURL(url);
