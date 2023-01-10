@@ -21,7 +21,7 @@ export const Notification = () => {
   };
   const notify = () =>
     toast(<ToastDisplay />, {
-      duration: 99999999,
+      duration: 3000,
       position: "top-center",
       style: {
         color: "#363636",
