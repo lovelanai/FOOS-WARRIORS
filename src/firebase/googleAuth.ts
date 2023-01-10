@@ -4,9 +4,10 @@ import { app, db } from "./firebase.config";
 
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-provider.setCustomParameters({
-  login_hint: "user@example.com",
-});
+
+// provider.setCustomParameters({
+//   login_hint: "user@example.com",
+// });
 
 // To apply the default browser preference instead of explicitly setting it.
 // firebase.auth().useDeviceLanguage();
