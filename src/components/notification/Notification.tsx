@@ -7,18 +7,26 @@ export const Notification = () => {
   const [message, setMessage] = useState({
     title: "",
     body: "",
+    image: "",
   });
   const ToastDisplay = () => {
     return (
       <div>
-        <p>
-          <b>{message?.title}</b>
-        </p>
-        <p>{message?.body}</p>
+        <img src={message?.image} alt="toast-image" />
+        <div>
+          <p>
+            <b>{message?.title}</b>
+          </p>
+          <p>{message?.body}</p>
+        </div>
       </div>
     );
   };
-  const notify = () => toast(<ToastDisplay />);
+  const notify = () =>
+    toast(<ToastDisplay />, {
+      duration: 99999999,
+      position: "top-center",
+    });
 
   useEffect(() => {
     if (message?.title) {
@@ -27,14 +35,17 @@ export const Notification = () => {
   }, [message]);
 
   requestForToken();
+
   onMessageListener()
     .then((payload: any) => {
       console.log(payload);
       setMessage({
-        title: payload?.notificaion?.title,
+        title: payload?.notification?.title,
         body: payload?.notification?.body,
+        image: payload?.notification?.image,
       });
     })
     .catch((error) => console.log("failed", error));
-  return <Toaster position="top-center" />;
+  console.log(message);
+  return <Toaster />;
 };
