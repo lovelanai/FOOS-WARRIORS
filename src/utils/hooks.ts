@@ -1,7 +1,37 @@
 import { useUser } from "@/context/UserContext";
-import { getDocs, collection, doc, getDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "@/firebase/firebase.config.js";
+import { getAuth, updateProfile } from "firebase/auth";
+
+export interface MatchProps {
+  userID1: string;
+  userID2: string; // pinkTeam
+  userID3: string;
+  userID4: string; // redTeam
+  matchWinners: string;
+}
+
+/* export const useMatch = async (
+  user1: string,
+  user2: string,
+  user3: string,
+  user4: string,
+  matchWinners: string
+) => {
+  if(matchWinners = "redTeam"){
+    getDoc(user1, {
+      wins,
+    });
+  }
+  }
+}; */
 
 export const useFetch = (api: string, id?: string, userId?: string) => {
   const { fetchUser } = useUser();
