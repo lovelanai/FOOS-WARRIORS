@@ -5,7 +5,7 @@ import { Header } from "../../components/header/Header";
 import { mockedUsers } from "../../mockedUsers/mockedUsers";
 import { LeaderboardCard } from "../../components/leaderboard-card/leaderboardCard";
 import "./LeaderBoard.sass";
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useFetch } from "../../utils/hooks";
 import { UserProps } from "../../utils/props";
 import { PlayerCardSkeleton } from "../../components/player-card/player-card-skeleton/PlayerCardSkeleton";
@@ -36,11 +36,13 @@ export const LeaderBoard = () => {
 
   const { response, isLoading } = useFetch("users");
 
-  const sortedUsers = [(user: UserProps)].sort((a, b) => {
+  const sortedUsers = [response].sort((a, b) => {
+    let aScore = (a.wins / a.losses)
+    let bScore = (b.wins / b.losses)
     if (sortAcending) {
-      return a.score - b.score;
+      return aScore - bScore;
     } else {
-      return b.score - a.score;
+      return bScore - aScore;
     }
   });
 
@@ -66,9 +68,8 @@ export const LeaderBoard = () => {
           Change order
         </button>
         {response && !isLoading ? (
-        {sortedUsers.map((user: UserProps) => (
-                    <>
-                    {response.map((user: UserProps) => (
+          {sortedUsers.map((user: UserProps) => (
+                    <div key={user.name}>
                       <LeaderboardCard
                         profileLink={user.id}
                         title={user.name}
@@ -77,9 +78,7 @@ export const LeaderBoard = () => {
                         losses={user.losses}
                         key={user.id}
                       />
-                    ))}
                   </>
-
         ))}
         ) : (
           <>
