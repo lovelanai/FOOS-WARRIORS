@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import {
   createContext,
   FC,
@@ -6,7 +7,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface UserContextValue {
   isLoggedIn: boolean;
@@ -41,7 +41,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
           setIsLoggedIn(true);
           setIsLoggedInUserId(user.uid);
         } else {
-          console.log("ej inloggad");
+          // console.log("ej inloggad");
           setIsLoggedIn(false);
           setIsLoggedInUserId("");
         }

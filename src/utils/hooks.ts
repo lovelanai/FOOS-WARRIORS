@@ -45,3 +45,53 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
 
   return { response, isLoading };
 };
+
+interface MessageProps {
+  to: string;
+  body: string;
+  title: string;
+}
+
+export const sendNotification = async ({ to, body, title }: MessageProps) => {
+  try {
+    const response = await fetch("https://fcm.googleapis.com/fcm/send", {
+      method: "POST",
+      body: JSON.stringify({
+        to: to,
+        notification: {
+          body: body,
+          title: title,
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/Logo512.png?alt=media&token=204a88c6-651f-42e7-8fd3-7782af799c38",
+        },
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "key=AAAALB8TIAw:APA91bEnaOmac-vjC-UzV9IMUq4miRuombGUCEMVjeghbI9LNCaN2YzW2ONZZ2hgPYzizptOPhHUjsvf37-0kEKPWEiNCHCCn7VEFLn-qWqzkmHMlRUfE5HBgHIjkb_u96pi4QuAXKlN",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("result is: ", JSON.stringify(result));
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log("error message: ", error.message);
+      return error.message;
+    } else {
+      console.log("unexpected error: ", error);
+      return "An unexpected error occurred";
+    }
+  }
+};
+// use this to send notification. to = currentToken in user from database, body + title = text on notification
+
+// sendNotification({
+//   to: "f7IhuiPrpWx7ev9yo2xBaX:APA91bHEtDxR1KLytreym1rziQ-9CTBZBp7RS7zylV-x4AS-Ok74rBVTtGh4yYbZkcB9DKzlrefC8pCGDZxt4Qpkf8h1QL-8U33Z0gtZVnv6rO9NHF91aLb1_ED-OxeSvGjbmw-iEfZF",
+//   body: "hej",
+//   title: "tjo",
+// });

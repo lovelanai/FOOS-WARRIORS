@@ -1,0 +1,29 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+
+.toastContent
+    align-items: center
+    display: flex
+    gap: 2rem
+    height: 10rem
+    
+    
+
+    & > .image
+        height: 40%
+
+        & > img
+            height: 100%
+
+    & > .text
+        display: flex
+        flex-direction: column
+
+
+        & > .title
+
+            margin: 0
+        & > .body
+            font-size: calc(Fonts.$p - 4px)
+            margin: 0
