@@ -49,6 +49,5 @@ export const Notification = () => {
       });
     })
     .catch((error) => console.log("failed", error));
-  console.log(message);
   return <Toaster />;
 };

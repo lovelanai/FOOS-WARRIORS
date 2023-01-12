@@ -21,9 +21,12 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function (payload) {
   console.log("Received background message ", payload);
   // Customize notification here
+
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
+    icon: "Logo192",
+    badge: "Logo192",
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);

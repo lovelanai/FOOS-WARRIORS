@@ -8,7 +8,6 @@ import "./MatchHistory.sass";
 
 export const MatchHistory = () => {
   const navigate = useNavigate();
-  console.log(mockedUsers[0]);
 
   return (
     <div className="matchHistory">

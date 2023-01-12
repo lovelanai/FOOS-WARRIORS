@@ -11,7 +11,7 @@ export const LandingPage = () => {
 
   const test = () => {
     sendNotification({
-      to: "f7IhuiPrpWx7ev9yo2xBaX:APA91bHEtDxR1KLytreym1rziQ-9CTBZBp7RS7zylV-x4AS-Ok74rBVTtGh4yYbZkcB9DKzlrefC8pCGDZxt4Qpkf8h1QL-8U33Z0gtZVnv6rO9NHF91aLb1_ED-OxeSvGjbmw-iEfZF",
+      to: "cdGwhGsFKr3KYLrmuu5KMp:APA91bGT0xYjYMvvmjwUssaL69esbXtCqeEDbT54D-2wU6MTYBiILn9-yK5h5B3exLcOy5DLmQoWyDa_g17TPFynMDxcmA3WPUEPDymNy-wikpXEELYzYstQ_Ygfm-umQY3fJPOg8neX",
       body: "hej",
       title: "tjo",
     });

@@ -84,8 +84,6 @@ export const Profile = () => {
     navigate("/");
   };
 
-  console.log("desc", description);
-
   return (
     <>
       <div className="profile">
