@@ -8,6 +8,7 @@ import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
 import "./FindPlayers.sass";
+import { HeaderNotification } from "@/components/notification/HeaderNotification";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const FindPlayers = () => {
             </div>
           }
           title="Find Players"
+        asideElement={<HeaderNotification/>}
         />
         <div className="banner">
           <InputField placeholder="Search..." />

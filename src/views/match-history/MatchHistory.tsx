@@ -5,6 +5,7 @@ import { BattleCard } from "@/components/battle-card/BattleCard";
 import { Header } from "@/components/header/Header";
 import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import "./MatchHistory.sass";
+import { HeaderNotification } from "@/components/notification/HeaderNotification";
 
 export const MatchHistory = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export const MatchHistory = () => {
             </div>
           }
           title="Todays Battles"
+          asideElement={<HeaderNotification/>}
         />
         <div className="banner">
           <Logo.Swords />
