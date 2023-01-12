@@ -1,5 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import { Notification } from "./components/notification/Notification";
+import { useUser } from "./context/UserContext";
 import "./main.sass";
+import { Battlefield } from "./views/battlefield/Battlefield";
 import { FindPlayers } from "./views/find-players/FindPlayers";
 import { Home } from "./views/home/Home";
 import { LandingPage } from "./views/landing-page/LandingPage";
@@ -8,8 +11,6 @@ import { LogIn } from "./views/login/LogIn";
 import { MatchHistory } from "./views/match-history/MatchHistory";
 import { Playground } from "./views/playground/Playground";
 import { Profile } from "./views/profile/Profile";
-import { Battlefield } from "./views/battlefield/Battlefield";
-import { Notification } from "./components/notification/Notification";
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
         <Route path="/matchHistory" element={<MatchHistory />} />
         <Route path="/battlefield" element={<Battlefield />} />
         <Route path="/profile/:id" element={<Profile />} />
-
         <Route path="/playground" element={<Playground />} />
       </Routes>
     </div>

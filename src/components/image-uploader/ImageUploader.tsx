@@ -23,7 +23,6 @@ export const ImageUploader = ({ onChange }: ImageUploaderInterface) => {
         onChange={onChange}
         className="input"
         type="file"
-        capture
       />
       <label onClick={handeClick} htmlFor="input">
         <ICON.Camera />

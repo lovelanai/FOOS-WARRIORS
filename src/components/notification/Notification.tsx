@@ -1,6 +1,6 @@
+import { useUser } from "@/context/UserContext";
 import { onMessageListener, requestForToken } from "@/firebase/messaging";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ToastContent } from "./toast-content/ToastContent";
 
@@ -49,6 +49,5 @@ export const Notification = () => {
       });
     })
     .catch((error) => console.log("failed", error));
-  console.log(message);
   return <Toaster />;
 };
