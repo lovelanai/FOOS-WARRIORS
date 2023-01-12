@@ -9,14 +9,6 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useUser();
 
-  const test = () => {
-    sendNotification({
-      to: "cdGwhGsFKr3KYLrmuu5KMp:APA91bGT0xYjYMvvmjwUssaL69esbXtCqeEDbT54D-2wU6MTYBiILn9-yK5h5B3exLcOy5DLmQoWyDa_g17TPFynMDxcmA3WPUEPDymNy-wikpXEELYzYstQ_Ygfm-umQY3fJPOg8neX",
-      body: "hej",
-      title: "tjo",
-    });
-  };
-
   return (
     <div className="landingPage">
       <div className="frontPageLogo">
@@ -32,7 +24,6 @@ export const LandingPage = () => {
           secondary
           title="Enter Battlefield"
         />
-        <PrimaryButton onClick={test} secondary title="Enter Battlefield" />
       </div>
     </div>
   );
