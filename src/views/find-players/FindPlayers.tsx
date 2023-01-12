@@ -8,10 +8,22 @@ import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
 import "./FindPlayers.sass";
+import { useState } from "react";
+import { InviteCard } from "@/components/InviteCard/InviteCard";
+import { UserContext } from "@/context/UserContext";
+import { stripBasename } from "@remix-run/router";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
   const { response, isLoading } = useFetch("users");
+  const [invitationMode, setInvitationMode] = useState(false)
+  const [name, setName] = useState('')
+ 
+const handleInvitation = (name: string) => {
+  setInvitationMode(true)
+  setName(name)
+}
+  
   return (
     <div className="findPlayers">
       <div className="nav">
@@ -28,6 +40,11 @@ export const FindPlayers = () => {
         </div>
       </div>
       <div className="content">
+        {invitationMode ? ( 
+        <div className="invite-container"><InviteCard
+       invitedName={name}
+        /></div>) : <></>}
+       
         {response && !isLoading ? (
           <>
             {response.map((user: UserProps) => (
@@ -36,6 +53,7 @@ export const FindPlayers = () => {
                 title={user.name}
                 img={user.img}
                 key={user.id}
+                inviteOnClick={ () => handleInvitation(user.name)}
               />
             ))}
 
