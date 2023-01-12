@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { app, db } from "./firebase.config";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { getToken } from "firebase/messaging";
+import { app, db, messaging } from "./firebase.config";
 
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
@@ -22,15 +23,27 @@ export const signInWithGoogle = () =>
       const token = credential?.accessToken;
       const user = result.user;
       console.log(user);
-      const postById = doc(db, "users", user.uid);
-      getDoc(postById).then((item) => {
+      const userRef = doc(db, "users", user.uid);
+      getDoc(userRef).then(async (item) => {
         if (!item.data()) {
-          setDoc(doc(db, `users/${user.uid}`), {
-            name: user.displayName,
-            email: user.email,
-            img: user.photoURL,
-            description: "",
-          });
+          return await getToken(messaging, {
+            vapidKey:
+              "BNoVEWA6F5-4Do1k0o6QkdZRTKLulROCF-XyxtakcYioOHyLq6NLVzoBQyvA1LyGMi1FEa7jzpcn2JrWd6DtOO4",
+          })
+            .then((currentToken) => {
+              if (currentToken) {
+                setDoc(doc(db, `users/${user.uid}`), {
+                  name: user.displayName,
+                  email: user.email,
+                  img: user.photoURL,
+                  description: "",
+                  currentToken: currentToken,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
         } else {
           console.log("användare finns redan");
         }

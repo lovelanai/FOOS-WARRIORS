@@ -1,7 +1,6 @@
 import Logo from "@/assets/logos/logos";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
-import { sendNotification } from "@/utils/hooks";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.sass";
 

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Notification } from "./components/notification/Notification";
+import { useUser } from "./context/UserContext";
 import "./main.sass";
 import { Battlefield } from "./views/battlefield/Battlefield";
 import { FindPlayers } from "./views/find-players/FindPlayers";
