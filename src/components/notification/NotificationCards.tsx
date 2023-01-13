@@ -12,8 +12,8 @@ export const NewNotifications = () => {
 
   return (
     <div className="container">
-      {newNotifications.map((notification) => (
-        <div className="new-card">
+      {newNotifications.map((notification, index) => (
+        <div key={index} className="new-card">
           <div>
             <p>{notification}</p>
             <p>åååå-mm-dd</p>
@@ -37,8 +37,8 @@ export const OldNotifications = () => {
   ];
   return (
     <div className="container">
-      {oldNotifications.map((notification) => (
-        <div className="old-card">
+      {oldNotifications.map((notification, index) => (
+        <div key={index} className="old-card">
           <div>
             <p>{notification}</p>
             <p>åååå-mm-dd</p>
