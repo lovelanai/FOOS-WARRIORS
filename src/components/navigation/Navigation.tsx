@@ -22,6 +22,11 @@ export const Navigation = () => {
         </Link>
       </div>
       <div className="button">
+        <Link to="/my-games" className="link">
+          My games
+        </Link>
+      </div>
+      <div className="button">
         <Link to={`/profile/${loggedInUserId}`} className="link">
           Profile
         </Link>

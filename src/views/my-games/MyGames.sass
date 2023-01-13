@@ -1,0 +1,64 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.my-games
+    display: flex
+    flex-direction: column
+    align-items: center
+    & > .icon
+        align-items: center
+        display: flex
+        justify-content: center
+        height: 4rem
+        width: 4rem
+        background: limegreen
+        border-radius: 10rem
+    & > .games-menu
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        & > h3
+            padding-left: .8rem
+            font-size: Fonts.$h3
+        & > .links
+            display: flex
+            flex-direction: row
+            & > p
+                padding: .8rem
+                font-size: Fonts.$p
+           
+    .new-name-view
+        display: flex        
+        flex-direction: column
+        height: 80vh
+        align-items: center
+        justify-content: center
+        & > h3
+            font-size: Fonts.$h3
+        & > input
+            background: none
+            border: none
+            border-bottom: solid 2px Colors.$white
+            width: 100%
+            padding: 1rem
+        & > .btn-group
+            display: flex
+            flex-direction: column
+            gap: 4rem
+            padding-top: 16rem
+            & > .continue
+                border: none
+                width: 33.0rem
+                height: 6.0rem
+                border-radius: 10.0rem
+                cursor: pointer
+                background: Colors.$white
+                color: Colors.$black
+                font-size: Fonts.$buttonText
+            & > .exit 
+                border: none
+                background: none
+                color: Colors.$white
+                text-decoration-line: underline

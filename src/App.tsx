@@ -9,6 +9,7 @@ import { LandingPage } from "./views/landing-page/LandingPage";
 import { LeaderBoard } from "./views/leader-board/LeaderBoard";
 import { LogIn } from "./views/login/LogIn";
 import { MatchHistory } from "./views/match-history/MatchHistory";
+import { MyGames } from "./views/my-games/MyGames";
 import { NotificationsView } from "./views/notifications/NotificationsView";
 import { Playground } from "./views/playground/Playground";
 import { Profile } from "./views/profile/Profile";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/leaderBoard" element={<LeaderBoard />} />
         <Route path="/matchHistory" element={<MatchHistory />} />
         <Route path="/battlefield" element={<Battlefield />} />
+        <Route path="/my-games" element={<MyGames />}/>
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/notifications" element={<NotificationsView />}/>
         <Route path="/playground" element={<Playground />} />

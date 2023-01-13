@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
+import { uuidv4 } from "@firebase/util";
 
 export const requestForToken = async () => {
   const { loggedInUserId } = useUser();
@@ -27,10 +28,52 @@ export const requestForToken = async () => {
     });
 };
 
-export const onMessageListener = () =>
+/* export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
       console.log("payload", payload);
       resolve(payload);
+    });
+  }); */
+
+/* export const onMessageListener = () =>
+  new Promise((resolve) => {
+    const { loggedInUserId } = useUser();
+    onMessage(messaging, (payload) => {
+      console.log("payload", payload.notification);
+      resolve(payload);
+      const currentUserRef = doc(db, `notifications/${loggedInUserId}.notes`);
+      setDoc(currentUserRef, {
+        title: payload.notification?.title,
+        text: payload.notification?.body,
+        test: "rosanna",
+      }).catch((err: any) => {
+        console.log("error", err);
+      });
+    });
+  }); */
+
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    const { loggedInUserId } = useUser();
+
+    onMessage(messaging, (payload) => {
+      console.log("payload", payload.notification);
+
+      resolve(payload);
+
+      const id = uuidv4();
+
+      const currentUserRef = doc(db, `notifications/${loggedInUserId}.${id}`);
+
+      setDoc(currentUserRef, {
+        title: payload.notification?.title,
+
+        text: payload.notification?.body,
+
+        test: "tetris",
+      }).catch((err) => {
+        console.log("error", err);
+      });
     });
   });

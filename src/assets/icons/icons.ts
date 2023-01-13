@@ -15,6 +15,7 @@ import { ReactComponent as Gmail } from "./loginProviders/gmail.svg";
 import { ReactComponent as Trash } from "./essentials/trash.svg";
 import { ReactComponent as Check } from "./essentials/check.svg";
 import { ReactComponent as Decline } from "./essentials/decline.svg";
+import { ReactComponent as Add } from "./essentials/add.svg";
 
 
 const ICON = {
@@ -34,7 +35,8 @@ const ICON = {
   Gmail,
   Trash,
   Check,
-  Decline
+  Decline,
+  Add
 };
 
 export default ICON;

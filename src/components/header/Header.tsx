@@ -1,7 +1,7 @@
 import "./Header.sass";
 
 interface HeaderProps {
-  element: JSX.Element;
+  element?: JSX.Element;
   asideElement?: JSX.Element 
   title: string;
 }
