@@ -12,6 +12,9 @@ import { HeaderNotification } from "@/components/notification/HeaderNotification
 import { useState } from "react";
 import { InviteCard } from "@/components/InviteCard/InviteCard";
 import { useUser } from "@/context/UserContext";
+import { db } from "@/firebase/firebase.config";
+import { uuidv4 } from "@firebase/util";
+import { doc, setDoc } from "firebase/firestore";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
@@ -20,11 +23,13 @@ export const FindPlayers = () => {
   const [invitationMode, setInvitationMode] = useState(false);
   const [name, setName] = useState("");
   const [notificatonToken, setNotificationToken] = useState("");
+  const [recieverId, setRecieverId] = useState("");
 
-  const handleInvitation = (name: string, token: string) => {
+  const handleInvitation = (name: string, token: string, id: string) => {
     setInvitationMode(true);
     setName(name);
     setNotificationToken(token);
+    setRecieverId(id);
   };
 
   const { response: currentUser } = useFetch("users", loggedInUserId);
@@ -35,6 +40,20 @@ export const FindPlayers = () => {
       to: notificatonToken,
       title: "INCOMING BATTLE",
       body: `${user.name} invited you to play a game of foos!`,
+      recieverId: recieverId,
+    }).then(() => {
+      const id = uuidv4();
+      const currentUserRef = doc(db, `notifications/${id}`);
+      const day = new Date().toDateString();
+      const time = new Date().toLocaleTimeString();
+      setDoc(currentUserRef, {
+        title: "INCOMING BATTLE",
+        text: `${user.name} invited you to play a game of foos!`,
+        id: recieverId,
+        time: `${day} ${time}`,
+      }).catch((err) => {
+        console.log("error", err);
+      });
     });
   };
 
@@ -72,7 +91,7 @@ export const FindPlayers = () => {
                 img={user.img}
                 key={user.id}
                 inviteOnClick={() =>
-                  handleInvitation(user.name, user.currentToken)
+                  handleInvitation(user.name, user.currentToken, user.id)
                 }
               />
             ))}
