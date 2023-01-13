@@ -1,7 +1,12 @@
 import ICON from "@/assets/icons/icons";
+import { useUser } from "@/context/UserContext";
+import { fetchWithMatch } from "@/utils/hooks";
+import { NotificationProps } from "@/utils/props";
 import "./NotificationCards.sass";
 
 export const NewNotifications = () => {
+  const { loggedInUserId } = useUser();
+  const { response } = fetchWithMatch("notifications", "id", loggedInUserId);
   const newNotifications = [
     "notis" + " " + 1,
     "notis" + " " + 2,
@@ -10,16 +15,20 @@ export const NewNotifications = () => {
     "notis" + " " + 5,
   ];
 
+  console.log(response);
+
   return (
     <div className="container">
-      {newNotifications.map((notification, index) => (
+      {response.map((res: NotificationProps, index) => (
         <div key={index} className="new-card">
           <div>
-            <p>{notification}</p>
-            <p>åååå-mm-dd</p>
+            <p>{res.title}</p>
+            <p>{res.text}</p>
+            <p>{res.time}</p>
           </div>
           <div>
-            <ICON.Check className="icon" /* onClick={accept()} */ /> <ICON.Decline className="icon" /* onClick={decline()} */ />
+            <ICON.Check className="icon" /* onClick={accept()} */ />{" "}
+            <ICON.Decline className="icon" /* onClick={decline()} */ />
           </div>
         </div>
       ))}
@@ -44,7 +53,7 @@ export const OldNotifications = () => {
             <p>åååå-mm-dd</p>
           </div>
           <div>
-            <ICON.Trash className="icon" /* onClick={delete()} *//>
+            <ICON.Trash className="icon" /* onClick={delete()} */ />
           </div>
         </div>
       ))}

@@ -46,7 +46,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
       getAuth().onAuthStateChanged(function (user) {
         if (user) {
-          console.log(user);
+          // console.log(user);
           setIsLoggedIn(true);
           setIsLoggedInUserId(user.uid);
         } else {

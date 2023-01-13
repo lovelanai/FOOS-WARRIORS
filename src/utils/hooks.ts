@@ -1,5 +1,12 @@
 import { useUser } from "@/context/UserContext";
-import { getDocs, collection, doc, getDoc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "@/firebase/firebase.config.js";
 
@@ -15,7 +22,6 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           .then((res) => {
             setResponse(
               res.docs.map((item) => {
-                console.log(item.data());
                 return { ...item.data(), id: item.id };
               }) as any
             );
@@ -31,7 +37,7 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
         getDoc(postById)
           .then((item) => {
             setResponse({ ...item.data(), id: item.id } as any);
-            console.log(item.data());
+            // console.log(item.data());
           })
           .then(() => {
             setIsLoading(false);
@@ -42,6 +48,36 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
       }
     }
   }, [api, id, userId, fetchUser]);
+
+  return { response, isLoading };
+};
+
+export const fetchWithMatch = (
+  api: string,
+  dbValue: string,
+  clientValue: string
+) => {
+  const [response, setResponse] = useState<[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const q = query(collection(db, api), where(dbValue, "==", clientValue));
+
+  useEffect(() => {
+    getDocs(q)
+      .then((res) => {
+        setResponse(
+          res.docs.map((item) => {
+            return { ...item.data(), id: item.id };
+          }) as any
+        );
+      })
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, [api]);
 
   return { response, isLoading };
 };

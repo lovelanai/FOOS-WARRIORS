@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useUser } from "@/context/UserContext";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { uuidv4 } from "@firebase/util";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
 
@@ -12,7 +12,6 @@ export const requestForToken = async () => {
   })
     .then((currentToken) => {
       if (currentToken) {
-        console.log("current token for client:", currentToken);
         const sendTokenToServer = doc(db, `users/${loggedInUserId}`);
 
         updateDoc(sendTokenToServer, {
@@ -23,14 +22,27 @@ export const requestForToken = async () => {
       }
     })
     .catch((error) => {
-      console.log("Error accoured while recieving token", error);
+      // console.log("Error accoured while recieving token", error);
     });
 };
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
+    const { loggedInUserId } = useUser();
     onMessage(messaging, (payload) => {
-      console.log("payload", payload);
+      console.log("payload", payload.notification);
       resolve(payload);
+      const id = uuidv4();
+      const currentUserRef = doc(db, `notifications/${id}`);
+      const day = new Date().toDateString();
+      const time = new Date().toLocaleTimeString();
+      setDoc(currentUserRef, {
+        title: payload.notification?.title,
+        text: payload.notification?.body,
+        id: loggedInUserId,
+        time: `${day} ${time}`,
+      }).catch((err) => {
+        console.log("error", err);
+      });
     });
   });
