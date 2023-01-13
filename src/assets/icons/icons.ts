@@ -12,6 +12,10 @@ import { ReactComponent as Crown } from "./essentials/crown.svg";
 import { ReactComponent as Head } from "./essentials/head.svg";
 import { ReactComponent as Microsoft } from "./loginProviders/microsoft.svg";
 import { ReactComponent as Gmail } from "./loginProviders/gmail.svg";
+import { ReactComponent as Trash } from "./essentials/trash.svg";
+import { ReactComponent as Check } from "./essentials/check.svg";
+import { ReactComponent as Decline } from "./essentials/decline.svg";
+
 
 const ICON = {
   Arrow,
@@ -28,6 +32,9 @@ const ICON = {
   Head,
   Microsoft,
   Gmail,
+  Trash,
+  Check,
+  Decline
 };
 
 export default ICON;

@@ -8,10 +8,12 @@ import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
 import "./FindPlayers.sass";
+import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { useState } from "react";
 import { InviteCard } from "@/components/InviteCard/InviteCard";
 import { UserContext } from "@/context/UserContext";
 import { stripBasename } from "@remix-run/router";
+
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
@@ -34,6 +36,7 @@ const handleInvitation = (name: string) => {
             </div>
           }
           title="Find Players"
+        asideElement={<HeaderNotification/>}
         />
         <div className="banner">
           <InputField placeholder="Search..." />

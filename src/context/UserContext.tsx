@@ -8,6 +8,10 @@ import {
   useState,
 } from "react";
 
+/* type Notification = {
+  message: string
+  date: string,
+} */
 interface UserContextValue {
   isLoggedIn: boolean;
   loggedInUserId: string;
@@ -15,6 +19,8 @@ interface UserContextValue {
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   fetchUser: boolean;
   setFetchUser: React.Dispatch<React.SetStateAction<boolean>>;
+  /* setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
+  notifications: Notification[]; */
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -24,11 +30,14 @@ export const UserContext = createContext<UserContextValue>({
   setViewGreetingPage: () => undefined,
   fetchUser: false,
   setFetchUser: () => undefined,
+  /* notifications: [],
+  setNotifications: () => undefined */
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
   const [fetchUser, setFetchUser] = useState(false);
+  //const [notifications, setNotifications] = useState<Notification[]>([])
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -61,6 +70,8 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setViewGreetingPage,
         fetchUser,
         setFetchUser,
+        /* notifications,
+        setNotifications */
       }}
     >
       {children}
