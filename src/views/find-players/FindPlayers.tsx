@@ -5,27 +5,39 @@ import { InputField } from "@/components/input-field/InputField";
 import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { mockedUsers } from "@/mockedUsers/mockedUsers";
-import { useFetch } from "@/utils/hooks";
+import { sendNotification, useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
 import "./FindPlayers.sass";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { useState } from "react";
 import { InviteCard } from "@/components/InviteCard/InviteCard";
-import { UserContext } from "@/context/UserContext";
-import { stripBasename } from "@remix-run/router";
-
+import { useUser } from "@/context/UserContext";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
+  const { loggedInUserId } = useUser();
   const { response, isLoading } = useFetch("users");
-  const [invitationMode, setInvitationMode] = useState(false)
-  const [name, setName] = useState('')
- 
-const handleInvitation = (name: string) => {
-  setInvitationMode(true)
-  setName(name)
-}
-  
+  const [invitationMode, setInvitationMode] = useState(false);
+  const [name, setName] = useState("");
+  const [notificatonToken, setNotificationToken] = useState("");
+
+  const handleInvitation = (name: string, token: string) => {
+    setInvitationMode(true);
+    setName(name);
+    setNotificationToken(token);
+  };
+
+  const { response: currentUser } = useFetch("users", loggedInUserId);
+  const user = { ...(currentUser as unknown as UserProps) };
+
+  const handleSendInvite = () => {
+    sendNotification({
+      to: notificatonToken,
+      title: "INCOMING BATTLE",
+      body: `${user.name} invited you to play a game of foos!`,
+    });
+  };
+
   return (
     <div className="findPlayers">
       <div className="nav">
@@ -36,18 +48,21 @@ const handleInvitation = (name: string) => {
             </div>
           }
           title="Find Players"
-        asideElement={<HeaderNotification/>}
+          asideElement={<HeaderNotification />}
         />
         <div className="banner">
           <InputField placeholder="Search..." />
         </div>
       </div>
       <div className="content">
-        {invitationMode ? ( 
-        <div className="invite-container"><InviteCard
-       invitedName={name}
-        /></div>) : <></>}
-       
+        {invitationMode ? (
+          <div className="invite-container">
+            <InviteCard invitedName={name} onClick={handleSendInvite} />
+          </div>
+        ) : (
+          <></>
+        )}
+
         {response && !isLoading ? (
           <>
             {response.map((user: UserProps) => (
@@ -56,16 +71,11 @@ const handleInvitation = (name: string) => {
                 title={user.name}
                 img={user.img}
                 key={user.id}
-                inviteOnClick={ () => handleInvitation(user.name)}
+                inviteOnClick={() =>
+                  handleInvitation(user.name, user.currentToken)
+                }
               />
             ))}
-
-            <PlayerCard title={mockedUsers[0].name} img={mockedUsers[0].img} />
-            <PlayerCard title={mockedUsers[1].name} img={mockedUsers[1].img} />
-            <PlayerCard title={mockedUsers[2].name} img={mockedUsers[2].img} />
-            <PlayerCard title={mockedUsers[3].name} img={mockedUsers[3].img} />
-            <PlayerCard title={mockedUsers[4].name} img={mockedUsers[4].img} />
-            <PlayerCard title={mockedUsers[5].name} img={mockedUsers[5].img} />
           </>
         ) : (
           <>
