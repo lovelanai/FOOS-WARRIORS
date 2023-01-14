@@ -30,6 +30,7 @@ export const signInWithMicrosoft = () =>
                   img: user.photoURL,
                   description: "",
                   currentToken: currentToken,
+                  id: user.uid,
                 });
               }
             })
