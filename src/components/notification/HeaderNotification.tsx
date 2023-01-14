@@ -13,7 +13,6 @@ export const HeaderNotification = () => {
     loggedInUserId
   );
 
-  console.log(response.length);
   return (
     <div
       className="headerNotification"

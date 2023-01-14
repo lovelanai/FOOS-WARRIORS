@@ -10,10 +10,13 @@ export const NewNotifications = () => {
   const { response } = fetchWithMatch("notifications", "id", loggedInUserId);
   console.log(response);
 
+  const inviteFilter = (notification: NotificationProps) =>
+    notification.title === "INCOMING BATTLE";
+
   return (
     <div className="notificationCard">
-      {response.map((res: NotificationProps, index) => (
-        <div key={index} className="new-card">
+      {response.filter(inviteFilter).map((res: NotificationProps, index) => (
+        <div key={index} className="invite">
           <div className="img">
             <Logo.Swords className="logo" />
           </div>
@@ -33,27 +36,24 @@ export const NewNotifications = () => {
 };
 
 export const OldNotifications = () => {
-  const oldNotifications = [
-    "notis" + " " + 1,
-    "notis" + " " + 2,
-    "notis" + " " + 3,
-    "notis" + " " + 4,
-    "notis" + " " + 5,
-  ];
+  const { loggedInUserId } = useUser();
+  const { response } = fetchWithMatch("notifications", "id", loggedInUserId);
+  const inviteFilter = (notification: NotificationProps) =>
+    notification.title !== "INCOMING BATTLE";
   return (
-    <></>
-    // <div className="container">
-    //   {oldNotifications.map((notification, index) => (
-    //     <div key={index} className="old-card">
-    //       <div>
-    //         <p>{notification}</p>
-    //         <p>åååå-mm-dd</p>
-    //       </div>
-    //       <div>
-    //         <ICON.Trash className="icon" /* onClick={delete()} */ />
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
+    <div className="notificationCard">
+      {response.filter(inviteFilter).map((res: NotificationProps, index) => (
+        <div key={index} className="notification">
+          <div className="info">
+            <p className="title">{res.title}</p>
+            <p className="text">{res.text}</p>
+            <p className="time">{res.time}</p>
+          </div>
+          <div className="buttons">
+            <ICON.Trash className="icon" />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
