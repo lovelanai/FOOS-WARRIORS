@@ -7,7 +7,6 @@ export const FrontPageLogo = () => {
       <h1 className="text">
         FOOS <br /> WARRIORS
       </h1>
-      <Logo.Player className="logo" />
     </div>
   );
 };
