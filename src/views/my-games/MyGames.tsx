@@ -9,6 +9,14 @@ import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 export const MyGames = () => {
 
     const [newGameMode, setNewGameMode] = useState(false)
+    const [inviteView, setInviteView] = useState(false)
+    const [gameName, setGameName] = useState('')
+
+    const handleInput = (event: string) => {
+        setGameName(event)
+    }
+
+    console.log(gameName)
 
     return (
         <div className="my-games">
@@ -49,22 +57,31 @@ export const MyGames = () => {
             </div>
             </>
 
-            ) : (
+            ) : newGameMode && !inviteView ? (
                 <>
                 <Header 
                 title="New game"/>
     
             <div className="new-name-view">
                 <h3>Create a new game </h3>
-                <input placeholder="Type game name.."></input>
+                <input placeholder="Type game name.." onChange={(e) => handleInput(e.target.value)}></input>
                  <div className="btn-group">
-                     <button className="continue">Continue</button>
+                     <button className="continue" onClick={() => setInviteView(true)}>Continue</button>
                  <button className="exit">Exit</button>
                  </div>
             </div>
                 </>
     
-            )}
+            ) : newGameMode && inviteView ?(
+                <>
+                <Header 
+                title="New game"/>
+    
+            <div className="new-name-view">
+                <h3>Invite players for {gameName} </h3>
+            </div>
+                </>
+            ) : <></>}
 
 
 
