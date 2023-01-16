@@ -6,6 +6,7 @@ interface ButtonProps {
   secondary?: boolean;
   profileButton?: boolean;
   icon?: JSX.Element;
+  disabled?: boolean
 }
 
 export const PrimaryButton = ({
@@ -14,6 +15,7 @@ export const PrimaryButton = ({
   secondary = false,
   profileButton = false,
   icon,
+  disabled,
 }: ButtonProps) => {
   return (
     <div
