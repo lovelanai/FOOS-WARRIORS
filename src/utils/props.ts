@@ -4,4 +4,19 @@ export interface UserProps {
   img: string;
   id: string;
   email: string;
+  currentToken: string;
+}
+
+export interface NotificationProps {
+  title: string;
+  text: string;
+  time: string;
+  id: string;
+}
+
+export interface MessageProps {
+  to: string;
+  body: string;
+  title: string;
+  recieverId: string;
 }

@@ -8,19 +8,13 @@ import {
   useState,
 } from "react";
 
-/* type Notification = {
-  message: string
-  date: string,
-} */
 interface UserContextValue {
   isLoggedIn: boolean;
   loggedInUserId: string;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchUser: boolean;
-  setFetchUser: React.Dispatch<React.SetStateAction<boolean>>;
-  /* setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
-  notifications: Notification[]; */
+  update: boolean;
+  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -28,16 +22,13 @@ export const UserContext = createContext<UserContextValue>({
   loggedInUserId: "",
   viewGreetingPage: false,
   setViewGreetingPage: () => undefined,
-  fetchUser: false,
-  setFetchUser: () => undefined,
-  /* notifications: [],
-  setNotifications: () => undefined */
+  update: false,
+  setUpdate: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
-  const [fetchUser, setFetchUser] = useState(false);
-  //const [notifications, setNotifications] = useState<Notification[]>([])
+  const [update, setUpdate] = useState(false);
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -46,7 +37,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
       getAuth().onAuthStateChanged(function (user) {
         if (user) {
-          console.log(user);
+          // console.log(user);
           setIsLoggedIn(true);
           setIsLoggedInUserId(user.uid);
         } else {
@@ -68,10 +59,8 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         loggedInUserId,
         viewGreetingPage,
         setViewGreetingPage,
-        fetchUser,
-        setFetchUser,
-        /* notifications,
-        setNotifications */
+        update,
+        setUpdate,
       }}
     >
       {children}

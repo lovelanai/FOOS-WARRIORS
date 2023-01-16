@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { ToastContent } from "./toast-content/ToastContent";
 
 export const Notification = () => {
+  const { update, setUpdate } = useUser();
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -47,6 +48,8 @@ export const Notification = () => {
         body: payload?.notification?.body,
         image: payload?.notification?.image,
       });
+
+      setUpdate(!update);
     })
     .catch((error) => console.log("failed", error));
   return <Toaster />;

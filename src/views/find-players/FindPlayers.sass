@@ -5,14 +5,13 @@
 
 .findPlayers
     & > .nav
-        display: flex
         background: Colors.$black
-        flex-direction: column
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
-        position: fixed
-        z-index: 10
-        width: 100%
+        display: flex
+        flex-direction: column
         top: 0
+        width: 100%
+        z-index: 10
         
         & > .banner
             display: flex
@@ -21,13 +20,13 @@
             padding-bottom: 3rem
 
     & > .content
-        margin-top: 22vh
-        padding-bottom: 2rem
-        height: 78vh
+        height: 80vh
         overflow-y: scroll
+        padding-bottom: 1rem
         position: relative
+
 
         & > .invite-container
             position: absolute
             z-index: 1
-            
+        

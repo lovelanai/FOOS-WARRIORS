@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useUser } from "@/context/UserContext";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
 import { uuidv4 } from "@firebase/util";
@@ -13,7 +12,6 @@ export const requestForToken = async () => {
   })
     .then((currentToken) => {
       if (currentToken) {
-        console.log("current token for client:", currentToken);
         const sendTokenToServer = doc(db, `users/${loggedInUserId}`);
 
         updateDoc(sendTokenToServer, {
@@ -24,14 +22,14 @@ export const requestForToken = async () => {
       }
     })
     .catch((error) => {
-      console.log("Error accoured while recieving token", error);
+      // console.log("Error accoured while recieving token", error);
     });
 };
 
 /* export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("payload", payload);
+      console.log("payload", payload.notification);
       resolve(payload);
     });
   }); */

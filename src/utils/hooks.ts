@@ -1,10 +1,18 @@
+import { MessageProps } from "./props";
 import { useUser } from "@/context/UserContext";
-import { getDocs, collection, doc, getDoc } from "firebase/firestore";
-import { useState, useEffect } from "react";
 import { db } from "@/firebase/firebase.config.js";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 export const useFetch = (api: string, id?: string, userId?: string) => {
-  const { fetchUser } = useUser();
+  const { update } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -15,7 +23,6 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           .then((res) => {
             setResponse(
               res.docs.map((item) => {
-                console.log(item.data());
                 return { ...item.data(), id: item.id };
               }) as any
             );
@@ -31,7 +38,7 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
         getDoc(postById)
           .then((item) => {
             setResponse({ ...item.data(), id: item.id } as any);
-            console.log(item.data());
+            // console.log(item.data());
           })
           .then(() => {
             setIsLoading(false);
@@ -41,16 +48,41 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           });
       }
     }
-  }, [api, id, userId, fetchUser]);
+  }, [api, id, userId, update]);
 
   return { response, isLoading };
 };
 
-interface MessageProps {
-  to: string;
-  body: string;
-  title: string;
-}
+export const fetchWithMatch = (
+  api: string,
+  dbValue: string,
+  clientValue: string
+) => {
+  const { update } = useUser();
+  const [response, setResponse] = useState<[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const q = query(collection(db, api), where(dbValue, "==", clientValue));
+
+  useEffect(() => {
+    getDocs(q)
+      .then((res) => {
+        setResponse(
+          res.docs.map((item) => {
+            return { ...item.data(), id: item.id };
+          }) as any
+        );
+      })
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, [api, clientValue, update]);
+
+  return { response, isLoading };
+};
 
 export const sendNotification = async ({ to, body, title }: MessageProps) => {
   try {
@@ -88,10 +120,3 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
     }
   }
 };
-// use this to send notification. to = currentToken in user from database, body + title = text on notification
-
-// sendNotification({
-//   to: "f7IhuiPrpWx7ev9yo2xBaX:APA91bHEtDxR1KLytreym1rziQ-9CTBZBp7RS7zylV-x4AS-Ok74rBVTtGh4yYbZkcB9DKzlrefC8pCGDZxt4Qpkf8h1QL-8U33Z0gtZVnv6rO9NHF91aLb1_ED-OxeSvGjbmw-iEfZF",
-//   body: "hej",
-//   title: "tjo",
-// });
