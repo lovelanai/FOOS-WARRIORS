@@ -1,47 +1,115 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
+.battleFieldCard
+    display: flex
+    border-radius: .5rem
+    min-height: 30rem
+    justify-content: space-around
+    text-align: center
+    width: 90%
+    transition: 0.2s ease-in-out
+    margin-top: 1rem
+    padding: 1rem
+    
+    & > .team
+        height: 100%
+        width: 45%
+        display: flex
+        flex-direction: column
+        gap: 1rem
+        
+        & > .player
+            background-position: center
+            background-size: cover
+            background-repeat: no-repeat
+            height: 50%
+            position: relative
+            width: 100%
+            
+            & > .overlay
+                background: Colors.$pink
+                bottom: 0
+                clip-path: polygon(700% 0, 200% 0, 100% 200%, -130% 100%)
+                height: 100%
+                position: absolute
+                right: 0
+                width: 100%
+
+                & > .name
+                    bottom: 0
+                    color:  Colors.$black
+                    font-size: Fonts.$p
+                    margin: 3%
+                    position: absolute
+                    right: 0
+                    text-align: end
+            
+            & > .-red
+                background: Colors.$red
+                transform: scale(-1, 1)
+                
+                & > .name
+                    transform: scale(-1, 1)
+
+    & > .matchContent
+        display: none
+        
+    &:last-child
+        margin-bottom: 1rem
+    
+
+
+    @media screen and ( min-width: 550px)
+        justify-content: space-around
+        min-height: 42vh
+        & > .matchContent
+            bottom: 0
+
+        & > .team
+            width: 42%
+            
+            
+
+    @media screen and ( min-width: 1000px)
+        display: flex
+        min-height: 70vh
+
+        & > .matchContent
+            position: unset
+            align-items: center
+            display: flex
+            flex-direction: column
+            justify-content: center
+            margin: 4rem
+
+        & > .team
+            & > .player
+                & > .overlay
+                    & > .name
+                        bottom: 0
+                        font-size: Fonts.$h2
+                        margin: 3%
+                        position: absolute
+                        right: 0
+                        text-align: end
+
+
+
+
+
 .battleWinnerCard
     display: flex
-    height: 30rem
+    min-height: 35vh
     flex-direction: column
     align-items: center
+    width: 90%
 
-    & > .pinkTeam
+    & > .winners
         display: flex
         height: 100%
         width: 100%
         gap: 1rem
-        & > .player
-            background-position: center
-            background-size: cover
-            height: 100%
-            position: relative
-            width: 100%
-            
-            & > .overlay
-                background: Colors.$pink
-                bottom: 0
-                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
-                height: 100%
-                position: absolute
-                right: 0
-                width: 100%
-
-                & > .name
-                    bottom: 0
-                    color:  Colors.$black
-                    font-size: Fonts.$p
-                    margin: 3%
-                    position: absolute
-                    right: 0
-    
-    & > .pinkTeam-losers
-        display: flex
-        height: 60%
-        width: 60%
-        gap: 1rem
-        opacity: 50%
 
         & > .player
             background-position: center
@@ -51,9 +119,8 @@
             width: 100%
             
             & > .overlay
-                background: Colors.$pink
                 bottom: 0
-                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
+                clip-path: polygon(700% 0, 200% 0, 100% 200%, -130% 100%)
                 height: 100%
                 position: absolute
                 right: 0
@@ -67,66 +134,87 @@
                     position: absolute
                     right: 0
 
-    & > .redTeam
-        display: flex
-        height: 100%
-        width: 100%
-        gap: 1rem
-        & > .player
-            background-position: center
-            background-size: cover
-            height: 100%
-            position: relative
-            width: 100%
-            
-            & > .overlay
-                background: Colors.$red
-                bottom: 0
-                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
-                height: 100%
-                position: absolute
-                right: 0
-                transform: scale(-1, 1)
-                width: 100%
-                
-                & > .name
-                    bottom: 0
-                    color:  Colors.$white
-                    font-size: Fonts.$p
-                    margin: 3%
-                    position: absolute
-                    right: 0
-                    transform: scale(-1, 1)
+            & > .-pink
+                background: Colors.$pink
 
-    & > .redTeam-losers
-        display: flex
-        height: 60%
-        width: 60%
-        gap: 1rem
-        opacity: 50%
-        & > .player
-            background-position: center
-            background-size: cover
-            height: 100%
-            position: relative
-            width: 100%
-            
-            & > .overlay
+            & > .-red
                 background: Colors.$red
-                bottom: 0
-                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
-                height: 100%
-                position: absolute
-                right: 0
                 transform: scale(-1, 1)
-                width: 100%
-                
+
                 & > .name
-                    bottom: 0
-                    color:  Colors.$white
-                    font-size: Fonts.$p
-                    margin: 3%
-                    position: absolute
-                    right: 0
                     transform: scale(-1, 1)
     
+
+    & > .losers
+        display: flex
+        height: 70%
+        width: 70%
+        gap: 1rem
+        opacity: 50%
+
+        & > .player
+            background-position: center
+            background-size: cover
+            height: 100%
+            position: relative
+            width: 100%
+            
+            & > .overlay
+                bottom: 0
+                clip-path: polygon(95rem 0, 160rem 0, 160rem 100%, -130% 100%)
+                height: 100%
+                position: absolute
+                right: 0
+                width: 100%
+                
+                & > .name
+                    bottom: 0
+                    color:  Colors.$white
+                    font-size: 12px
+                    margin: 3%
+                    position: absolute
+                    right: 0
+            
+            & > .-pink
+                background: Colors.$pink
+
+            & > .-red
+                background: Colors.$red
+                transform: scale(-1, 1)
+
+                & > .name
+                    transform: scale(-1, 1)
+
+
+    
+    @media screen and ( min-width: 550px)
+        width: 75%
+        min-height: 45vh
+
+        & > .winners
+            & > .player
+                & > .overlay
+                    & > .name
+                        font-size: Fonts.$h3
+        & > .losers
+            & > .player
+                & > .overlay
+                    & > .name
+                        font-size: Fonts.$p
+
+    @media screen and ( min-width: 1000px)
+        width: 50%
+        & > .winners
+            & > .player
+                & > .overlay
+                    & > .name
+                        font-size: Fonts.$h2
+        & > .losers
+            & > .player
+                & > .overlay
+                    & > .name
+                        font-size: Fonts.$h4
+
+
+    
+        

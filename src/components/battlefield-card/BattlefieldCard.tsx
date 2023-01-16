@@ -9,98 +9,122 @@ export interface TeamProps {
   playerFour: mockedUser;
   score?: string;
   winners?: string;
+  content?: JSX.Element;
 }
 
-export const BattlefieldWinnerCard = ({
+export const BattlefieldCard = ({
   playerOne,
   playerTwo,
   playerThree,
   playerFour,
-  winners,
+  content,
 }: TeamProps) => {
-  console.log(winners);
   return (
-    <>
-      {winners === "pinkTeam" ? (
-        <div className="battleWinnerCard">
-          <div className="pinkTeam">
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerOne.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerOne.name}</h4>
-              </div>
-            </div>
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerTwo.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerTwo.name}</h4>
-              </div>
-            </div>
+    <div className="battleFieldCard">
+      <div className="team">
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${playerOne.img})` }}
+        >
+          <div className="overlay">
+            <h4 className="name">{playerOne.name}</h4>
           </div>
+        </div>
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${playerTwo.img})` }}
+        >
+          <div className="overlay">
+            <h4 className="name">{playerTwo.name}</h4>
+          </div>
+        </div>
+      </div>
+      <div className="matchContent">{content}</div>
+      <div className="team">
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${playerThree.img})` }}
+        >
+          <div className="overlay -red">
+            <h4 className="name">{playerThree.name}</h4>
+          </div>
+        </div>
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${playerFour.img})` }}
+        >
+          <div className="overlay -red">
+            <h4 className="name">{playerFour.name}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-          <div className="redTeam-losers">
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerThree.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerThree.name}</h4>
-              </div>
-            </div>
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerFour.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerFour.name}</h4>
-              </div>
-            </div>
+export interface TestProps {
+  winners: WinnerProps;
+  losers: LoserProps;
+}
+
+export interface WinnerProps {
+  player1: mockedUser;
+  player2: mockedUser;
+  color: string;
+}
+export interface LoserProps {
+  player1: mockedUser;
+  player2: mockedUser;
+  color: string;
+}
+
+export const BattlefieldWinnerCard = ({ winners, losers }: TestProps) => {
+  return (
+    <div className="battleWinnerCard">
+      <div className="winners">
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${winners.player1.img})` }}
+        >
+          <div
+            className={`overlay ${winners.color === "pink" ? "-pink" : "-red"}`}
+          >
+            <h4 className="name">{winners.player1.name}</h4>
           </div>
         </div>
-      ) : (
-        <div className="battleWinnerCard">
-          <div className="redTeam">
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerThree.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerThree.name}</h4>
-              </div>
-            </div>
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerFour.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerFour.name}</h4>
-              </div>
-            </div>
-          </div>
-          <div className="pinkTeam-losers">
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerOne.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerOne.name}</h4>
-              </div>
-            </div>
-            <div
-              className="player"
-              style={{ backgroundImage: `url(${playerTwo.img})` }}
-            >
-              <div className="overlay">
-                <h4 className="name">{playerTwo.name}</h4>
-              </div>
-            </div>
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${winners.player2.img})` }}
+        >
+          <div
+            className={`overlay ${winners.color === "pink" ? "-pink" : "-red"}`}
+          >
+            <h4 className="name">{winners.player2.name}</h4>
           </div>
         </div>
-      )}
-    </>
+      </div>
+      <div className="losers">
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${losers.player1.img})` }}
+        >
+          <div
+            className={`overlay ${winners.color === "pink" ? "-red" : "-pink"}`}
+          >
+            <h4 className="name">{losers.player1.name}</h4>
+          </div>
+        </div>
+        <div
+          className="player"
+          style={{ backgroundImage: `url(${losers.player2.img})` }}
+        >
+          <div
+            className={`overlay ${winners.color === "pink" ? "-red" : "-pink"}`}
+          >
+            <h4 className="name">{losers.player2.name}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -2,16 +2,18 @@
 @use "@/styles/Colors.scss"
     
 .primaryButton
-    width: 33.0rem
-    height: 6.0rem
-    border-radius: 10.0rem
-    display: flex
     align-items: center
-    justify-content: center
-    cursor: pointer
     background: Colors.$black
+    border: none
+    border-radius: 10.0rem
     color: Colors.$white
+    cursor: pointer
+    display: flex
+    font-family: Fonts.$regular
+    height: 6.0rem
+    justify-content: center
     position: relative
+    width: 33.0rem
     & > .title
         font-size: Fonts.$h4
 
@@ -21,11 +23,13 @@
         position: absolute
         right: 10%
         top: calc(50% - 1.5rem)
-
+:disabled
+    background: gray
 .-secondary
         background: Colors.$white
         color: Colors.$black
-
+:disabled
+    background: gray
 
 
 .profileButton

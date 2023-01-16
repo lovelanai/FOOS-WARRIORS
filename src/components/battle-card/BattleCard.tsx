@@ -8,8 +8,8 @@ export interface TeamProps {
   playerTwo: mockedUser;
   playerThree: mockedUser;
   playerFour: mockedUser;
-  pinkGoals: string;
-  redGoals: string;
+  pinkGoals?: string;
+  redGoals?: string;
   winners?: boolean;
   finished?: boolean;
 }
@@ -53,10 +53,9 @@ export const BattleCard = ({
         </div>
       </div>
       <div className="matchContent">
-        {winners ? <ICON.RedCrown /> : <ICON.PinkCrown />}
-
         {finished ? (
           <>
+            {winners ? <ICON.RedCrown /> : <ICON.PinkCrown />}
             <div className="info">
               <h3 className="title">Winners</h3>
               {winners ? (

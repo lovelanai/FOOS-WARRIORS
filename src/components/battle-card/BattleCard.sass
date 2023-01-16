@@ -6,7 +6,6 @@
     border-radius: .5rem
     min-height: 30rem
     justify-content: space-between
-    // margin-bottom: 1rem
     text-align: center
     width: 90%
     transition: 0.2s ease-in-out
@@ -51,6 +50,9 @@
             
             & > .-red
                 background: Colors.$red
+                transform: scale(-1, 1)
+                & > .name
+                    transform: scale(-1, 1)
 
 
     & > .matchContent
@@ -120,6 +122,8 @@
 
                 & > .-red
                     background: Colors.$red
+
+
 
 
 

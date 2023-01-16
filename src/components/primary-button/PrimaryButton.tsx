@@ -6,6 +6,7 @@ interface ButtonProps {
   secondary?: boolean;
   profileButton?: boolean;
   icon?: JSX.Element;
+  disabled?: boolean;
 }
 
 export const PrimaryButton = ({
@@ -14,10 +15,12 @@ export const PrimaryButton = ({
   secondary = false,
   profileButton = false,
   icon,
+  disabled,
 }: ButtonProps) => {
   return (
-    <div
+    <button
       onClick={onClick}
+      disabled={disabled}
       className={
         !profileButton
           ? `primaryButton ${secondary ? "-secondary" : ""}`
@@ -26,6 +29,6 @@ export const PrimaryButton = ({
     >
       <span className="title">{title}</span>
       <div className="icon">{icon}</div>
-    </div>
+    </button>
   );
 };
