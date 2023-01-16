@@ -20,7 +20,7 @@ export const MatchHistory = () => {
             </div>
           }
           title="Todays Battles"
-          asideElement={<HeaderNotification/>}
+          asideElement={<HeaderNotification />}
         />
         <div className="banner">
           <Logo.Swords />
@@ -32,16 +32,19 @@ export const MatchHistory = () => {
           playerTwo={mockedUsers[1]}
           playerThree={mockedUsers[2]}
           playerFour={mockedUsers[3]}
-          winners="Pink Team"
-          score="7-3"
+          pinkGoals="10"
+          redGoals="5"
+          finished
         />
         <BattleCard
-          playerOne={mockedUsers[2]}
-          playerTwo={mockedUsers[4]}
-          playerThree={mockedUsers[5]}
-          playerFour={mockedUsers[2]}
-          winners="Red Team"
-          score="0-10"
+          playerOne={mockedUsers[0]}
+          playerTwo={mockedUsers[1]}
+          playerThree={mockedUsers[2]}
+          playerFour={mockedUsers[3]}
+          pinkGoals="3"
+          redGoals="10"
+          winners
+          finished
         />
       </div>
     </div>

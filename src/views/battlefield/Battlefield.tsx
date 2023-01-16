@@ -1,13 +1,11 @@
-import Logo from "@/assets/logos/logos";
-import "./Battlefield.sass";
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
-import {
-  BattlefieldCard,
-  BattlefieldWinnerCard,
-} from "@/components/battlefield-card/BattlefieldCard";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
-import { useState } from "react";
 import ICON from "@/assets/icons/icons";
+import Logo from "@/assets/logos/logos";
+import { BattleCard } from "@/components/battle-card/BattleCard";
+import { BattlefieldWinnerCard } from "@/components/battlefield-card/BattlefieldCard";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { mockedUsers } from "@/mockedUsers/mockedUsers";
+import { useState } from "react";
+import "./Battlefield.sass";
 
 export const Battlefield = () => {
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -51,7 +49,7 @@ export const Battlefield = () => {
 
       {!results ? (
         <div className="card-view">
-          <BattlefieldCard
+          <BattleCard
             playerOne={mockedUsers[1]}
             playerTwo={mockedUsers[4]}
             playerThree={mockedUsers[5]}
