@@ -1,36 +1,112 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
-.container
-    height: 42rem   
-    overflow: scroll 
-.new-card
-    display: flex
+.notificationCard
     align-items: center
-    justify-content: space-between
-    padding: 1rem 3rem
-    background: Colors.$gradient
-    height: 8rem
-    border-bottom: .5rem solid Colors.$black
-    color: Colors.$black
-    p 
-        width: 24rem
-    .icon
-        width: 2rem
-        height: 2rem
-        margin: .5rem
-.old-card
     display: flex
-    align-items: center
-    justify-content: space-between
-    padding: 1rem 3rem
-    background: Colors.$gray
-    height: 8rem
-    border-bottom: .5rem solid Colors.$black
-    color: Colors.$black
-    p 
-        width: 24rem
-    .icon
-        width: 2rem
-        height: 2rem
-        margin: .5rem
+    flex-direction: column
+    gap: 1rem
+    padding-top: 1rem
+    & > .invite
+        align-items: center
+        background: Colors.$white
+        border-radius: 1rem
+        color: Colors.$black
+        display: flex
+        height: 10rem
+        justify-content: space-between
+        min-width: 35rem
+        position: relative
+
+        & > .img
+            align-items: center
+            display: flex
+            height: 100%
+            opacity: 50%
+            margin-left: 1rem
+
+        & > .info
+            display: flex
+            align-items: center
+            height: 100%
+            color: Colors.$black
+            & > .title
+                position: absolute
+                top: 1rem
+                left: 1rem
+                margin: 0
+            & > .text
+                margin: 0
+                position: absolute
+                left: 1rem
+                width: 25rem
+            & > .time
+                position: absolute
+                right: 1rem
+                top: 1rem
+                margin: 0
+                font-size: 1.3rem
+
+        & > .buttons
+            display: flex
+            height: 100%
+            align-items: flex-end
+            gap: 1rem
+            
+            & > .icon
+                width: 2rem
+                height: 2rem
+                margin: 1rem 0
+                margin-right: 1rem
+
+    
+
+
+    & > .notification
+        align-items: center
+        background: Colors.$white
+        border-radius: 1rem
+        color: Colors.$black
+        display: flex
+        height: 10rem
+        justify-content: space-between
+        min-width: 35rem
+        position: relative
+
+        
+            
+
+        & > .info
+            display: flex
+            align-items: center
+            height: 100%
+            color: Colors.$black
+            & > .title
+                position: absolute
+                top: 1rem
+                left: 1rem
+                margin: 0
+            & > .text
+                margin: 0
+                position: absolute
+                left: 1rem
+                width: 25rem
+            & > .time
+                position: absolute
+                right: 1rem
+                top: 1rem
+                margin: 0
+                font-size: 1.3rem
+
+        & > .buttons
+            display: flex
+            height: 100%
+            align-items: flex-end
+            gap: 1rem
+
+        
+            & > .icon
+                width: 2rem
+                height: 2rem
+                margin: 1rem 0
+                margin-right: 1rem

@@ -2,14 +2,13 @@
 @use "@/styles/Colors.scss"
 .matchHistory
     & > .nav
-        display: flex
         background: Colors.$black
-        flex-direction: column
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
-        position: fixed
-        z-index: 10
-        width: 100%
+        display: flex
+        flex-direction: column
         top: 0
+        width: 100%
+        z-index: 10
         
         & > .banner
             display: flex
@@ -17,6 +16,7 @@
             padding: 2rem 0
 
     & > .battles
-        margin-top: 25vh
-        height: 76vh
+        height: 77vh
+        margin-top: .5rem
         overflow-y: scroll
+        

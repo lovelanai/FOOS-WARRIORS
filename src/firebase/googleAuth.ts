@@ -38,6 +38,7 @@ export const signInWithGoogle = () =>
                   img: user.photoURL,
                   description: "",
                   currentToken: currentToken,
+                  id: user.uid,
                 });
               }
             })

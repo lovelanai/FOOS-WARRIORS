@@ -2,11 +2,11 @@ import "./Header.sass";
 
 interface HeaderProps {
   element: JSX.Element;
-  asideElement?: JSX.Element 
+  asideElement?: JSX.Element;
   title: string;
 }
 
-export const Header = ({ element, asideElement, title}: HeaderProps) => {
+export const Header = ({ element, asideElement, title }: HeaderProps) => {
   return (
     <div className="header">
       <div className="icon">{element}</div>

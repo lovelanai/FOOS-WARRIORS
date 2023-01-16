@@ -13,3 +13,10 @@ export interface NotificationProps {
   time: string;
   id: string;
 }
+
+export interface MessageProps {
+  to: string;
+  body: string;
+  title: string;
+  recieverId: string;
+}

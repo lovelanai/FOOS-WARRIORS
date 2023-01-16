@@ -15,7 +15,12 @@ import { ReactComponent as Gmail } from "./loginProviders/gmail.svg";
 import { ReactComponent as Trash } from "./essentials/trash.svg";
 import { ReactComponent as Check } from "./essentials/check.svg";
 import { ReactComponent as Decline } from "./essentials/decline.svg";
-
+import { ReactComponent as Bell } from "./essentials/bell.svg";
+import { ReactComponent as NavigationCrown } from "./navigation/crown.svg";
+import { ReactComponent as NavigationHead } from "./navigation/head.svg";
+import { ReactComponent as NavigationFind } from "./navigation/find.svg";
+import { ReactComponent as NavigationSwords } from "./navigation/swords.svg";
+import { ReactComponent as NavigationCalendar } from "./navigation/calendar.svg";
 
 const ICON = {
   Arrow,
@@ -34,7 +39,13 @@ const ICON = {
   Gmail,
   Trash,
   Check,
-  Decline
+  Decline,
+  Bell,
+  NavigationCrown,
+  NavigationHead,
+  NavigationFind,
+  NavigationSwords,
+  NavigationCalendar,
 };
 
 export default ICON;

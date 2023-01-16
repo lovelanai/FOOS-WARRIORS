@@ -1,17 +1,18 @@
+import { MessageProps } from "./props";
 import { useUser } from "@/context/UserContext";
+import { db } from "@/firebase/firebase.config.js";
 import {
-  getDocs,
   collection,
   doc,
   getDoc,
+  getDocs,
   query,
   where,
 } from "firebase/firestore";
-import { useState, useEffect } from "react";
-import { db } from "@/firebase/firebase.config.js";
+import { useEffect, useState } from "react";
 
 export const useFetch = (api: string, id?: string, userId?: string) => {
-  const { fetchUser } = useUser();
+  const { update } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,7 +48,7 @@ export const useFetch = (api: string, id?: string, userId?: string) => {
           });
       }
     }
-  }, [api, id, userId, fetchUser]);
+  }, [api, id, userId, update]);
 
   return { response, isLoading };
 };
@@ -57,6 +58,7 @@ export const fetchWithMatch = (
   dbValue: string,
   clientValue: string
 ) => {
+  const { update } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -77,16 +79,10 @@ export const fetchWithMatch = (
       .catch((error) => {
         console.log("error", error);
       });
-  }, [api]);
+  }, [api, clientValue, update]);
 
   return { response, isLoading };
 };
-
-interface MessageProps {
-  to: string;
-  body: string;
-  title: string;
-}
 
 export const sendNotification = async ({ to, body, title }: MessageProps) => {
   try {
@@ -124,10 +120,3 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
     }
   }
 };
-// use this to send notification. to = currentToken in user from database, body + title = text on notification
-
-// sendNotification({
-//   to: "f7IhuiPrpWx7ev9yo2xBaX:APA91bHEtDxR1KLytreym1rziQ-9CTBZBp7RS7zylV-x4AS-Ok74rBVTtGh4yYbZkcB9DKzlrefC8pCGDZxt4Qpkf8h1QL-8U33Z0gtZVnv6rO9NHF91aLb1_ED-OxeSvGjbmw-iEfZF",
-//   body: "hej",
-//   title: "tjo",
-// });

@@ -17,8 +17,7 @@ import { uuidv4 } from "@firebase/util";
 
 export const Profile = () => {
   const navigate = useNavigate();
-
-  const { loggedInUserId, fetchUser, setFetchUser } = useUser();
+  const { loggedInUserId, update, setUpdate } = useUser();
 
   const params = useParams();
   const id = params.id;
@@ -75,7 +74,7 @@ export const Profile = () => {
         description: description,
       });
     }
-    setFetchUser(!fetchUser);
+    setUpdate(!update);
     setIsEditMode(false);
   };
 
