@@ -247,7 +247,7 @@ export const Battlefield = () => {
                 </div>
                 <PrimaryButton
                   secondary
-                  disabled={!winnerTeam}
+                  disabled={true}
                   title="Finish Game"
                   onClick={handleSetResult}
                 />

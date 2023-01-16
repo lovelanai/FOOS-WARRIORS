@@ -15,7 +15,7 @@ export const PrimaryButton = ({
   secondary = false,
   profileButton = false,
   icon,
-  disabled,
+  disabled = false,
 }: ButtonProps) => {
   return (
     <button

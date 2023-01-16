@@ -2,6 +2,7 @@
 @use "@/styles/Colors.scss"
     
 .primaryButton
+    transition: 0.8s ease
     align-items: center
     background: Colors.$black
     border: none
@@ -24,15 +25,17 @@
         right: 10%
         top: calc(50% - 1.5rem)
 :disabled
-    background: gray
+    opacity: 20%
 .-secondary
         background: Colors.$white
         color: Colors.$black
 :disabled
-    background: gray
+    opacity: 20%
 
 
 .profileButton
+    border: none
+    font-family: Fonts.$regular
     width: 12.0rem
     height: 2.0rem
     border-radius: 10.0rem
@@ -44,5 +47,9 @@
     color: Colors.$black
     & > .title
         font-size: Fonts.$p
+:disabled
+    opacity: 20%
+
+
 
 
