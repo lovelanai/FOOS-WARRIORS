@@ -2,22 +2,22 @@
 @use "@/styles/Colors.scss"
 
 .battleFieldCard
-    display: flex
     border-radius: .5rem
-    min-height: 30rem
+    display: flex
     justify-content: space-around
-    text-align: center
-    width: 90%
-    transition: 0.2s ease-in-out
     margin-top: 1rem
+    min-height: 30rem
     padding: 1rem
+    text-align: center
+    transition: 0.2s ease-in-out
+    width: 90%
     
     & > .team
-        height: 100%
-        width: 45%
         display: flex
         flex-direction: column
         gap: 1rem
+        height: 100%
+        width: 45%
         
         & > .player
             background-position: center
@@ -76,12 +76,12 @@
         min-height: 85vh
 
         & > .matchContent
-            position: unset
             align-items: center
             display: flex
             flex-direction: column
             justify-content: center
             margin: 4rem
+            position: unset
 
         & > .team
             & > .player
@@ -99,17 +99,17 @@
 
 
 .battleWinnerCard
-    display: flex
-    min-height: 35vh
-    flex-direction: column
     align-items: center
+    display: flex
+    flex-direction: column
+    min-height: 35vh
     width: 90%
 
     & > .winners
         display: flex
+        gap: 1rem
         height: 100%
         width: 100%
-        gap: 1rem
 
         & > .player
             background-position: center
@@ -146,10 +146,10 @@
 
     & > .losers
         display: flex
-        height: 70%
-        width: 70%
         gap: 1rem
+        height: 70%
         opacity: 50%
+        width: 70%
 
         & > .player
             background-position: center
@@ -187,8 +187,8 @@
 
     
     @media screen and ( min-width: 550px)
-        width: 75%
         min-height: 40vh
+        width: 75%
   
 
         & > .winners

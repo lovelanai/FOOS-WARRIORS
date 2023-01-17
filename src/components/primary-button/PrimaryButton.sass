@@ -2,7 +2,6 @@
 @use "@/styles/Colors.scss"
     
 .primaryButton
-    transition: 0.8s ease
     align-items: center
     background: Colors.$black
     border: none
@@ -14,16 +13,17 @@
     height: 6.0rem
     justify-content: center
     position: relative
+    transition: 0.8s ease
     width: 33.0rem
     & > .title
         font-size: Fonts.$h4
 
     & > .icon
         height: 3rem
-        width: 3rem
         position: absolute
         right: 10%
         top: calc(50% - 1.5rem)
+        width: 3rem
 
 .primaryButton:disabled
     opacity: 20%
@@ -31,23 +31,24 @@
 .-secondary
         background: Colors.$white
         color: Colors.$black
-        
+
 .-secondary:disabled
     opacity: 20%
 
 
 .profileButton
-    border: none
-    font-family: Fonts.$regular
-    width: 12.0rem
-    height: 2.0rem
-    border-radius: 10.0rem
-    display: flex
     align-items: center
-    justify-content: center
-    cursor: pointer
+    border-radius: 10.0rem
+    border: none
     background: Colors.$white
     color: Colors.$black
+    cursor: pointer
+    display: flex
+    font-family: Fonts.$regular
+    height: 2.0rem
+    justify-content: center
+    width: 12.0rem
+    
     & > .title
         font-size: Fonts.$p
 
