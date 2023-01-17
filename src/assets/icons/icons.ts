@@ -22,8 +22,8 @@ import { ReactComponent as NavigationHead } from "./navigation/head.svg";
 import { ReactComponent as NavigationFind } from "./navigation/find.svg";
 import { ReactComponent as NavigationSwords } from "./navigation/swords.svg";
 import { ReactComponent as NavigationCalendar } from "./navigation/calendar.svg";
-import { ReactComponent as PinkCrown } from "./battleCard/PinkCrown.svg";
-import { ReactComponent as RedCrown } from "./battleCard/RedCrown.svg";
+import { ReactComponent as PinkCrown } from "./battleCard/pinkCrown.svg";
+import { ReactComponent as RedCrown } from "./battleCard/redCrown.svg";
 
 const ICON = {
   Arrow,
