@@ -21,8 +21,8 @@ export const PlayerCard = ({ img, title, profileLink, inviteOnClick, id }: playe
 
   const {isInviteView, invitedPlayerId} = useContext(UserContext)
 
-console.log("ID: ", invitedPlayerId)
-console.log("KEY: ", id)
+/* console.log("ID: ", invitedPlayerId)
+console.log("KEY: ", id) */
 
   return (
     <div className="playerCard">

@@ -7,6 +7,17 @@ export interface UserProps {
   currentToken: string;
 }
 
+export interface GameProps {
+
+  gameName: string,
+  id: string
+  players: {
+    id: string,
+    name: string,
+  }
+}
+
+
 export interface NotificationProps {
   title: string;
   text: string;
