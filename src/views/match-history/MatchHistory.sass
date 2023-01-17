@@ -1,6 +1,9 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 .matchHistory
+    height: 100vh
+    background: Colors.$white
+    
     & > .nav
         background: Colors.$black
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
@@ -16,7 +19,10 @@
             padding: 2rem 0
 
     & > .battles
-        height: 77vh
-        margin-top: .5rem
+        display: flex
+        flex-direction: column
+        align-items: center
+        height: calc( 100vh - 19rem )
         overflow-y: scroll
+        
         
