@@ -73,7 +73,9 @@ export const Battlefield = () => {
               </div>
             }
           />
-          <Logo.PlayerOnField />
+          {/* <div className="banner">
+            <Logo.PlayerOnField className="icon" />
+          </div> */}
         </div>
       ) : (
         <div className="winner">
@@ -101,7 +103,7 @@ export const Battlefield = () => {
 
       <div
         className="card-view"
-        style={results ? { height: "calc(100vh - 9.3rem)" } : {}}
+        // style={results ? { height: "calc(100vh - 9.3rem)" } : {}}
       >
         {!results ? (
           <BattlefieldCard
