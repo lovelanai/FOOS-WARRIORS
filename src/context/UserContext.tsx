@@ -15,10 +15,16 @@ interface UserContextValue {
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   update: boolean;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-  isInviteView: boolean,
+  isInviteView: boolean;
   setIsInviteView: React.Dispatch<React.SetStateAction<boolean>>;
-  invitedPlayerId: string,
+  invitedPlayerId: string;
   setInvitedPlayerId: React.Dispatch<React.SetStateAction<string>>;
+  pending: boolean;
+  setPending: React.Dispatch<React.SetStateAction<boolean>>;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  finished: boolean;
+  setFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -31,7 +37,13 @@ export const UserContext = createContext<UserContextValue>({
   isInviteView: false,
   setIsInviteView: () => undefined,
   invitedPlayerId: "", 
-  setInvitedPlayerId: () => undefined
+  setInvitedPlayerId: () => undefined,
+  pending: false,
+  setPending: () => undefined,
+  active: false,
+  setActive: () => undefined,
+  finished: false,
+  setFinished: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -39,6 +51,10 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [update, setUpdate] = useState(false);
   const [isInviteView, setIsInviteView] = useState<boolean>(false)
   const [invitedPlayerId, setInvitedPlayerId] = useState<string>("")
+  const [pending, setPending] = useState<boolean>(false)
+  const [active, setActive] = useState<boolean>(false)
+  const [finished, setFinished] = useState<boolean>(false)
+
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -74,7 +90,13 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         isInviteView,
         setIsInviteView,
         invitedPlayerId, 
-        setInvitedPlayerId
+        setInvitedPlayerId,
+        pending, 
+        setPending,
+        active, 
+        setActive,
+        finished, 
+        setFinished
       }}
     >
       {children}

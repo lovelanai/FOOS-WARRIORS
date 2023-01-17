@@ -15,8 +15,11 @@
         padding-left: 2rem
         & > h3
             font-size: Fonts.$h3
+        & > .title
+            font-family: Fonts.$bold
         & > p
             margin: 0.2rem
+
     & > .button
         padding-right: 2rem
         & > button
@@ -27,16 +30,18 @@
             width: 8.5rem
             height: 2.5rem
 .my-game-card-players
-    background: Colors.$gradient
+    background: linear-gradient(180deg, Colors.$pink 50%, Colors.$red 50%)
     display: flex
     flex-direction: column
     width: 100vw
     height: 20rem
     color: Colors.$black
+    position: relative
+
     & > .playerCard
         display: flex
         height: 6rem
-        
+        background: none
         width: 100%            
         & > .img
             height: 100%
@@ -46,11 +51,85 @@
             background-position: center
             clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
         & > .aside
+            display: flex
+            flex-direction: row
+            align-items: center
+            justify-content: flex-start
+            width: 70%
             & > .title
                 font-size: Fonts.$h3
                 margin: 0
+
+.team-n-results
+    transform: translate(-10%, -105%) 
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    position: absolute 
+    width: 8rem   
+    height: 18rem  
+    color: Colors.$black
+    right: 0
+    & > h3 
+        display: flex
+        flex-direction: column
+        align-items: center 
+        text-align: center   
+    & > button
+        border: none
+        border-radius: 10rem
+        background-color: Colors.$black
+        color: Colors.$white
+        width: 8.5rem
+        height: 2.5rem
+
+.my-game-card-finished
+    background: linear-gradient(180deg, Colors.$pink 50%, Colors.$red 50%)
+    display: flex
+    flex-direction: column
+    width: 100vw
+    height: 20rem
+    color: Colors.$black
+    position: relative
    
-       
+    & > .playerCard
+        background: none
+        display: flex
+        height: 6rem
+        width: 100%            
+        & > .img
+            height: 100%
+            width: 10vh
+            background-color: red
+            background-size: cover
+            background-position: center
+            clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
+        & > .aside
+            display: flex
+            flex-direction: row
+            align-items: center
+            justify-content: flex-start
+            width: 70%
+            & > .title
+                font-size: Fonts.$h3
+                margin: 0  
+.team-n-results
+    transform: translate(-10%, -105%) 
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    position: absolute 
+    width: 8rem   
+    height: 18rem  
+    font-size: Fonts.$h3
+    color: Colors.$black
+    right: 0
+    & > h2 
+        display: flex
+        flex-direction: column
+        align-items: center
 
 .game-card
     background: Colors.$gray

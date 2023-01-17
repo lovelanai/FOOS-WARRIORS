@@ -30,6 +30,8 @@ export const MyGames = () => {
   const { response: runningGames } = useFetch("games", loggedInUserId);
   const games = { ...(runningGames as unknown as GameProps) };
 
+  const {finished, setFinished, pending, setPending, active, setActive} = useContext(UserContext)
+
   
   const [newGameMode, setNewGameMode] = useState(false);
   const [gameName, setGameName] = useState("");
@@ -37,7 +39,7 @@ export const MyGames = () => {
   const [inputValue, setInputValue] = useState("");
   const [invitedPlayers, setInvitedPlayers] = useState([] as any);
 
-  const handleInviteList = (name: string, id: string, token: string) => {
+  const handleInviteList = (name: string, id: string, token: string, img: string) => {
       sendNotification({
       to: token,
       title: "INCOMING BATTLE",
@@ -54,7 +56,7 @@ export const MyGames = () => {
         id: id,
         time: `${day} ${time}`,
       }).finally(() => {
-        let newPlayer = { name, id };
+        let newPlayer = { name, id, img };
         invitedPlayers.push(newPlayer);
         setInvitedPlayerId(id);
       }).catch((err) => {
@@ -74,6 +76,7 @@ export const MyGames = () => {
     const host = {
       name: user.name,
       id: user.id,
+      img: user.img
     };
     invitedPlayers.push(host);
     setDoc(doc(db, `games/${loggedInUserId}`), {
@@ -89,6 +92,24 @@ export const MyGames = () => {
 
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
 
+  const handleViews = (value: string) => {
+   /*  if (value === 'pending') {
+        setPending(true)
+        setActive(false)
+        setFinished(false)
+    }  */
+    if (value === 'active') {
+        setActive(true)
+        //setPending(false)
+        setFinished(false)
+    } else if (value === 'finished') {
+        setFinished(true)
+        //setPending(false)
+        setActive(false)
+    }
+  }
+
+
   return (
     <div className="my-games">
       {!newGameMode ? (
@@ -100,9 +121,9 @@ export const MyGames = () => {
           <div className="games-menu">
             <h3>Games I host</h3>
             <div className="links">
-              <p>Pending</p>
-              <p>Active</p>
-              <p>Finished</p>
+              {/* <button className={`${pending ? "-underline" : ""}`} onClick={ () => handleViews('pending')}>Pending</button> */}
+              <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
+              <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
             </div>
           </div>
           <div className="my-games-container">
@@ -111,13 +132,16 @@ export const MyGames = () => {
               gameName={games.gameName}
             /> 
           </div>
+          <br></br>
+          <br></br>
+          <br></br>
           <div className="games-menu">
             <h3>Games I'm in</h3>
-            <div className="links">
-              <p>Pending</p>
-              <p>Active</p>
-              <p>Finished</p>
-            </div>
+           {/*  <div className="links">
+            <button className={`${pending ? "-underline" : ""}`} onClick={ () => handleViews('pending')}>Pending</button>
+              <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
+              <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
+            </div> */}
           </div>
           <div className="my-games-container">
             <GamesImInCard />
@@ -199,7 +223,8 @@ export const MyGames = () => {
                           handleInviteList(
                             user.name,
                             user.id,
-                            user.currentToken
+                            user.currentToken,
+                            user.img
                           )
                         }
                       />

@@ -14,6 +14,7 @@ export interface GameProps {
   players: {
     id: string,
     name: string,
+    img: string
   }
 }
 

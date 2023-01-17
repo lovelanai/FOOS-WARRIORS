@@ -17,6 +17,7 @@ import { ReactComponent as Check } from "./essentials/check.svg";
 import { ReactComponent as Decline } from "./essentials/decline.svg";
 import { ReactComponent as Add } from "./essentials/add.svg";
 import { ReactComponent as Bell } from "./essentials/bell.svg";
+import { ReactComponent as CrownBlack } from "./essentials/crownBlack.svg";
 import { ReactComponent as NavigationCrown } from "./navigation/crown.svg";
 import { ReactComponent as NavigationHead } from "./navigation/head.svg";
 import { ReactComponent as NavigationFind } from "./navigation/find.svg";
@@ -35,6 +36,7 @@ const ICON = {
   Camera,
   Search,
   Crown,
+  CrownBlack,
   Head,
   Microsoft,
   Gmail,
