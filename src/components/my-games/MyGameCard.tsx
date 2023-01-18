@@ -1,51 +1,33 @@
 import { useState } from "react";
 import "./MyGameCard.sass";
-import { mockedUser } from "@/mockedUsers/mockedUsers";
-import { PlayerCard } from "../player-card/PlayerCard";
-import { GameProps } from "@/utils/props";
 import { useContext } from "react";
 import { UserContext } from "@/context/UserContext";
 import ICON from "@/assets/icons/icons";
 import { useNavigate } from "react-router-dom";
-
 export interface TeamProps {
-  // playerOne: mockedUser;
-  // playerTwo: mockedUser;
-  // playerThree: mockedUser;
-  // playerFour: mockedUser;
-  gameName: string,
-  data: [{
-    player: string,
+  playerData: [{
+    name: string,
     id: string,
     img: string
   }]
-}
+  gameName: string
+  }
 
 export const MyGameCard = ({
-  // playerOne,
-  // playerTwo,
-  // playerThree,
-  // playerFour,
-  data,
-  gameName
+  gameName,
+  playerData
 }: TeamProps) => {
   const [teamUpMode, setTeamUpMode] = useState(false);
   const [pinkTeam, setPinkTeam] = useState([{}])
   const [redTeam, setRedTeam] = useState([{}])
   const [isTeamsSet, setIsTeamsSet] = useState(false)
-
-
-  const {pending, active, finished} = useContext(UserContext)
-
- const navigate = useNavigate()
- 
- /* data[Math.floor(Math.random() * data.length)] */
- 
+  const {active, finished} = useContext(UserContext)
+  const navigate = useNavigate()
  
  const randomTeams = () => {
    setTeamUpMode(true)
   setTimeout(() => {
-  const randomArray = data?.sort(() => Math.random() - Math.random()).slice(0,4)
+  const randomArray = playerData.sort(() => Math.random() - Math.random()).slice(0,4)
  const splitArray = Math.ceil(randomArray.length/2)
  const pinkTeam = randomArray.splice(0, splitArray)
  const redTeam = randomArray.splice(-splitArray)
@@ -53,16 +35,11 @@ export const MyGameCard = ({
  setRedTeam(redTeam)
  setIsTeamsSet(true)
  }, 3000)
- //console.log("randomiserad: ", randomArray, "delad på 2: ", splitArray, 'pinkTeam: ', pinkTeam, 'redTeam: ', redTeam)
 }
 
-console.log(pinkTeam, redTeam)
-
-console.log("data", gameName, data)
   return (
     <>
     {active ? (
-
 <>
 {!teamUpMode ? (
   <div className="my-game-card">
@@ -72,7 +49,7 @@ console.log("data", gameName, data)
         Participants:
       </p>
     
-      {data?.map((player: any, key: any) => { 
+      {playerData.map((player, key: any) => { 
         return (
           //IKON: check eller klocka beroende på om personen hunnit accepterat eller ej
           // När alla accepterat kommer knappen med "team-up"
@@ -86,7 +63,7 @@ console.log("data", gameName, data)
   </div>
 ) : teamUpMode && !isTeamsSet ? ( <>
   <div className="my-game-card-players">
-    {data?.map((player: any, key: any) => {
+    {playerData.map((player, key: any) => {
 return(
 <div key={key} className="playerCard">
       <div className="img" style={{
@@ -103,7 +80,7 @@ return(
     </>
 ) : (
   <><div className="my-game-card-players-teamed">
-  {pinkTeam?.map((player: any, key: any) => {
+  {pinkTeam.map((player: any, key: any) => {
 return(
 <div key={key} className="playerCard">
     <div className="img" style={{
@@ -115,7 +92,7 @@ return(
   </div>
     )
   })}
-    {redTeam?.map((player: any, key: any) => {
+    {redTeam.map((player: any, key: any) => {
 return(
 <div key={key} className="playerCard">
     <div className="img" style={{
@@ -138,7 +115,7 @@ return(
 
     ) : finished? ( 
     <><div className="my-game-card-finished">
-    {data?.map((player: any, key: any) => {
+    {playerData.map((player: any, key: any) => {
 return(
 //pink-team inx 0, 1. red-team inx 2, 3. styr bakgrunden. 
 <div key={key} className="playerCard">

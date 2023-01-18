@@ -20,8 +20,11 @@ export const MyGames = () => {
   const { response, isLoading } = useFetch("users");
   const { response: currentUser } = useFetch("users", loggedInUserId);
   const user = { ...(currentUser as unknown as UserProps) };
-  const { response: runningGames } = useFetch("games", loggedInUserId);
-  const games = { ...(runningGames as unknown as GameProps) };
+  const { response: gameResponse } = useFetch("games", loggedInUserId);
+  
+  const gameData = { ...(gameResponse as unknown as GameProps) };
+
+  const gameDataArray = gameResponse as unknown as GameProps
 
   const {finished, setFinished, active, setActive} = useContext(UserContext)
 
@@ -112,8 +115,8 @@ return (
           </div>
           <div className="my-games-container">
              <MyGameCard
-              data={runningGames.players}
-              gameName={games.gameName}
+              playerData={gameDataArray.players}
+              gameName={gameData.gameName}
             /> 
           </div>
           <br></br>
