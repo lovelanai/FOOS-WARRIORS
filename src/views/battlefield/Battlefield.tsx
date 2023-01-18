@@ -11,15 +11,16 @@ import { Header } from "@/components/header/Header";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Battlefield.sass";
 
 export const Battlefield = () => {
   const navigate = useNavigate();
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   const [winnerTeam, setWinnerTeam] = useState("");
   const [results, setResults] = useState(false);
+  const location = useLocation()
 
   const [winners, setWinners] = useState<WinnerProps>();
   const [losers, setLosers] = useState<LoserProps>();
@@ -34,14 +35,14 @@ export const Battlefield = () => {
   };
 
   const pinkTeam = {
-    player1: mockedUsers[0],
-    player2: mockedUsers[1],
+    player1: location.state.pinkTeam[0],
+    player2: location.state.pinkTeam[1],
     color: "pink",
   };
 
   const redTeam = {
-    player1: mockedUsers[2],
-    player2: mockedUsers[3],
+    player1: location.state.redTeam[0],
+    player2: location.state.redTeam[1],
     color: "red",
   };
 

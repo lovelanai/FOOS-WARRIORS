@@ -15,6 +15,16 @@ interface UserContextValue {
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   update: boolean;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  isInviteView: boolean;
+  setIsInviteView: React.Dispatch<React.SetStateAction<boolean>>;
+  invitedPlayerId: string;
+  setInvitedPlayerId: React.Dispatch<React.SetStateAction<string>>;
+  pending: boolean;
+  setPending: React.Dispatch<React.SetStateAction<boolean>>;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  finished: boolean;
+  setFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -24,11 +34,27 @@ export const UserContext = createContext<UserContextValue>({
   setViewGreetingPage: () => undefined,
   update: false,
   setUpdate: () => undefined,
+  isInviteView: false,
+  setIsInviteView: () => undefined,
+  invitedPlayerId: "", 
+  setInvitedPlayerId: () => undefined,
+  pending: false,
+  setPending: () => undefined,
+  active: false,
+  setActive: () => undefined,
+  finished: false,
+  setFinished: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
   const [update, setUpdate] = useState(false);
+  const [isInviteView, setIsInviteView] = useState<boolean>(false)
+  const [invitedPlayerId, setInvitedPlayerId] = useState<string>("")
+  const [pending, setPending] = useState<boolean>(false)
+  const [active, setActive] = useState<boolean>(false)
+  const [finished, setFinished] = useState<boolean>(false)
+
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -61,6 +87,16 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setViewGreetingPage,
         update,
         setUpdate,
+        isInviteView,
+        setIsInviteView,
+        invitedPlayerId, 
+        setInvitedPlayerId,
+        pending, 
+        setPending,
+        active, 
+        setActive,
+        finished, 
+        setFinished
       }}
     >
       {children}

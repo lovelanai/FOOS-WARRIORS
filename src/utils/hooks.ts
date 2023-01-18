@@ -1,4 +1,4 @@
-import { MessageProps } from "./props";
+import { MessageProps, UserProps } from "./props";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config.js";
 import {
@@ -120,3 +120,11 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
     }
   }
 };
+
+/* export postNewGame = async ({ myGames }: UserProps) => {
+  try {
+
+  }
+
+} */
+
