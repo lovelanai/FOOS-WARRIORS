@@ -6,72 +6,80 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export const useFetch = (api: string, id?: string, userId?: string) => {
+export const useFetch = (api: string, id?: string) => {
   const { update } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!userId) {
-      if (!id) {
-        getDocs(collection(db, api))
-          .then((res) => {
-            setResponse(
-              res.docs.map((item) => {
-                return { ...item.data(), id: item.id };
-              }) as any
-            );
-          })
-          .then(() => {
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.log("error", error);
-          });
-      } else {
-        const postById = doc(db, api, id);
-        getDoc(postById)
-          .then((item) => {
-            setResponse({ ...item.data(), id: item.id } as any);
-            // console.log(item.data());
-          })
-          .then(() => {
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.log("error", error);
-          });
-      }
+    if (!id) {
+      getDocs(collection(db, api))
+        .then((res) => {
+          setResponse(
+            res.docs.map((item) => {
+              return { ...item.data(), id: item.id };
+            }) as any
+          );
+          console.log("usefetch", res);
+        })
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    } else {
+      const fetchById = doc(db, api, id);
+      getDoc(fetchById)
+        .then((item) => {
+          setResponse({ ...item.data(), id: item.id } as any);
+          console.log("usefetch by id", item.data());
+        })
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     }
-  }, [api, id, userId, update]);
+  }, [api, id, update]);
 
-  return { response, isLoading };
+  return { response, isLoading, setResponse };
 };
-
 export const fetchWithMatch = (
   api: string,
   dbValue: string,
   clientValue: string
 ) => {
-  const { update } = useUser();
-  const [response, setResponse] = useState<[]>([]);
+  const [response, setResponse] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const q = query(collection(db, api), where(dbValue, "==", clientValue));
+  const ref = query(
+    collection(db, api),
+    where(dbValue, "==", clientValue),
+    orderBy("time", "asc")
+  );
+  const notificationRef = query(
+    collection(db, api),
+    where(dbValue, "==", clientValue),
+    orderBy("time", "asc")
+  );
 
   useEffect(() => {
-    getDocs(q)
+    getDocs(api === "notifications" ? notificationRef : ref)
       .then((res) => {
         setResponse(
           res.docs.map((item) => {
             return { ...item.data(), id: item.id };
           }) as any
         );
+        console.log("fetchwithmatch", res);
       })
       .then(() => {
         setIsLoading(false);
@@ -79,9 +87,9 @@ export const fetchWithMatch = (
       .catch((error) => {
         console.log("error", error);
       });
-  }, [api, clientValue, update]);
+  }, [api, clientValue]);
 
-  return { response, isLoading };
+  return { response, isLoading, setResponse };
 };
 
 export const sendNotification = async ({ to, body, title }: MessageProps) => {

@@ -1,3 +1,4 @@
+import { fetchWithMatch, useFetch } from "@/utils/hooks";
 import { getAuth } from "firebase/auth";
 import {
   createContext,
@@ -15,6 +16,11 @@ interface UserContextValue {
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   update: boolean;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  users: any[];
+  setUsers: React.Dispatch<React.SetStateAction<[]>>;
+  notifications: any[];
+  setNotifications: React.Dispatch<React.SetStateAction<any[]>>;
+  isLoading: boolean;
   isInviteView: boolean;
   setIsInviteView: React.Dispatch<React.SetStateAction<boolean>>;
   invitedPlayerId: string;
@@ -36,7 +42,7 @@ export const UserContext = createContext<UserContextValue>({
   setUpdate: () => undefined,
   isInviteView: false,
   setIsInviteView: () => undefined,
-  invitedPlayerId: "", 
+  invitedPlayerId: "",
   setInvitedPlayerId: () => undefined,
   pending: false,
   setPending: () => undefined,
@@ -44,17 +50,21 @@ export const UserContext = createContext<UserContextValue>({
   setActive: () => undefined,
   finished: false,
   setFinished: () => undefined,
+  users: [],
+  setUsers: () => undefined,
+  setNotifications: () => undefined,
+  notifications: [],
+  isLoading: true,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
   const [update, setUpdate] = useState(false);
-  const [isInviteView, setIsInviteView] = useState<boolean>(false)
-  const [invitedPlayerId, setInvitedPlayerId] = useState<string>("")
-  const [pending, setPending] = useState<boolean>(false)
-  const [active, setActive] = useState<boolean>(false)
-  const [finished, setFinished] = useState<boolean>(false)
-
+  const [isInviteView, setIsInviteView] = useState<boolean>(false);
+  const [invitedPlayerId, setInvitedPlayerId] = useState<string>("");
+  const [pending, setPending] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
+  const [finished, setFinished] = useState<boolean>(false);
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -63,11 +73,9 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
       getAuth().onAuthStateChanged(function (user) {
         if (user) {
-          // console.log(user);
           setIsLoggedIn(true);
           setIsLoggedInUserId(user.uid);
         } else {
-          // console.log("ej inloggad");
           setIsLoggedIn(false);
           setIsLoggedInUserId("");
         }
@@ -77,6 +85,20 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const { isLoggedIn, loggedInUserId } = UserStatus();
+
+  // global fetch
+
+  const {
+    response: users,
+    isLoading,
+    setResponse: setUsers,
+  } = useFetch("users");
+
+  const { response: notifications, setResponse: setNotifications } =
+    fetchWithMatch("notifications", "id", loggedInUserId);
+
+  console.log("users", users);
+  console.log("notifications", notifications);
 
   return (
     <UserContext.Provider
@@ -89,14 +111,19 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setUpdate,
         isInviteView,
         setIsInviteView,
-        invitedPlayerId, 
+        invitedPlayerId,
         setInvitedPlayerId,
-        pending, 
+        pending,
         setPending,
-        active, 
+        active,
         setActive,
-        finished, 
-        setFinished
+        finished,
+        setFinished,
+        users,
+        setUsers,
+        isLoading,
+        notifications,
+        setNotifications,
       }}
     >
       {children}
