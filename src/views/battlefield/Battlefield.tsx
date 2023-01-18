@@ -1,6 +1,6 @@
 import Logo from "@/assets/logos/logos";
 import "./Battlefield.sass";
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
+//import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
@@ -8,14 +8,13 @@ import {
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useState } from "react";
 import ICON from "@/assets/icons/icons";
+import { useLocation } from "react-router-dom";
 
 export const Battlefield = () => {
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   const [winnerTeam, setWinnerTeam] = useState("");
   const [results, setResults] = useState(false);
-
-  console.log(winnerTeam);
+  const location = useLocation()
   const handleToggleButtons = (value: string) => {
     if (value === "pinkTeam") {
       setWinnerTeam("pinkTeam");
@@ -52,19 +51,19 @@ export const Battlefield = () => {
       {!results ? (
         <div className="card-view">
           <BattlefieldCard
-            playerOne={mockedUsers[1]}
-            playerTwo={mockedUsers[4]}
-            playerThree={mockedUsers[5]}
-            playerFour={mockedUsers[2]}
+            playerOne={location.state.pinkTeam[0]}
+            playerTwo={location.state.pinkTeam[1]}
+            playerThree={location.state.redTeam[0]}
+            playerFour={location.state.redTeam[1]}
           />
         </div>
       ) : (
         <div className="card-view">
           <BattlefieldWinnerCard
-            playerOne={mockedUsers[1]}
-            playerTwo={mockedUsers[4]}
-            playerThree={mockedUsers[5]}
-            playerFour={mockedUsers[2]}
+            playerOne={location.state.pinkTeam[0]}
+            playerTwo={location.state.pinkTeam[1]}
+            playerThree={location.state.redTeam[0]}
+            playerFour={location.state.redTeam[1]}
             winners={winnerTeam}
           />
         </div>

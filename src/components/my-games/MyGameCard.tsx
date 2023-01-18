@@ -32,6 +32,7 @@ export const MyGameCard = ({
   const [teamUpMode, setTeamUpMode] = useState(false);
   const [pinkTeam, setPinkTeam] = useState([{}])
   const [redTeam, setRedTeam] = useState([{}])
+  const [isTeamsSet, setIsTeamsSet] = useState(false)
 
 
   const {pending, active, finished} = useContext(UserContext)
@@ -42,6 +43,7 @@ export const MyGameCard = ({
  
  
  const randomTeams = () => {
+   setTeamUpMode(true)
   setTimeout(() => {
   const randomArray = data?.sort(() => Math.random() - Math.random()).slice(0,4)
  const splitArray = Math.ceil(randomArray.length/2)
@@ -49,7 +51,7 @@ export const MyGameCard = ({
  const redTeam = randomArray.splice(-splitArray)
  setPinkTeam(pinkTeam)
  setRedTeam(redTeam)
- setTeamUpMode(true)
+ setIsTeamsSet(true)
  }, 3000)
  //console.log("randomiserad: ", randomArray, "delad på 2: ", splitArray, 'pinkTeam: ', pinkTeam, 'redTeam: ', redTeam)
 }
@@ -82,9 +84,9 @@ console.log("data", gameName, data)
       <button onClick={randomTeams}>Team-up</button>
     </div>
   </div>
-) : ( <>
+) : teamUpMode && !isTeamsSet ? ( <>
   <div className="my-game-card-players">
-    {pinkTeam?.map((player: any, key: any) => {
+    {data?.map((player: any, key: any) => {
 return(
 <div key={key} className="playerCard">
       <div className="img" style={{
@@ -96,24 +98,41 @@ return(
     </div>
       )
     })}
-      {redTeam?.map((player: any, key: any) => {
-return(
-<div key={key} className="playerCard">
-      <div className="img" style={{
-    backgroundImage: `url(${player.img})`,
-  }}/>
-      <div className="aside">
-        <h3 className="title">{player.name}</h3>
-      </div>
-    </div>
-      )
-    })}
+    
   </div>
-    <div className="team-n-results">
-      <h3>Pink Team</h3>
-      <button onClick={() => navigate('/battlefield')}>Add result</button>
-      <h3>Red Team</h3>
-      </div> </>
+    </>
+) : (
+  <><div className="my-game-card-players-teamed">
+  {pinkTeam?.map((player: any, key: any) => {
+return(
+<div key={key} className="playerCard">
+    <div className="img" style={{
+  backgroundImage: `url(${player.img})`,
+}}/>
+    <div className="aside">
+      <h3 className="title">{player.name}</h3>
+    </div>
+  </div>
+    )
+  })}
+    {redTeam?.map((player: any, key: any) => {
+return(
+<div key={key} className="playerCard">
+    <div className="img" style={{
+  backgroundImage: `url(${player.img})`,
+}}/>
+    <div className="aside">
+      <h3 className="title">{player.name}</h3>
+    </div>
+  </div>
+    )
+  })}
+</div>
+  <div className="team-n-results">
+    <h3>Pink Team</h3>
+    <button onClick={() => navigate('/battlefield', {state: {pinkTeam: pinkTeam, redTeam: redTeam}})}>Add result</button>
+    <h3>Red Team</h3>
+    </div></>
 )}
 </>
 

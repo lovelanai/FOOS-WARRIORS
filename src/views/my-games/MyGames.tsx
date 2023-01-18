@@ -2,26 +2,19 @@ import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
 import { GamesImInCard, MyGameCard } from "@/components/my-games/MyGameCard";
 import "./MyGames.sass";
-import { mockedUser, mockedUsers } from "@/mockedUsers/mockedUsers";
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { InputField } from "@/components/input-field/InputField";
-import { InviteCard } from "@/components/InviteCard/InviteCard";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { UserContext, useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
-import { fetchWithMatch, sendNotification, useFetch } from "@/utils/hooks";
+import { sendNotification, useFetch } from "@/utils/hooks";
 import { UserProps, GameProps } from "@/utils/props";
 import { uuidv4 } from "@firebase/util";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { stripBasename } from "@remix-run/router";
 
 export const MyGames = () => {
-  const navigate = useNavigate();
-
-  
   const { setIsInviteView, isInviteView, setInvitedPlayerId } = useContext(UserContext);
   const { loggedInUserId } = useUser();
   const { response, isLoading } = useFetch("users");
@@ -30,7 +23,7 @@ export const MyGames = () => {
   const { response: runningGames } = useFetch("games", loggedInUserId);
   const games = { ...(runningGames as unknown as GameProps) };
 
-  const {finished, setFinished, pending, setPending, active, setActive} = useContext(UserContext)
+  const {finished, setFinished, active, setActive} = useContext(UserContext)
 
   
   const [newGameMode, setNewGameMode] = useState(false);
@@ -93,24 +86,16 @@ export const MyGames = () => {
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
 
   const handleViews = (value: string) => {
-   /*  if (value === 'pending') {
-        setPending(true)
-        setActive(false)
-        setFinished(false)
-    }  */
     if (value === 'active') {
         setActive(true)
-        //setPending(false)
         setFinished(false)
     } else if (value === 'finished') {
         setFinished(true)
-        //setPending(false)
         setActive(false)
     }
   }
 
-
-  return (
+return (
     <div className="my-games">
       {!newGameMode ? (
         <>
@@ -121,7 +106,6 @@ export const MyGames = () => {
           <div className="games-menu">
             <h3>Games I host</h3>
             <div className="links">
-              {/* <button className={`${pending ? "-underline" : ""}`} onClick={ () => handleViews('pending')}>Pending</button> */}
               <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
               <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
             </div>
@@ -138,7 +122,6 @@ export const MyGames = () => {
           <div className="games-menu">
             <h3>Games I'm in</h3>
            {/*  <div className="links">
-            <button className={`${pending ? "-underline" : ""}`} onClick={ () => handleViews('pending')}>Pending</button>
               <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
               <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
             </div> */}
@@ -182,7 +165,7 @@ export const MyGames = () => {
             ) : (
               <button
                 className="continue"
-                onClick={createGame /* () => setIsInviteView(true) */}
+                onClick={createGame}
               >
                 Continue
               </button>
