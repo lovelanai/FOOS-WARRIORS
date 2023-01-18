@@ -1,20 +1,31 @@
+import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
-import "./Battlefield.sass";
-//import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
+  LoserProps,
+  TestProps,
+  WinnerProps,
 } from "@/components/battlefield-card/BattlefieldCard";
+import { Header } from "@/components/header/Header";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import { useState } from "react";
-import ICON from "@/assets/icons/icons";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "./Battlefield.sass";
 
 export const Battlefield = () => {
+  const navigate = useNavigate();
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [winnerTeam, setWinnerTeam] = useState("");
   const [results, setResults] = useState(false);
   const location = useLocation()
+
+  const [winners, setWinners] = useState<WinnerProps>();
+  const [losers, setLosers] = useState<LoserProps>();
+
+  console.log(winnerTeam);
   const handleToggleButtons = (value: string) => {
     if (value === "pinkTeam") {
       setWinnerTeam("pinkTeam");
@@ -23,152 +34,231 @@ export const Battlefield = () => {
     }
   };
 
+  const pinkTeam = {
+    player1: location.state.pinkTeam[0],
+    player2: location.state.pinkTeam[1],
+    color: "pink",
+  };
+
+  const redTeam = {
+    player1: location.state.redTeam[0],
+    player2: location.state.redTeam[1],
+    color: "red",
+  };
+
+  const handleSetResult = () => {
+    setResults(true);
+    if (winnerTeam === "redTeam") {
+      setWinners(redTeam);
+      setLosers(pinkTeam);
+    }
+    if (winnerTeam === "pinkTeam") {
+      setWinners(pinkTeam);
+      setLosers(redTeam);
+    }
+    console.log("hej");
+  };
+
+  console.log("winners", winners);
+  console.log("losers", losers);
+
   return (
     <div className="battlefield">
-      {winnerTeam === "pinkTeam" && results ? (
-        <div className="head pink-winner">
-          <h2>WINNERS</h2>
-          <div>
-            <ICON.Crown className="icon" />
-            <h3>Pink Team</h3>
-          </div>
-        </div>
-      ) : winnerTeam === "redTeam" && results ? (
-        <div className="head red-winner">
-          <h2>WINNERS</h2>
-          <div>
-            <ICON.Crown className="icon" />
-            <h3>Red Team</h3>
-          </div>
-        </div>
-      ) : (
-        <div className="head">
-          <h2>BATTLEFIELD</h2>
-          <Logo.PlayerOnField />
-        </div>
-      )}
-
       {!results ? (
-        <div className="card-view">
-          <BattlefieldCard
-            playerOne={location.state.pinkTeam[0]}
-            playerTwo={location.state.pinkTeam[1]}
-            playerThree={location.state.redTeam[0]}
-            playerFour={location.state.redTeam[1]}
+        <div className="head">
+          <Header
+            title="BATTLEFIELD"
+            element={
+              <div onClick={() => navigate(-1)}>
+                <ICON.Arrow />
+              </div>
+            }
           />
+          {/* <div className="banner">
+            <Logo.PlayerOnField className="icon" />
+          </div> */}
         </div>
       ) : (
-        <div className="card-view">
-          <BattlefieldWinnerCard
-            playerOne={location.state.pinkTeam[0]}
-            playerTwo={location.state.pinkTeam[1]}
-            playerThree={location.state.redTeam[0]}
-            playerFour={location.state.redTeam[1]}
-            winners={winnerTeam}
+        <div className="winner">
+          <Header
+            title="WINNERS"
+            element={
+              <div onClick={() => setResults(false)}>
+                <ICON.Arrow />
+              </div>
+            }
           />
+          {winnerTeam === "pinkTeam" ? (
+            <div className="banner">
+              <ICON.Crown className="-pink" />
+              <h3 className="text -pink">Pink Team</h3>
+            </div>
+          ) : (
+            <div className="banner">
+              <ICON.Crown className="-red" />
+              <h3 className="text -red">Red Team</h3>
+            </div>
+          )}
         </div>
       )}
 
-      <div className="register-result-section">
-        <h2>Select Winner</h2>
-        {winnerTeam === "" ? (
-          <div className="team-btns">
-            <button
-              className="pink-team"
-              onClick={() => handleToggleButtons("pinkTeam")}
-            >
-              Pink Team
-            </button>
-            <button
-              className="red-team"
-              onClick={() => handleToggleButtons("redTeam")}
-            >
-              Red Team
-            </button>
-          </div>
-        ) : winnerTeam === "pinkTeam" && !results ? (
-          <div className="team-btns">
-            <button
-              className="pink-team"
-              onClick={() => handleToggleButtons("pinkTeam")}
-            >
-              <ICON.Crown />
-            </button>
-            <button
-              className="red-team"
-              onClick={() => handleToggleButtons("redTeam")}
-            >
-              <ICON.Head />
-            </button>
-          </div>
-        ) : winnerTeam === "redTeam" && !results ? (
-          <div className="team-btns">
-            <button
-              className="pink-team"
-              onClick={() => handleToggleButtons("pinkTeam")}
-            >
-              <ICON.Head />
-            </button>
-            <button
-              className="red-team"
-              onClick={() => handleToggleButtons("redTeam")}
-            >
-              <ICON.Crown />
-            </button>
-          </div>
-        ) : winnerTeam === "pinkTeam" && results ? (
-          <div className="team-btns">
-            <button className="pink-team winner">
-              <ICON.Crown />
-              10
-            </button>
-            <div className="red-team loser">
-              <div className="number-container">
-                {goals.map((goal, index) => (
-                  <button
-                    className="goal-value"
-                    key={index}
-                    onClick={() => console.log(goal)}
-                  >
-                    {goal}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : winnerTeam === "redTeam" && results ? (
-          <div className="team-btns">
-            <div className="pink-team loser">
-              <div className="number-container">
-                {goals.map((goal, index) => (
-                  <button
-                    className="goal-value"
-                    key={index}
-                    onClick={() => console.log(goal)}
-                  >
-                    {goal}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <button className="red-team winner">
-              <ICON.Crown />
-              10
-            </button>
-          </div>
-        ) : (
-          <></>
-        )}
+      <div
+        className="card-view"
+        // style={results ? { height: "calc(100vh - 9.3rem)" } : {}}
+      >
         {!results ? (
-          <PrimaryButton
-            secondary
-            title="Enter Results"
-            onClick={() => setResults(true)}
+          <BattlefieldCard
+            playerOne={pinkTeam.player1}
+            playerTwo={pinkTeam.player2}
+            playerThree={redTeam.player1}
+            playerFour={redTeam.player2}
+            content={
+              <div className="register-result-section">
+                <h2>Select Winner</h2>
+                <div className="team-btns">
+                  <button
+                    className="pink-team"
+                    onClick={() => handleToggleButtons("pinkTeam")}
+                  >
+                    {winnerTeam ? (
+                      <>
+                        {winnerTeam === "pinkTeam" ? (
+                          <ICON.Crown />
+                        ) : (
+                          <ICON.Head />
+                        )}
+                      </>
+                    ) : (
+                      "Pink Team"
+                    )}
+                  </button>
+                  <button
+                    className="red-team"
+                    onClick={() => handleToggleButtons("redTeam")}
+                  >
+                    {winnerTeam ? (
+                      <>
+                        {winnerTeam === "redTeam" ? (
+                          <ICON.Crown />
+                        ) : (
+                          <ICON.Head />
+                        )}
+                      </>
+                    ) : (
+                      "Red Team"
+                    )}
+                  </button>
+                </div>
+                <PrimaryButton
+                  secondary
+                  disabled={!winnerTeam}
+                  title="Enter Results"
+                  onClick={handleSetResult}
+                />
+                <button className="cancel-btn">Cancel game</button>
+              </div>
+            }
           />
         ) : (
-          <PrimaryButton secondary title="Finish Game" />
+          <BattlefieldWinnerCard losers={losers!} winners={winners!} />
         )}
-        <button className="cancel-btn">Cancel game</button>
+        <div
+          className="results-mobile-view"
+          style={results ? { display: "unset" } : {}}
+        >
+          <div className="register-result-section">
+            {!results ? (
+              <>
+                <h2>Select Winner</h2>
+                <div className="team-btns">
+                  <button
+                    className="pink-team"
+                    onClick={() => handleToggleButtons("pinkTeam")}
+                  >
+                    {winnerTeam ? (
+                      <>
+                        {winnerTeam === "pinkTeam" ? (
+                          <ICON.Crown />
+                        ) : (
+                          <ICON.Head />
+                        )}
+                      </>
+                    ) : (
+                      "Pink Team"
+                    )}
+                  </button>
+                  <button
+                    className="red-team"
+                    onClick={() => handleToggleButtons("redTeam")}
+                  >
+                    {winnerTeam ? (
+                      <>
+                        {winnerTeam === "redTeam" ? (
+                          <ICON.Crown />
+                        ) : (
+                          <ICON.Head />
+                        )}
+                      </>
+                    ) : (
+                      "Red Team"
+                    )}
+                  </button>
+                </div>
+                <PrimaryButton
+                  secondary
+                  disabled={!winnerTeam}
+                  title="Enter Results"
+                  onClick={handleSetResult}
+                />
+              </>
+            ) : (
+              <>
+                <h2>Enter Score</h2>
+                <div
+                  className="team-btns"
+                  style={
+                    winnerTeam === "pinkTeam"
+                      ? {}
+                      : { flexDirection: "row-reverse" }
+                  }
+                >
+                  <button
+                    className={`winner ${
+                      winners?.color === "pink" ? "pink-team" : "red-team"
+                    }`}
+                  >
+                    <ICON.Crown />
+                    10
+                  </button>
+                  <div
+                    className={`loser ${
+                      winners?.color === "pink" ? "red-team" : "pink-team"
+                    }`}
+                  >
+                    <div className="number-container">
+                      {goals.map((goal, index) => (
+                        <button
+                          className="goal-value"
+                          key={index}
+                          onClick={() => console.log(goal)}
+                        >
+                          {goal}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <PrimaryButton
+                  secondary
+                  disabled={true}
+                  title="Finish Game"
+                  onClick={handleSetResult}
+                />
+              </>
+            )}
+            <button className="cancel-btn">Cancel game</button>
+          </div>
+        </div>
       </div>
     </div>
   );
