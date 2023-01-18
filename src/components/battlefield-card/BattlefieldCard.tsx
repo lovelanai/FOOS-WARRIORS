@@ -62,7 +62,7 @@ export const BattlefieldCard = ({
   );
 };
 
-export interface TestProps {
+export interface ResultProps {
   winners: WinnerProps;
   losers: LoserProps;
 }
@@ -78,7 +78,7 @@ export interface LoserProps {
   color: string;
 }
 
-export const BattlefieldWinnerCard = ({ winners, losers }: TestProps) => {
+export const BattlefieldWinnerCard = ({ winners, losers }: ResultProps) => {
   return (
     <div className="battleWinnerCard">
       <div className="winners">
