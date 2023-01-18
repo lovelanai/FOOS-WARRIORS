@@ -1,3 +1,4 @@
+import { fetchWithMatch, useFetch } from "@/utils/hooks";
 import { getAuth } from "firebase/auth";
 import {
   createContext,
@@ -15,6 +16,11 @@ interface UserContextValue {
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   update: boolean;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  users: any[];
+  setUsers: React.Dispatch<React.SetStateAction<[]>>;
+  notifications: any[];
+  setNotifications: React.Dispatch<React.SetStateAction<any[]>>;
+  isLoading: boolean;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -24,6 +30,11 @@ export const UserContext = createContext<UserContextValue>({
   setViewGreetingPage: () => undefined,
   update: false,
   setUpdate: () => undefined,
+  users: [],
+  setUsers: () => undefined,
+  setNotifications: () => undefined,
+  notifications: [],
+  isLoading: true,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -37,11 +48,9 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
       getAuth().onAuthStateChanged(function (user) {
         if (user) {
-          // console.log(user);
           setIsLoggedIn(true);
           setIsLoggedInUserId(user.uid);
         } else {
-          // console.log("ej inloggad");
           setIsLoggedIn(false);
           setIsLoggedInUserId("");
         }
@@ -52,6 +61,20 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const { isLoggedIn, loggedInUserId } = UserStatus();
 
+  // global fetch
+
+  const {
+    response: users,
+    isLoading,
+    setResponse: setUsers,
+  } = useFetch("users");
+
+  const { response: notifications, setResponse: setNotifications } =
+    fetchWithMatch("notifications", "id", loggedInUserId);
+
+  console.log("users", users);
+  console.log("notifications", notifications);
+
   return (
     <UserContext.Provider
       value={{
@@ -61,6 +84,11 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setViewGreetingPage,
         update,
         setUpdate,
+        users,
+        setUsers,
+        isLoading,
+        notifications,
+        setNotifications,
       }}
     >
       {children}

@@ -5,7 +5,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { ToastContent } from "./toast-content/ToastContent";
 
 export const Notification = () => {
-  const { update, setUpdate } = useUser();
+  const day = new Date().toDateString();
+  const time = new Date().toLocaleTimeString();
+  const { notifications, setNotifications } = useUser();
   const [message, setMessage] = useState({
     title: "",
     body: "",
@@ -42,14 +44,19 @@ export const Notification = () => {
 
   onMessageListener()
     .then((payload: any) => {
-      console.log(payload);
-      setMessage({
+      const backgroundMessage = {
         title: payload?.notification?.title,
         body: payload?.notification?.body,
         image: payload?.notification?.image,
-      });
+      };
+      setMessage(backgroundMessage);
 
-      setUpdate(!update);
+      const clientMessage = {
+        title: payload?.notification?.title,
+        text: payload?.notification?.body,
+        time: `${day} ${time}`,
+      };
+      setNotifications([...notifications, clientMessage]);
     })
     .catch((error) => console.log("failed", error));
   return <Toaster />;

@@ -1,8 +1,3 @@
-import { getAuth, updateProfile } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
 import { ImageUploader } from "@/components/image-uploader/ImageUploader";
@@ -11,26 +6,34 @@ import { logout } from "@/firebase/authHooks";
 import { db, storage } from "@/firebase/firebase.config";
 import { useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
+import { uuidv4 } from "@firebase/util";
+import { getAuth, updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ProfileSkeleton } from "./profile-skeleton/ProfileSkeleton";
 import "./Profile.sass";
-import { uuidv4 } from "@firebase/util";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const { loggedInUserId, update, setUpdate } = useUser();
-
+  const { loggedInUserId, update, setUpdate, users, setUsers, isLoading } =
+    useUser();
   const params = useParams();
-  const id = params.id;
-  const { response, isLoading } = useFetch("users", id);
+  const userId = params.id;
 
-  const profileData = { ...(response as unknown as UserProps) };
-  const personalProfileCheck = loggedInUserId === profileData.id;
+  const userConnectedToProfile: UserProps = users.find(
+    ({ id }) => id === userId
+  )!;
+  const userData = { ...(userConnectedToProfile as unknown as UserProps) };
+
+  const personalProfileCheck = loggedInUserId === userData.id;
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [imageUpload, setImageUpload] = useState();
   const [photoURL, setPhotoURL] = useState("");
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(userData.description);
 
   // gets imageUrl to state
   useEffect(() => {
@@ -74,7 +77,21 @@ export const Profile = () => {
         description: description,
       });
     }
-    setUpdate(!update);
+
+    const updatedProfile: any = users.map((item) => {
+      if (item.id === loggedInUserId) {
+        return {
+          ...item,
+          name: name ? name : userData.name,
+          description: description ? description : userData.description,
+          img: photoURL ? photoURL : userData.img,
+        };
+      } else {
+        return item;
+      }
+    });
+
+    setUsers(updatedProfile);
     setIsEditMode(false);
   };
 
@@ -82,6 +99,9 @@ export const Profile = () => {
     logout();
     navigate("/");
   };
+
+  console.log(description);
+  console.log(name);
 
   return (
     <>
@@ -122,8 +142,8 @@ export const Profile = () => {
                     isEditMode
                       ? photoURL
                         ? photoURL
-                        : profileData.img
-                      : profileData.img
+                        : userData.img
+                      : userData.img
                   })`,
                 }}
               />
@@ -153,8 +173,8 @@ export const Profile = () => {
             </div>
             {!isEditMode ? (
               <div className="info">
-                <h3 className="name">{profileData.name}</h3>
-                <p className="bio">{profileData.description}</p>
+                <h3 className="name">{userData.name}</h3>
+                <p className="bio">{userData.description}</p>
                 <div className="stats">
                   <div>
                     <p className="value">26</p>
@@ -179,21 +199,18 @@ export const Profile = () => {
                   Name
                   <input
                     className="input-name"
-                    type="text"
-                    value={name ? name : profileData.name}
+                    defaultValue={userData.name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder={name ? name : profileData.name}
+                    placeholder="Enter a name"
                   />
                 </label>
                 <label>
                   Bio
-                  <textarea
+                  <input
                     className="input-bio"
-                    value={description ? description : profileData.description}
+                    defaultValue={userData.description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder={
-                      description ? description : profileData.description
-                    }
+                    placeholder="Add a description"
                   />
                 </label>
                 <button className="button" type="submit">

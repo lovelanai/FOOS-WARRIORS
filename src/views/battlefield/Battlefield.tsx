@@ -55,7 +55,6 @@ export const Battlefield = () => {
       setWinners(pinkTeam);
       setLosers(redTeam);
     }
-    console.log("hej");
   };
 
   console.log("winners", winners);
