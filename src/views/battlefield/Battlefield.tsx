@@ -4,7 +4,7 @@ import {
   BattlefieldCard,
   BattlefieldWinnerCard,
   LoserProps,
-  TestProps,
+  ResultProps,
   WinnerProps,
 } from "@/components/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
@@ -20,7 +20,7 @@ export const Battlefield = () => {
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [winnerTeam, setWinnerTeam] = useState("");
   const [results, setResults] = useState(false);
-  const location = useLocation()
+  const location = useLocation();
 
   const [winners, setWinners] = useState<WinnerProps>();
   const [losers, setLosers] = useState<LoserProps>();
