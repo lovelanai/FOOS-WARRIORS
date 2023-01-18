@@ -2,6 +2,7 @@ import { useUser } from "@/context/UserContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
+import { uuidv4 } from "@firebase/util";
 
 export const requestForToken = async () => {
   const { loggedInUserId } = useUser();
@@ -32,3 +33,4 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
+
