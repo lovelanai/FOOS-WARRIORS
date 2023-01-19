@@ -6,9 +6,29 @@ import { Header } from "@/components/header/Header";
 import { mockedUsers } from "@/mockedUsers/mockedUsers";
 import "./MatchHistory.sass";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
+import { useFetch } from "@/utils/hooks";
+import { UserProps } from "@/utils/props";
+import { WinnerProps } from "@/components/battlefield-card/BattlefieldCard";
+
+export interface Teamprops {
+  player1: UserProps;
+  player2: UserProps;
+}
 
 export const MatchHistory = () => {
   const navigate = useNavigate();
+  const { response, isLoading } = useFetch("matchHistory");
+  console.log(response);
+
+  interface GameDataProps {
+    id: string;
+    hostId: string;
+    winners: WinnerProps;
+    winnnerGoals: number;
+    loserGoals: number;
+    pinkTeam: Teamprops;
+    redTeam: Teamprops;
+  }
 
   return (
     <div className="matchHistory">
@@ -27,25 +47,19 @@ export const MatchHistory = () => {
         </div>
       </div>
       <div className="battles">
-        <BattleCard
-          playerOne={mockedUsers[0]}
-          playerTwo={mockedUsers[1]}
-          playerThree={mockedUsers[2]}
-          playerFour={mockedUsers[3]}
-          pinkGoals="10"
-          redGoals="5"
-          finished
-        />
-        <BattleCard
-          playerOne={mockedUsers[0]}
-          playerTwo={mockedUsers[1]}
-          playerThree={mockedUsers[2]}
-          playerFour={mockedUsers[3]}
-          pinkGoals="3"
-          redGoals="10"
-          winners
-          finished
-        />
+        {response.map((data: GameDataProps) => {
+          return (
+            <BattleCard
+              key={data.id}
+              pinkTeam={data.pinkTeam}
+              redTeam={data.redTeam}
+              winners={data.winners}
+              winnerGoals={data.winnnerGoals}
+              loserGoals={data.loserGoals}
+              finished
+            />
+          );
+        })}
       </div>
     </div>
   );

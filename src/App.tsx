@@ -25,7 +25,7 @@ function App() {
         <Route path="/leaderBoard" element={<LeaderBoard />} />
         <Route path="/matchHistory" element={<MatchHistory />} />
         <Route path="/battlefield" element={<Battlefield />} />
-        <Route path="/mygames" element={<MyGames />} />
+        <Route path="/games" element={<MyGames />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/notifications" element={<NotificationsView />} />
         <Route path="/playground" element={<Playground />} />

@@ -1,6 +1,4 @@
-import ICON from "@/assets/icons/icons";
-import { UserContext } from "@/context/UserContext";
-import { useContext, useState } from "react";
+import { useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../primary-button/PrimaryButton";
 
@@ -10,18 +8,22 @@ interface playerCard {
   title: string;
   img: string;
   profileLink?: string;
-  id?: string
-  inviteOnClick?: () => void
-  
+  id?: string;
+  inviteOnClick?: () => void;
 }
 
-
-export const PlayerCard = ({ img, title, profileLink, inviteOnClick, id }: playerCard) => {
+export const PlayerCard = ({
+  img,
+  title,
+  profileLink,
+  inviteOnClick,
+  id,
+}: playerCard) => {
   const navigate = useNavigate();
 
-  const {isInviteView, invitedPlayerId} = useContext(UserContext)
+  const { isInviteView, invitedPlayerId } = useUser();
 
-/* console.log("ID: ", invitedPlayerId)
+  /* console.log("ID: ", invitedPlayerId)
 console.log("KEY: ", id) */
 
   return (
@@ -35,28 +37,27 @@ console.log("KEY: ", id) */
       <div className="aside">
         <h3 className="title">{title}</h3>
         <div className="button-container">
-        {/* <div className="icon" onClick={inviteOnClick}><ICON.Invite/></div> */}
-        {isInviteView && invitedPlayerId !== id? (
-          <PrimaryButton
-          title="Invite player"
-          profileButton
-          onClick={inviteOnClick}
-        />
-        ) : isInviteView && invitedPlayerId === id ?(
-          <PrimaryButton
-          title="DISABLED"
-          profileButton
-          disabled={true}
-          //onClick={() => navigate(`/profile/${profileLink}`)}
-        />
-        ) :
-        (
-          <PrimaryButton
-          title="View profile"
-          profileButton
-          onClick={() => navigate(`/profile/${profileLink}`)}
-        />
-        )}
+          {/* <div className="icon" onClick={inviteOnClick}><ICON.Invite/></div> */}
+          {isInviteView && invitedPlayerId !== id ? (
+            <PrimaryButton
+              title="Invite player"
+              profileButton
+              onClick={inviteOnClick}
+            />
+          ) : isInviteView && invitedPlayerId === id ? (
+            <PrimaryButton
+              title="DISABLED"
+              profileButton
+              disabled={true}
+              //onClick={() => navigate(`/profile/${profileLink}`)}
+            />
+          ) : (
+            <PrimaryButton
+              title="View profile"
+              profileButton
+              onClick={() => navigate(`/profile/${profileLink}`)}
+            />
+          )}
         </div>
       </div>
     </div>

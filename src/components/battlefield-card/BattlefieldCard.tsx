@@ -1,5 +1,6 @@
 import Logo from "@/assets/logos/logos";
 import { mockedUser } from "@/mockedUsers/mockedUsers";
+import { UserProps } from "@/utils/props";
 import "./BattlefieldCard.sass";
 
 export interface TeamProps {
@@ -68,13 +69,13 @@ export interface ResultProps {
 }
 
 export interface WinnerProps {
-  player1: mockedUser;
-  player2: mockedUser;
+  player1: UserProps;
+  player2: UserProps;
   color: string;
 }
 export interface LoserProps {
-  player1: mockedUser;
-  player2: mockedUser;
+  player1: UserProps;
+  player2: UserProps;
   color: string;
 }
 

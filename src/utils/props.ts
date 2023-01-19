@@ -13,13 +13,7 @@ export interface UserProps {
 export interface GameProps {
   gameName: string;
   id: string;
-  players: [
-    {
-      id: string;
-      name: string;
-      img: string;
-    }
-  ];
+  players: [UserProps];
 }
 
 export interface NotificationProps {
