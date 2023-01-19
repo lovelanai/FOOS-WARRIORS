@@ -17,8 +17,7 @@ import "./FindPlayers.sass";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
-  const { loggedInUserId, users, isLoading, notifications, setNotifications } =
-    useUser();
+  const { loggedInUserId, users, isLoading } = useUser();
   const currentUser: UserProps = users.find(({ id }) => id === loggedInUserId)!;
 
   const [invitationMode, setInvitationMode] = useState(false);
@@ -101,7 +100,7 @@ export const FindPlayers = () => {
           <>
             {users
               .filter(searchFilter)
-              // .filter(removeLoggedInUser)
+              .filter(removeLoggedInUser)
               .map((user: UserProps) => (
                 <PlayerCard
                   profileLink={user.id}
@@ -116,7 +115,7 @@ export const FindPlayers = () => {
           </>
         ) : (
           <>
-            {Array(6)
+            {Array(10)
               .fill(null)
               .map((key, index) => (
                 <PlayerCardSkeleton key={index} />
