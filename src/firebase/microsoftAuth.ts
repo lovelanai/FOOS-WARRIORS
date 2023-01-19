@@ -31,6 +31,9 @@ export const signInWithMicrosoft = () =>
                   description: "",
                   currentToken: currentToken,
                   id: user.uid,
+                  wins: 0,
+                  losses: 0,
+                  ratio: "1.00",
                 });
               }
             })

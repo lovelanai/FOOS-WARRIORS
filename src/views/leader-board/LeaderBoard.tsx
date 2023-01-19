@@ -5,7 +5,7 @@ import "./LeaderBoard.sass";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import Logo from "@/assets/logos/logos";
 import { useUser } from "@/context/UserContext";
-import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { UserProps } from "@/utils/props";
 import { LeaderboardCard } from "@/components/leaderboard-card/LeaderboardCard";
@@ -64,6 +64,9 @@ export const LeaderBoard = () => {
       break;
   }
 
+  const noGamesPlayedFilter = (user: UserProps) =>
+    user.wins !== 0 || user.losses !== 0;
+
   return (
     <div className="leaderBoard">
       <div className="nav">
@@ -96,11 +99,9 @@ export const LeaderBoard = () => {
         {users && !isLoading ? (
           <>
             {placementSorter
+              .filter(noGamesPlayedFilter)
               .reverse()
-              // .filter(removeLoggedInUser)
               .map((user: UserProps, index) => {
-                const gamesPlayed = user.wins + user.losses;
-                const wlRatio = (user.wins / gamesPlayed).toFixed(2);
                 return (
                   <LeaderboardCard
                     state={view}
@@ -108,7 +109,7 @@ export const LeaderBoard = () => {
                     img={user.img}
                     key={user.id}
                     placement={index + 1}
-                    ratio={wlRatio}
+                    ratio={user.ratio}
                     wins={user.wins}
                     losses={user.losses}
                     gamesPlayed={user.wins + user.losses}

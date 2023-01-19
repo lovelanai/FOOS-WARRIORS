@@ -1,8 +1,7 @@
 import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
-import { mockedUser } from "@/mockedUsers/mockedUsers";
 import { Teamprops } from "@/views/match-history/MatchHistory";
-import { LoserProps, WinnerProps } from "../battlefield-card/BattlefieldCard";
+import { WinnerProps } from "../battlefield-card/BattlefieldCard";
 import "./BattleCard.sass";
 
 export interface BattleCardProps {
@@ -14,14 +13,6 @@ export interface BattleCardProps {
   finished?: boolean;
 }
 
-/**
- * @param finished
- * default false, if set to true, displays scoreboard in middle
- *
- * @param winners
- * default false, false = Pink Team : true = Red Team
- *
- */
 export const BattleCard = ({
   pinkTeam,
   redTeam,

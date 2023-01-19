@@ -3,7 +3,7 @@ import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
 import { InviteCard } from "@/components/InviteCard/InviteCard";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
-import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";

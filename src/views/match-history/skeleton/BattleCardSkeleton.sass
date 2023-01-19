@@ -1,7 +1,8 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
-.battleCard
+.battleCardSkeleton
+    animation: battleCardSkeleton 2s infinite
     display: flex
     border-radius: .5rem
     min-height: 30rem
@@ -38,21 +39,10 @@
                 position: absolute
                 right: 0
                 width: 100%
-
-                & > .name
-                    bottom: 0
-                    color:  Colors.$black
-                    font-size: Fonts.$p
-                    margin: 3%
-                    position: absolute
-                    right: 0
-                    text-align: end
             
             & > .-red
                 background: Colors.$red
                 transform: scale(-1, 1)
-                & > .name
-                    transform: scale(-1, 1)
 
 
     & > .matchContent
@@ -62,28 +52,9 @@
         justify-content: space-evenly
         width: 40%
         background: Colors.$black
-            
-        & > .info
-            & > .title
-                font-size: Fonts.$h3
-
-            & > .text
-                display: flex
-                align-items: center
-                justify-content: center
-                gap: 1rem
-                font-size: Fonts.$p
-
-    .-pink
-        color: Colors.$pink
-
-    .-red
-        color: Colors.$red
 
     &:last-child
         margin-bottom: 1rem
-    
-
 
     @media screen and ( min-width: 550px)
         min-height: 50vh
@@ -93,32 +64,18 @@
         padding: 2rem
 
         & > .matchContent
-            align-items: center
-            display: flex
-            flex-direction: column
-            justify-content: space-evenly
             width: 150%
 
+@keyframes battleCardSkeleton
+    0%
+        opacity: 0.95
+        transform: scaleX(1.005)
+
+    50%
+        opacity: 0.85
+        transform: scaleX(1)
+
+    100%
+        opacity: 0.95
+        transform: scaleX(1.005)
         
-            & > .info
-
-                & > .title
-                    margin: 1rem
-                    font-size: Fonts.$h1
-                & > .text
-                    margin: 1rem
-                    font-size: Fonts.$h2
-
-        & > .team
-            & > .player
-                & > .overlay
-                    & > .name
-                        bottom: 0
-                        font-size: Fonts.$h4
-                        margin: 3%
-                        position: absolute
-                        right: 0
-                        text-align: end
-
-                & > .-red
-                    background: Colors.$red

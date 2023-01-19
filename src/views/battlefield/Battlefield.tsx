@@ -75,13 +75,12 @@ export const Battlefield = () => {
       player2: redTeam.player2,
     },
   };
-
   const submitGame = () => {
     const id = uuidv4();
     const ref = doc(db, `matchHistory/${id}`);
     setDoc(ref, gameData)
       .then(async () => {
-        await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {});
+        await deleteDoc(doc(db, "games", loggedInUserId));
       })
       .then(() => {
         let wins = winners?.player1.wins! + 1;
@@ -144,6 +143,12 @@ export const Battlefield = () => {
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       });
+  };
+
+  const handleCancelGame = async () => {
+    await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {
+      navigate("/games");
+    });
   };
 
   return (
@@ -239,7 +244,9 @@ export const Battlefield = () => {
                   title="Enter Results"
                   onClick={handleSetResult}
                 />
-                <button className="cancel-btn">Cancel game</button>
+                <button className="cancel-btn" onClick={handleCancelGame}>
+                  Cancel game
+                </button>
               </div>
             }
           />
@@ -340,7 +347,9 @@ export const Battlefield = () => {
                 />
               </>
             )}
-            <button className="cancel-btn">Cancel game</button>
+            <button className="cancel-btn" onClick={handleCancelGame}>
+              Cancel game
+            </button>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProfileSkeleton } from "./profile-skeleton/ProfileSkeleton";
+import { ProfileSkeleton } from "./skeleton/ProfileSkeleton";
 import "./Profile.sass";
 
 export const Profile = () => {
