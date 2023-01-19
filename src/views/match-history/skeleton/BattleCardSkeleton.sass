@@ -2,7 +2,7 @@
 @use "@/styles/Colors.scss"
 
 .battleCardSkeleton
-    animation: battleCardSkeleton 2s infinite
+    animation: skeletonBounce 2s infinite
     display: flex
     border-radius: .5rem
     min-height: 30rem
@@ -66,7 +66,7 @@
         & > .matchContent
             width: 150%
 
-@keyframes battleCardSkeleton
+@keyframes skeletonBounce
     0%
         opacity: 0.95
         transform: scaleX(1.005)

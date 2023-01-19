@@ -1,0 +1,41 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.notificationCardSkeleton
+    padding-top: 1rem
+    animation: SkeletonBounce 2s infinite
+    
+    & > .inner
+        background: #e0e0e0
+        border-radius: 1rem
+        display: flex
+        height: 10rem
+        justify-content: space-between
+        min-width: 35rem
+        position: relative
+        overflow: hidden
+
+
+    & > .inner::before 
+        animation: SkeletonGradient .6s cubic-bezier(0.4, 0.0, 0.2, 1) infinite
+        background: linear-gradient(to right, transparent 0%, #d3d3d3 50%, transparent 100%)
+        content: ''
+        display: block
+        height: 100%
+        left: -150px
+        position: absolute
+        top: 0
+        width: 150px
+
+@keyframes SkeletonGradient 
+    from 
+        left: -150px
+    
+    to   
+        left: 100%
+    
+
+
+
+
+

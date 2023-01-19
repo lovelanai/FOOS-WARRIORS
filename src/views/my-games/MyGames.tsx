@@ -2,12 +2,12 @@ import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
 import { GamesImInCard, MyGameCard } from "@/components/my-games/MyGameCard";
-import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { sendNotification, useFetch } from "@/utils/hooks";
 import { GameProps, UserProps } from "@/utils/props";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
@@ -62,7 +62,7 @@ export const MyGames = () => {
       setDoc(ref, {
         title: "INCOMING BATTLE",
         text: `${user.name} invited you to play a game of foos!`,
-        id: uid,
+        id: user.id,
         time: `${day} ${time}`,
       })
         .finally(() => {
@@ -149,8 +149,9 @@ export const MyGames = () => {
           </div>
           <div className="my-games-container">
             <MyGameCard
-              playerData={gameDataArray.players}
+              players={gameDataArray.players}
               gameName={gameData.gameName}
+              id={gameData.id}
             />
           </div>
           <br></br>
@@ -229,7 +230,7 @@ export const MyGames = () => {
                 <>
                   {users
                     .filter(searchFilter)
-                    .filter(removeLoggedInUser)
+                    // .filter(removeLoggedInUser)
                     .map((user: UserProps) => (
                       <PlayerCard
                         title={user.name}

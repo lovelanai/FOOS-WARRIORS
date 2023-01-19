@@ -2,17 +2,16 @@ import ICON from "@/assets/icons/icons";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
-  LoserProps,
-  WinnerProps,
 } from "@/components/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
+import { TeamProps } from "@/utils/props";
+import { uuidv4 } from "@firebase/util";
 import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { uuidv4 } from "@firebase/util";
 import "./Battlefield.sass";
 
 export const Battlefield = () => {
@@ -23,8 +22,8 @@ export const Battlefield = () => {
   const [results, setResults] = useState(false);
   const location = useLocation();
 
-  const [winners, setWinners] = useState<WinnerProps>();
-  const [losers, setLosers] = useState<LoserProps>();
+  const [winners, setWinners] = useState<TeamProps>();
+  const [losers, setLosers] = useState<TeamProps>();
   const [loserGoals, setLoserGoals] = useState(Number);
 
   console.log(winnerTeam);

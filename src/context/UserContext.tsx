@@ -14,8 +14,6 @@ interface UserContextValue {
   loggedInUserId: string;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
-  update: boolean;
-  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
   users: any[];
   setUsers: React.Dispatch<React.SetStateAction<[]>>;
   notifications: any[];
@@ -38,8 +36,6 @@ export const UserContext = createContext<UserContextValue>({
   loggedInUserId: "",
   viewGreetingPage: false,
   setViewGreetingPage: () => undefined,
-  update: false,
-  setUpdate: () => undefined,
   isInviteView: false,
   setIsInviteView: () => undefined,
   invitedPlayerId: "",
@@ -59,7 +55,6 @@ export const UserContext = createContext<UserContextValue>({
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [viewGreetingPage, setViewGreetingPage] = useState<boolean>(false);
-  const [update, setUpdate] = useState(false);
   const [isInviteView, setIsInviteView] = useState<boolean>(false);
   const [invitedPlayerId, setInvitedPlayerId] = useState<string>("");
   const [pending, setPending] = useState<boolean>(false);
@@ -107,8 +102,6 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         loggedInUserId,
         viewGreetingPage,
         setViewGreetingPage,
-        update,
-        setUpdate,
         isInviteView,
         setIsInviteView,
         invitedPlayerId,

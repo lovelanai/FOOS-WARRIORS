@@ -24,7 +24,6 @@ export const LeaderboardCard = ({
   losses,
   gamesPlayed,
   state,
-  onClick,
 }: LeaderboardCard) => {
   const [view, setView] = useState(false);
 

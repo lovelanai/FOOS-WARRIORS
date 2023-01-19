@@ -16,6 +16,17 @@ export interface GameProps {
   players: [UserProps];
 }
 
+export interface TeamProps {
+  player1: UserProps;
+  player2: UserProps;
+  color: string;
+}
+
+export interface ResultProps {
+  winners: TeamProps;
+  losers: TeamProps;
+}
+
 export interface NotificationProps {
   title: string;
   text: string;

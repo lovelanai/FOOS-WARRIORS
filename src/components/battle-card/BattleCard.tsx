@@ -1,13 +1,13 @@
 import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
-import { Teamprops } from "@/views/match-history/MatchHistory";
-import { WinnerProps } from "../battlefield-card/BattlefieldCard";
+import { TeamProps } from "@/utils/props";
+
 import "./BattleCard.sass";
 
 export interface BattleCardProps {
-  pinkTeam: Teamprops;
-  redTeam: Teamprops;
-  winners: WinnerProps;
+  pinkTeam: TeamProps;
+  redTeam: TeamProps;
+  winners: TeamProps;
   winnerGoals: number;
   loserGoals: number;
   finished?: boolean;

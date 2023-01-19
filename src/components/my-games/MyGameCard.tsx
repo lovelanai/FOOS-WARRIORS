@@ -1,23 +1,11 @@
 import ICON from "@/assets/icons/icons";
 import { useUser } from "@/context/UserContext";
+import { GameProps } from "@/utils/props";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyGameCard.sass";
 
-export interface TeamProps {
-  playerData: [
-    {
-      name: string;
-      id: string;
-      img: string;
-      wins: number;
-      losses: number;
-    }
-  ];
-  gameName: string;
-}
-
-export const MyGameCard = ({ gameName, playerData }: TeamProps) => {
+export const MyGameCard = ({ gameName, players }: GameProps) => {
   const [teamUpMode, setTeamUpMode] = useState(false);
   const [pinkTeam, setPinkTeam] = useState([{}]);
   const [redTeam, setRedTeam] = useState([{}]);
@@ -28,7 +16,7 @@ export const MyGameCard = ({ gameName, playerData }: TeamProps) => {
   const randomTeams = () => {
     setTeamUpMode(true);
     setTimeout(() => {
-      const randomArray = playerData
+      const randomArray = players
         .sort(() => Math.random() - Math.random())
         .slice(0, 4);
       const splitArray = Math.ceil(randomArray.length / 2);
@@ -50,7 +38,7 @@ export const MyGameCard = ({ gameName, playerData }: TeamProps) => {
                 <h3>{gameName}</h3>
                 <p className="title">Participants:</p>
 
-                {playerData.map((player, key: any) => {
+                {players.map((player, key: any) => {
                   return (
                     //IKON: check eller klocka beroende på om personen hunnit accepterat eller ej
                     // När alla accepterat kommer knappen med "team-up"
@@ -65,7 +53,7 @@ export const MyGameCard = ({ gameName, playerData }: TeamProps) => {
           ) : teamUpMode && !isTeamsSet ? (
             <>
               <div className="my-game-card-players">
-                {playerData.map((player, key: any) => {
+                {players.map((player, key: any) => {
                   return (
                     <div key={key} className="playerCard">
                       <div
@@ -135,7 +123,7 @@ export const MyGameCard = ({ gameName, playerData }: TeamProps) => {
       ) : finished ? (
         <>
           <div className="my-game-card-finished">
-            {playerData.map((player: any, key: any) => {
+            {players.map((player: any, key: any) => {
               return (
                 //pink-team inx 0, 1. red-team inx 2, 3. styr bakgrunden.
                 <div key={key} className="playerCard">

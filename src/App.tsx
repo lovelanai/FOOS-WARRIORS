@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { Notification } from "./components/notification/Notification";
 import "./main.sass";
 import { Battlefield } from "./views/battlefield/Battlefield";
-
 import { FindPlayers } from "./views/find-players/FindPlayers";
 import { Home } from "./views/home/Home";
 import { LandingPage } from "./views/landing-page/LandingPage";
@@ -13,6 +12,7 @@ import { MyGames } from "./views/my-games/MyGames";
 import { NotificationsView } from "./views/notifications/NotificationsView";
 import { Playground } from "./views/playground/Playground";
 import { Profile } from "./views/profile/Profile";
+
 function App() {
   return (
     <div>

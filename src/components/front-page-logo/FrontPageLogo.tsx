@@ -1,4 +1,3 @@
-import Logo from "@/assets/logos/logos";
 import "./FrontPageLogo.sass";
 
 export const FrontPageLogo = () => {

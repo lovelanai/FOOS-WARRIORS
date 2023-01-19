@@ -4,7 +4,7 @@ import { PrimaryButton } from "../primary-button/PrimaryButton";
 
 import "./PlayerCard.sass";
 
-interface playerCard {
+interface PlayerCardProps {
   title: string;
   img: string;
   profileLink?: string;
@@ -18,7 +18,7 @@ export const PlayerCard = ({
   profileLink,
   inviteOnClick,
   id,
-}: playerCard) => {
+}: PlayerCardProps) => {
   const navigate = useNavigate();
 
   const { isInviteView, invitedPlayerId } = useUser();

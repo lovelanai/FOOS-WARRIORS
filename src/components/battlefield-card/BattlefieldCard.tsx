@@ -1,9 +1,8 @@
-import Logo from "@/assets/logos/logos";
 import { mockedUser } from "@/mockedUsers/mockedUsers";
-import { UserProps } from "@/utils/props";
+import { ResultProps } from "@/utils/props";
 import "./BattlefieldCard.sass";
 
-export interface TeamProps {
+export interface BattleFieldCardProps {
   playerOne: mockedUser;
   playerTwo: mockedUser;
   playerThree: mockedUser;
@@ -19,7 +18,7 @@ export const BattlefieldCard = ({
   playerThree,
   playerFour,
   content,
-}: TeamProps) => {
+}: BattleFieldCardProps) => {
   return (
     <div className="battleFieldCard">
       <div className="team">
@@ -62,22 +61,6 @@ export const BattlefieldCard = ({
     </div>
   );
 };
-
-export interface ResultProps {
-  winners: WinnerProps;
-  losers: LoserProps;
-}
-
-export interface WinnerProps {
-  player1: UserProps;
-  player2: UserProps;
-  color: string;
-}
-export interface LoserProps {
-  player1: UserProps;
-  player2: UserProps;
-  color: string;
-}
 
 export const BattlefieldWinnerCard = ({ winners, losers }: ResultProps) => {
   return (

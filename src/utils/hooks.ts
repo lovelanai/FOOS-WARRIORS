@@ -13,7 +13,6 @@ import {
 import { useEffect, useState } from "react";
 
 export const useFetch = (api: string, id?: string) => {
-  const { update } = useUser();
   const [response, setResponse] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,7 +47,7 @@ export const useFetch = (api: string, id?: string) => {
           console.log("error", error);
         });
     }
-  }, [api, id, update]);
+  }, [api, id]);
 
   return { response, isLoading, setResponse };
 };
@@ -135,4 +134,3 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
   }
 
 } */
-

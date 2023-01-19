@@ -1,33 +1,26 @@
 import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
 import { BattleCard } from "@/components/battle-card/BattleCard";
-import { WinnerProps } from "@/components/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { useFetch } from "@/utils/hooks";
-import { UserProps } from "@/utils/props";
+import { TeamProps } from "@/utils/props";
 import { useNavigate } from "react-router-dom";
 import "./MatchHistory.sass";
 import { BattleCardSkeleton } from "./skeleton/BattleCardSkeleton";
 
-export interface Teamprops {
-  player1: UserProps;
-  player2: UserProps;
-}
-
 export const MatchHistory = () => {
   const navigate = useNavigate();
   const { response, isLoading } = useFetch("matchHistory");
-  console.log(response);
 
   interface GameDataProps {
     id: string;
     hostId: string;
-    winners: WinnerProps;
+    winners: TeamProps;
     winnnerGoals: number;
     loserGoals: number;
-    pinkTeam: Teamprops;
-    redTeam: Teamprops;
+    pinkTeam: TeamProps;
+    redTeam: TeamProps;
   }
 
   return (
