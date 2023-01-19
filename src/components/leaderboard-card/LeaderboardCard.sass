@@ -1,0 +1,76 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.leaderboardCard
+    background: Colors.$gradient
+    display: flex
+    height: 10rem
+    justify-content: space-between
+    margin: 0.3rem 0
+    width: 100%
+    position: relative
+
+    & > .content
+        align-items: center
+        display: flex
+
+        & > .img
+            height: 100%
+            width: 18vh
+            background-size: cover
+            background-position: center
+            clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
+
+        & > .placement
+            font-size: Fonts.$h3
+            margin: 1rem 0
+        
+        & > .statsContainer
+            display: flex
+            justify-content: center
+            flex-direction: column
+            height: 100%
+            width: 100%
+  
+
+            & > .stats
+                display: flex
+                
+               
+                & > .text
+                    text-align: start
+                    font-size: Fonts.$p
+                    margin: 1rem
+                    @media (min-width: 400px)
+                        font-size: Fonts.$h4
+
+
+    & > .aside
+        align-items: flex-end
+        display: flex
+        flex-direction: column
+        gap: .5rem
+        justify-content: center
+        margin-right: 4vw
+        & > .title
+            font-size: Fonts.$h3
+            margin: 0
+            text-align: end
+
+
+
+        & > .button-container
+            display: flex
+            align-items: center
+            gap: 1rem
+            & > .icon
+                background: Colors.$black 
+                border-radius: 100%
+                padding: .5rem
+                height: 2rem
+                width: 2rem
+                display: flex
+                align-items: center
+  
+
+

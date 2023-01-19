@@ -4,21 +4,23 @@ export interface UserProps {
   img: string;
   id: string;
   email: string;
+  wins: number;
+  losses: number;
+  ratio: number;
   currentToken: string;
 }
 
 export interface GameProps {
-  gameName: string,
-  id: string
+  gameName: string;
+  id: string;
   players: [
-{
-    id: string,
-    name: string,
-    img: string
-  }
-]
+    {
+      id: string;
+      name: string;
+      img: string;
+    }
+  ];
 }
-
 
 export interface NotificationProps {
   title: string;

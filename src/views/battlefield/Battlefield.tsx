@@ -103,7 +103,7 @@ export const Battlefield = () => {
 
       <div
         className="card-view"
-        // style={results ? { height: "calc(100vh - 9.3rem)" } : {}}
+        style={results ? { height: "calc(100vh - 17.6rem)" } : {}}
       >
         {!results ? (
           <BattlefieldCard

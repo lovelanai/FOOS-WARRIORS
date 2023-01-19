@@ -4,7 +4,6 @@ import { ImageUploader } from "@/components/image-uploader/ImageUploader";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/firebase/authHooks";
 import { db, storage } from "@/firebase/firebase.config";
-import { useFetch } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
 import { uuidv4 } from "@firebase/util";
 import { getAuth, updateProfile } from "firebase/auth";
@@ -28,6 +27,10 @@ export const Profile = () => {
   const userData = { ...(userConnectedToProfile as unknown as UserProps) };
 
   const personalProfileCheck = loggedInUserId === userData.id;
+
+  // this test ratio. wins + losses = gamesPlayer. wlratio = wins / gamesplayed
+  // const gamesPlayed = userData.wins + userData.losses;
+  // const wlRatio = (userData.wins / gamesPlayed).toFixed(2);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [imageUpload, setImageUpload] = useState();
@@ -99,9 +102,6 @@ export const Profile = () => {
     logout();
     navigate("/");
   };
-
-  console.log(description);
-  console.log(name);
 
   return (
     <>
@@ -177,17 +177,17 @@ export const Profile = () => {
                 <p className="bio">{userData.description}</p>
                 <div className="stats">
                   <div>
-                    <p className="value">26</p>
+                    <p className="value">{userData.wins}</p>
                     <p className="type">Wins</p>
                     <div className="border"></div>
                   </div>
                   <div>
-                    <p className="value">14</p>
+                    <p className="value">{userData.losses}</p>
                     <p className="type">Losses</p>
                     <div className="border"></div>
                   </div>
                   <div>
-                    <p className="value">1.4325</p>
+                    <p className="value">{userData.ratio}</p>
                     <p className="type">Ratio</p>
                     <div className="border"></div>
                   </div>
