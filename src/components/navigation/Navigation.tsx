@@ -42,9 +42,9 @@ export const Navigation = () => {
         </div>
       </div>
       <div className="item">
-        <div className="bigButton" onClick={() => navigate(`/battleField`)}>
+        <div className="bigButton" onClick={() => navigate(`/my-games`)}>
           <ICON.NavigationSwords className="icon" />
-          <p className="text">Battle</p>
+          <p className="text">My Battles</p>
         </div>
       </div>
     </div>
