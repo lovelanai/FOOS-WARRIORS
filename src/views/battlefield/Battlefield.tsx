@@ -58,8 +58,9 @@ export const Battlefield = () => {
       setLosers(redTeam);
     }
   };
-
+  const today = new Date().getDate();
   const gameData = {
+    date: today,
     hostId: loggedInUserId,
     winners: winners,
     winnnerGoals: 10,

@@ -92,9 +92,6 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { response: notifications, setResponse: setNotifications } =
     fetchWithMatch("notifications", "id", loggedInUserId);
 
-  console.log("users", users);
-  console.log("notifications", notifications);
-
   return (
     <UserContext.Provider
       value={{
