@@ -153,16 +153,3 @@ export const MyGameCard = ({ gameName, players }: GameProps) => {
     </>
   );
 };
-
-export const GamesImInCard = () => {
-  return (
-    <div className="game-card">
-      <div className="text">
-        <h3>Game name</h3>
-        <p>
-          Participants:<br></br>x, x, x och x
-        </p>
-      </div>
-    </div>
-  );
-};

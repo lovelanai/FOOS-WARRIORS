@@ -165,9 +165,7 @@ export const Profile = () => {
                   )}
                 </>
               ) : (
-                <div className="icon">
-                  <ICON.Invite />
-                </div>
+                <></>
               )}
             </div>
             {!isEditMode ? (

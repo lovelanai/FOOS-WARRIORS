@@ -1,7 +1,7 @@
 import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
-import { GamesImInCard, MyGameCard } from "@/components/my-games/MyGameCard";
+import { MyGameCard } from "@/components/my-games/MyGameCard";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
@@ -97,6 +97,7 @@ export const MyGames = () => {
       players: invitedPlayers,
     });
     setNewGameMode(false);
+    setNewGameMode(false);
   };
 
   const searchFilter = (user: UserProps) =>
@@ -131,7 +132,7 @@ export const MyGames = () => {
             <ICON.Add />
           </div>
           <div className="games-menu">
-            <h3>Games I host</h3>
+            <h3></h3>
             <div className="links">
               <button
                 className={`${active ? "-underline" : ""}`}
@@ -154,19 +155,6 @@ export const MyGames = () => {
               id={gameData.id}
             />
           </div>
-          <br></br>
-          <br></br>
-          <br></br>
-          <div className="games-menu">
-            <h3>Games I'm in</h3>
-            {/*  <div className="links">
-              <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
-              <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
-            </div> */}
-          </div>
-          <div className="my-games-container">
-            <GamesImInCard />
-          </div>
         </>
       ) : newGameMode && !isInviteView ? (
         <>
@@ -184,7 +172,9 @@ export const MyGames = () => {
               >
                 Continue
               </button>
-              <button className="exit">Exit</button>
+              <button className="exit" onClick={() => setNewGameMode(false)}>
+                Exit
+              </button>
             </div>
           </div>
         </>
