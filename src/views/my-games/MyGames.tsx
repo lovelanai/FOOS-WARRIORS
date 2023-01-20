@@ -3,6 +3,7 @@ import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
 import { MyGameCard } from "@/components/my-games/MyGameCard";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
+import { SliderButton } from "@/components/slider-button/SliderButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { sendNotification, useFetch } from "@/utils/hooks";
@@ -106,15 +107,18 @@ export const MyGames = () => {
 
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
 
-  const handleViews = (value: string) => {
-    if (value === "active") {
+   const handleViews = (/* value: string */) => {
+     console.log('tja')
+    if (active === false) {
+      console.log('false')
       setActive(true);
-      setFinished(false);
-    } else if (value === "finished") {
+      //setFinished(false) ;
+    } else if (active === true) {
+      console.log('true')
       setFinished(true);
-      setActive(false);
+      setActive(false); 
     }
-  };
+  }; 
 
   return (
     <div className="my-games">
@@ -134,7 +138,12 @@ export const MyGames = () => {
           <div className="games-menu">
             <h3></h3>
             <div className="links">
-              <button
+            <SliderButton 
+            primary="Active"
+            secondary="Finished"
+            state={!active}
+            onClick={ () => handleViews()}/>
+             {/*  <button
                 className={`${active ? "-underline" : ""}`}
                 onClick={() => handleViews("active")}
               >
@@ -145,7 +154,7 @@ export const MyGames = () => {
                 onClick={() => handleViews("finished")}
               >
                 Finished
-              </button>
+              </button>  */}
             </div>
           </div>
           <div className="my-games-container">

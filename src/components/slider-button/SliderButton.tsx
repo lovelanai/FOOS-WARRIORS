@@ -4,7 +4,7 @@ interface SliderButtonProps {
   onClick: () => void;
   primary: string;
   secondary: string;
-  state: boolean;
+  state?: boolean;
   id?: string;
 }
 

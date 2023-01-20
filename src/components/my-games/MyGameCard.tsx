@@ -3,6 +3,7 @@ import { useUser } from "@/context/UserContext";
 import { GameProps } from "@/utils/props";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SliderButton } from "../slider-button/SliderButton";
 import "./MyGameCard.sass";
 
 export const MyGameCard = ({ gameName, players }: GameProps) => {
@@ -38,7 +39,7 @@ export const MyGameCard = ({ gameName, players }: GameProps) => {
                 <h3>{gameName}</h3>
                 <p className="title">Participants:</p>
 
-                {players.map((player, key: any) => {
+                {players?.map((player, key: any) => {
                   return (
                     //IKON: check eller klocka beroende på om personen hunnit accepterat eller ej
                     // När alla accepterat kommer knappen med "team-up"
@@ -123,7 +124,7 @@ export const MyGameCard = ({ gameName, players }: GameProps) => {
       ) : finished ? (
         <>
           <div className="my-game-card-finished">
-            {players.map((player: any, key: any) => {
+            {players?.map((player: any, key: any) => {
               return (
                 //pink-team inx 0, 1. red-team inx 2, 3. styr bakgrunden.
                 <div key={key} className="playerCard">
@@ -148,7 +149,7 @@ export const MyGameCard = ({ gameName, players }: GameProps) => {
           </div>
         </>
       ) : (
-        <>hej</>
+        <></>
       )}
     </>
   );
