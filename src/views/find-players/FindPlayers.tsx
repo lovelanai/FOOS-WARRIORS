@@ -3,12 +3,12 @@ import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
 import { InviteCard } from "@/components/InviteCard/InviteCard";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
-import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { sendNotification } from "@/utils/hooks";
 import { UserProps } from "@/utils/props";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
@@ -17,8 +17,7 @@ import "./FindPlayers.sass";
 
 export const FindPlayers = () => {
   const navigate = useNavigate();
-  const { loggedInUserId, users, isLoading, notifications, setNotifications } =
-    useUser();
+  const { loggedInUserId, users, isLoading } = useUser();
   const currentUser: UserProps = users.find(({ id }) => id === loggedInUserId)!;
 
   const [invitationMode, setInvitationMode] = useState(false);
@@ -101,7 +100,7 @@ export const FindPlayers = () => {
           <>
             {users
               .filter(searchFilter)
-              // .filter(removeLoggedInUser)
+              .filter(removeLoggedInUser)
               .map((user: UserProps) => (
                 <PlayerCard
                   profileLink={user.id}
@@ -116,7 +115,7 @@ export const FindPlayers = () => {
           </>
         ) : (
           <>
-            {Array(6)
+            {Array(10)
               .fill(null)
               .map((key, index) => (
                 <PlayerCardSkeleton key={index} />

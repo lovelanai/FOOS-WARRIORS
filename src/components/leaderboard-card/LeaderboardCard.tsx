@@ -1,6 +1,4 @@
-import { UserContext } from "@/context/UserContext";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import "./LeaderboardCard.sass";
 
@@ -26,7 +24,6 @@ export const LeaderboardCard = ({
   losses,
   gamesPlayed,
   state,
-  onClick,
 }: LeaderboardCard) => {
   const [view, setView] = useState(false);
 

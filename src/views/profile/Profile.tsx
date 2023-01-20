@@ -11,13 +11,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProfileSkeleton } from "./profile-skeleton/ProfileSkeleton";
 import "./Profile.sass";
+import { ProfileSkeleton } from "./skeleton/ProfileSkeleton";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const { loggedInUserId, update, setUpdate, users, setUsers, isLoading } =
-    useUser();
+  const { loggedInUserId, users, setUsers, isLoading } = useUser();
   const params = useParams();
   const userId = params.id;
 

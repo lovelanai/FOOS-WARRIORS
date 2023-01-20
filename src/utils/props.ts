@@ -13,13 +13,18 @@ export interface UserProps {
 export interface GameProps {
   gameName: string;
   id: string;
-  players: [
-    {
-      id: string;
-      name: string;
-      img: string;
-    }
-  ];
+  players: [UserProps];
+}
+
+export interface TeamProps {
+  player1: UserProps;
+  player2: UserProps;
+  color: string;
+}
+
+export interface ResultProps {
+  winners: TeamProps;
+  losers: TeamProps;
 }
 
 export interface NotificationProps {

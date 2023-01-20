@@ -1,6 +1,6 @@
 import "./PrimaryButton.sass";
 
-interface ButtonProps {
+interface PrimaryButtonProps {
   title?: string;
   onClick?: () => void;
   secondary?: boolean;
@@ -16,7 +16,7 @@ export const PrimaryButton = ({
   profileButton = false,
   icon,
   disabled = false,
-}: ButtonProps) => {
+}: PrimaryButtonProps) => {
   return (
     <button
       onClick={onClick}

@@ -1,29 +1,30 @@
 import ICON from "@/assets/icons/icons";
-import Logo from "@/assets/logos/logos";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
-  LoserProps,
-  ResultProps,
-  WinnerProps,
 } from "@/components/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
 import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
-import { mockedUsers } from "@/mockedUsers/mockedUsers";
+import { useUser } from "@/context/UserContext";
+import { db } from "@/firebase/firebase.config";
+import { TeamProps } from "@/utils/props";
+import { uuidv4 } from "@firebase/util";
+import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Battlefield.sass";
 
 export const Battlefield = () => {
   const navigate = useNavigate();
+  const { loggedInUserId } = useUser();
   const goals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [winnerTeam, setWinnerTeam] = useState("");
   const [results, setResults] = useState(false);
   const location = useLocation();
 
-  const [winners, setWinners] = useState<WinnerProps>();
-  const [losers, setLosers] = useState<LoserProps>();
+  const [winners, setWinners] = useState<TeamProps>();
+  const [losers, setLosers] = useState<TeamProps>();
+  const [loserGoals, setLoserGoals] = useState(Number);
 
   console.log(winnerTeam);
   const handleToggleButtons = (value: string) => {
@@ -58,8 +59,96 @@ export const Battlefield = () => {
     }
   };
 
-  console.log("winners", winners);
-  console.log("losers", losers);
+  const gameData = {
+    hostId: loggedInUserId,
+    winners: winners,
+    winnnerGoals: 10,
+    losers: losers,
+    loserGoals: loserGoals,
+    pinkTeam: {
+      player1: pinkTeam.player1,
+      player2: pinkTeam.player2,
+    },
+    redTeam: {
+      player1: redTeam.player1,
+      player2: redTeam.player2,
+    },
+  };
+  const submitGame = () => {
+    const id = uuidv4();
+    const ref = doc(db, `matchHistory/${id}`);
+    setDoc(ref, gameData)
+      .then(async () => {
+        await deleteDoc(doc(db, "games", loggedInUserId));
+      })
+      .then(() => {
+        let wins = winners?.player1.wins! + 1;
+        let losses = winners?.player1.losses;
+        let gamesplayed = wins! + losses!;
+        let ratio = (wins! / gamesplayed).toFixed(2);
+        let playerId = winners?.player1.id;
+
+        const updatedStats = {
+          wins: wins,
+          losses: losses,
+          ratio: ratio,
+        };
+        console.log(playerId, updatedStats);
+        const ref = doc(db, `users/${playerId}`);
+        updateDoc(ref, updatedStats);
+      })
+      .then(() => {
+        let playerId = winners?.player2.id;
+        let wins = winners?.player2.wins! + 1;
+        let losses = winners?.player2.losses;
+        let gamesplayed = wins! + losses!;
+        let ratio = (wins! / gamesplayed).toFixed(2);
+        const updatedStats = {
+          wins: wins,
+          losses: losses,
+          ratio: ratio,
+        };
+        console.log(playerId, updatedStats);
+        const ref = doc(db, `users/${playerId}`);
+        updateDoc(ref, updatedStats);
+      })
+      .then(() => {
+        let playerId = losers?.player1.id;
+        let wins = losers?.player1.wins!;
+        let losses = losers?.player1.losses! + 1;
+        let gamesplayed = wins! + losses!;
+        let ratio = (wins! / gamesplayed).toFixed(2);
+        const updatedStats = {
+          wins: wins,
+          losses: losses,
+          ratio: ratio,
+        };
+        console.log(playerId, updatedStats);
+        const ref = doc(db, `users/${playerId}`);
+        updateDoc(ref, updatedStats);
+      })
+      .then(() => {
+        let playerId = losers?.player2.id;
+        let wins = losers?.player2.wins!;
+        let losses = losers?.player2.losses! + 1;
+        let gamesplayed = wins! + losses!;
+        let ratio = (wins! / gamesplayed).toFixed(2);
+        const updatedStats = {
+          wins: wins,
+          losses: losses,
+          ratio: ratio,
+        };
+        console.log(playerId, updatedStats);
+        const ref = doc(db, `users/${playerId}`);
+        updateDoc(ref, updatedStats);
+      });
+  };
+
+  const handleCancelGame = async () => {
+    await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {
+      navigate("/games");
+    });
+  };
 
   return (
     <div className="battlefield">
@@ -154,7 +243,9 @@ export const Battlefield = () => {
                   title="Enter Results"
                   onClick={handleSetResult}
                 />
-                <button className="cancel-btn">Cancel game</button>
+                <button className="cancel-btn" onClick={handleCancelGame}>
+                  Cancel game
+                </button>
               </div>
             }
           />
@@ -239,7 +330,7 @@ export const Battlefield = () => {
                         <button
                           className="goal-value"
                           key={index}
-                          onClick={() => console.log(goal)}
+                          onClick={() => setLoserGoals(goal)}
                         >
                           {goal}
                         </button>
@@ -249,13 +340,15 @@ export const Battlefield = () => {
                 </div>
                 <PrimaryButton
                   secondary
-                  disabled={true}
+                  disabled={!gameData.loserGoals}
                   title="Finish Game"
-                  onClick={handleSetResult}
+                  onClick={submitGame}
                 />
               </>
             )}
-            <button className="cancel-btn">Cancel game</button>
+            <button className="cancel-btn" onClick={handleCancelGame}>
+              Cancel game
+            </button>
           </div>
         </div>
       </div>

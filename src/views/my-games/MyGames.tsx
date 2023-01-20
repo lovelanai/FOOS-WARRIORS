@@ -1,34 +1,39 @@
 import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
-import { MyGameCard } from "@/components/my-games/MyGameCard";
-import "./MyGames.sass";
-import { useContext, useState } from "react";
 import { InputField } from "@/components/input-field/InputField";
-import { HeaderNotification } from "@/components/notification/HeaderNotification";
-import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
+import { MyGameCard } from "@/components/my-games/MyGameCard";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
-import { UserContext, useUser } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { sendNotification, useFetch } from "@/utils/hooks";
-import { UserProps, GameProps } from "@/utils/props";
+import { GameProps, UserProps } from "@/utils/props";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./MyGames.sass";
 
 export const MyGames = () => {
-  const { setIsInviteView, isInviteView, setInvitedPlayerId, invitedPlayerId } =
-    useContext(UserContext);
-  const { loggedInUserId } = useUser();
-  const { response, isLoading } = useFetch("users");
-  const { response: currentUser } = useFetch("users", loggedInUserId);
-  const user = { ...(currentUser as unknown as UserProps) };
-  const { response: gameResponse } = useFetch("games", loggedInUserId);
   const navigate = useNavigate();
+  const {
+    loggedInUserId,
+    users,
+    isLoading,
+    isInviteView,
+    setIsInviteView,
+    finished,
+    setFinished,
+    active,
+    setActive,
+    setInvitedPlayerId,
+  } = useUser();
+
+  const user: UserProps = users.find(({ id }) => id === loggedInUserId)!;
+
+  const { response: gameResponse } = useFetch("games", loggedInUserId);
   const gameData = { ...(gameResponse as unknown as GameProps) };
-
   const gameDataArray = gameResponse as unknown as GameProps;
-
-  const { finished, setFinished, active, setActive } = useContext(UserContext);
 
   const [newGameMode, setNewGameMode] = useState(false);
   const [gameName, setGameName] = useState("");
@@ -40,7 +45,9 @@ export const MyGames = () => {
     name: string,
     id: string,
     token: string,
-    img: string
+    img: string,
+    wins: number | "",
+    losses: number | ""
   ) => {
     sendNotification({
       to: token,
@@ -48,21 +55,20 @@ export const MyGames = () => {
       body: `${user.name} invited you to play a game of foos!`,
       recieverId: id,
     }).then(() => {
-      const id = uuidv4();
-      const currentUserRef = doc(db, `notifications/${id}`);
+      const uid = uuidv4();
+      const ref = doc(db, `notifications/${uid}`);
       const day = new Date().toDateString();
       const time = new Date().toLocaleTimeString();
-      setDoc(currentUserRef, {
+      setDoc(ref, {
         title: "INCOMING BATTLE",
         text: `${user.name} invited you to play a game of foos!`,
-        id: id,
+        id: user.id,
         time: `${day} ${time}`,
       })
         .finally(() => {
-          let newPlayer = { name, id, img };
+          let newPlayer = { name, id, img, wins, losses };
           invitedPlayers.push(newPlayer);
           setInvitedPlayerId(id);
-          setInvitedPlayerId(invitedPlayers);
         })
         .catch((err) => {
           console.log("error", err);
@@ -82,12 +88,15 @@ export const MyGames = () => {
       name: user.name,
       id: user.id,
       img: user.img,
+      wins: user.wins,
+      losses: user.losses,
     };
     invitedPlayers.push(host);
     setDoc(doc(db, `games/${loggedInUserId}`), {
       gameName: gameName,
       players: invitedPlayers,
     });
+    setNewGameMode(false);
     setNewGameMode(false);
   };
 
@@ -111,7 +120,14 @@ export const MyGames = () => {
     <div className="my-games">
       {!newGameMode ? (
         <>
-          <Header element={<ICON.Arrow />} title="My Games" />
+          <Header
+            element={
+              <div onClick={() => navigate(-1)}>
+                <ICON.Arrow />
+              </div>
+            }
+            title="My Games"
+          />
           <div className="icon" onClick={() => setNewGameMode(true)}>
             <ICON.Add />
           </div>
@@ -134,8 +150,9 @@ export const MyGames = () => {
           </div>
           <div className="my-games-container">
             <MyGameCard
-              playerData={gameDataArray.players}
+              players={gameDataArray.players}
               gameName={gameData.gameName}
+              id={gameData.id}
             />
           </div>
         </>
@@ -199,9 +216,9 @@ export const MyGames = () => {
               })}
             </div>
             <div className="content">
-              {response && !isLoading ? (
+              {users && !isLoading ? (
                 <>
-                  {response
+                  {users
                     .filter(searchFilter)
                     .filter(removeLoggedInUser)
                     .map((user: UserProps) => (
@@ -215,7 +232,9 @@ export const MyGames = () => {
                             user.name,
                             user.id,
                             user.currentToken,
-                            user.img
+                            user.img,
+                            user.wins,
+                            user.losses
                           )
                         }
                       />

@@ -1,26 +1,21 @@
-import { useNavigate } from "react-router-dom";
 import ICON from "@/assets/icons/icons";
-import { Header } from "@/components/header/Header";
-import "./LeaderBoard.sass";
-import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import Logo from "@/assets/logos/logos";
-import { useUser } from "@/context/UserContext";
-import { PlayerCardSkeleton } from "@/components/player-card/player-card-skeleton/PlayerCardSkeleton";
-import { PlayerCard } from "@/components/player-card/PlayerCard";
-import { UserProps } from "@/utils/props";
+import { Header } from "@/components/header/Header";
 import { LeaderboardCard } from "@/components/leaderboard-card/LeaderboardCard";
-import { useState } from "react";
+import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { SliderButton } from "@/components/slider-button/SliderButton";
+import { useUser } from "@/context/UserContext";
+import { UserProps } from "@/utils/props";
+import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LeaderBoard.sass";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
   const { users, isLoading } = useUser();
   const placementSorter = users.sort((a, b) => a.ratio - b.ratio);
   const [view, setView] = useState(false);
-
-  // this test ratio. wins + losses = gamesPlayer. wlratio = wins / gamesplayed
-  // const gamesPlayed = userData.wins + userData.losses;
-  // const wlRatio = (userData.wins / gamesPlayed).toFixed(2);
 
   const date = new Date();
   const year = date.getFullYear();
@@ -64,6 +59,9 @@ export const LeaderBoard = () => {
       break;
   }
 
+  const noGamesPlayedFilter = (user: UserProps) =>
+    user.wins !== 0 || user.losses !== 0;
+
   return (
     <div className="leaderBoard">
       <div className="nav">
@@ -96,11 +94,9 @@ export const LeaderBoard = () => {
         {users && !isLoading ? (
           <>
             {placementSorter
+              .filter(noGamesPlayedFilter)
               .reverse()
-              // .filter(removeLoggedInUser)
               .map((user: UserProps, index) => {
-                const gamesPlayed = user.wins + user.losses;
-                const wlRatio = (user.wins / gamesPlayed).toFixed(2);
                 return (
                   <LeaderboardCard
                     state={view}
@@ -108,7 +104,7 @@ export const LeaderBoard = () => {
                     img={user.img}
                     key={user.id}
                     placement={index + 1}
-                    ratio={wlRatio}
+                    ratio={user.ratio}
                     wins={user.wins}
                     losses={user.losses}
                     gamesPlayed={user.wins + user.losses}

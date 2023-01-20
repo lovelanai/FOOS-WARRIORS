@@ -1,67 +1,56 @@
 import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
-import { mockedUser } from "@/mockedUsers/mockedUsers";
+import { TeamProps } from "@/utils/props";
+
 import "./BattleCard.sass";
 
-export interface TeamProps {
-  playerOne: mockedUser;
-  playerTwo: mockedUser;
-  playerThree: mockedUser;
-  playerFour: mockedUser;
-  pinkGoals?: string;
-  redGoals?: string;
-  winners?: boolean;
+export interface BattleCardProps {
+  pinkTeam: TeamProps;
+  redTeam: TeamProps;
+  winners: TeamProps;
+  winnerGoals: number;
+  loserGoals: number;
   finished?: boolean;
 }
 
-/**
- * @param finished
- * default false, if set to true, displays scoreboard in middle
- *
- * @param winners
- * default false, false = Pink Team : true = Red Team
- *
- */
 export const BattleCard = ({
-  playerOne,
-  playerTwo,
-  playerThree,
-  playerFour,
-  pinkGoals,
-  redGoals,
+  pinkTeam,
+  redTeam,
+  winnerGoals,
+  loserGoals,
   winners,
   finished,
-}: TeamProps) => {
+}: BattleCardProps) => {
   return (
     <div className="battleCard">
       <div className="team">
         <div
           className="player"
-          style={{ backgroundImage: `url(${playerOne.img})` }}
+          style={{ backgroundImage: `url(${pinkTeam.player1.img})` }}
         >
           <div className="overlay">
-            <h4 className="name">{playerOne.name}</h4>
+            <h4 className="name">{pinkTeam.player1.name}</h4>
           </div>
         </div>
         <div
           className="player"
-          style={{ backgroundImage: `url(${playerTwo.img})` }}
+          style={{ backgroundImage: `url(${pinkTeam.player2.img})` }}
         >
           <div className="overlay">
-            <h4 className="name">{playerTwo.name}</h4>
+            <h4 className="name">{pinkTeam.player2.name}</h4>
           </div>
         </div>
       </div>
       <div className="matchContent">
         {finished ? (
           <>
-            {winners ? <ICON.RedCrown /> : <ICON.PinkCrown />}
+            {winners.color === "pink" ? <ICON.PinkCrown /> : <ICON.RedCrown />}
             <div className="info">
               <h3 className="title">Winners</h3>
-              {winners ? (
-                <p className="text -red">Red Team</p>
-              ) : (
+              {winners.color === "pink" ? (
                 <p className="text -pink">Pink Team</p>
+              ) : (
+                <p className="text -red">Red Team</p>
               )}
             </div>
             <Logo.Ball />
@@ -69,9 +58,13 @@ export const BattleCard = ({
             <div className="info">
               <h3 className="title">Score</h3>
               <p className="text">
-                <span className="-pink">{pinkGoals}</span>
+                <span className="-pink">
+                  {winners.color === "pink" ? winnerGoals : loserGoals}
+                </span>
                 <span>-</span>
-                <span className="-red">{redGoals}</span>
+                <span className="-red">
+                  {winners.color !== "pink" ? winnerGoals : loserGoals}
+                </span>
               </p>
             </div>
           </>
@@ -80,18 +73,18 @@ export const BattleCard = ({
       <div className="team">
         <div
           className="player"
-          style={{ backgroundImage: `url(${playerThree.img})` }}
+          style={{ backgroundImage: `url(${redTeam.player1.img})` }}
         >
           <div className="overlay -red">
-            <h4 className="name">{playerThree.name}</h4>
+            <h4 className="name">{redTeam.player1.name}</h4>
           </div>
         </div>
         <div
           className="player"
-          style={{ backgroundImage: `url(${playerFour.img})` }}
+          style={{ backgroundImage: `url(${redTeam.player2.img})` }}
         >
           <div className="overlay -red">
-            <h4 className="name">{playerFour.name}</h4>
+            <h4 className="name">{redTeam.player2.name}</h4>
           </div>
         </div>
       </div>

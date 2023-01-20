@@ -1,12 +1,12 @@
-import { useRef } from "react";
 import ICON from "@/assets/icons/icons";
+import { useRef } from "react";
 import "./ImageUploader.sass";
 
-interface ImageUploaderInterface {
+interface ImageUploaderProps {
   onChange: (e: any) => void;
 }
 
-export const ImageUploader = ({ onChange }: ImageUploaderInterface) => {
+export const ImageUploader = ({ onChange }: ImageUploaderProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handeClick = () => {
