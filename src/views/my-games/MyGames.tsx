@@ -1,6 +1,6 @@
 import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
-import { GamesImInCard, MyGameCard } from "@/components/my-games/MyGameCard";
+import { MyGameCard } from "@/components/my-games/MyGameCard";
 import "./MyGames.sass";
 import { useContext, useState } from "react";
 import { InputField } from "@/components/input-field/InputField";
@@ -13,30 +13,36 @@ import { sendNotification, useFetch } from "@/utils/hooks";
 import { UserProps, GameProps } from "@/utils/props";
 import { uuidv4 } from "@firebase/util";
 import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export const MyGames = () => {
-  const { setIsInviteView, isInviteView, setInvitedPlayerId } = useContext(UserContext);
+  const { setIsInviteView, isInviteView, setInvitedPlayerId, invitedPlayerId } =
+    useContext(UserContext);
   const { loggedInUserId } = useUser();
   const { response, isLoading } = useFetch("users");
   const { response: currentUser } = useFetch("users", loggedInUserId);
   const user = { ...(currentUser as unknown as UserProps) };
   const { response: gameResponse } = useFetch("games", loggedInUserId);
-  
+  const navigate = useNavigate();
   const gameData = { ...(gameResponse as unknown as GameProps) };
 
-  const gameDataArray = gameResponse as unknown as GameProps
+  const gameDataArray = gameResponse as unknown as GameProps;
 
-  const {finished, setFinished, active, setActive} = useContext(UserContext)
+  const { finished, setFinished, active, setActive } = useContext(UserContext);
 
-  
   const [newGameMode, setNewGameMode] = useState(false);
   const [gameName, setGameName] = useState("");
 
   const [inputValue, setInputValue] = useState("");
   const [invitedPlayers, setInvitedPlayers] = useState([] as any);
 
-  const handleInviteList = (name: string, id: string, token: string, img: string) => {
-      sendNotification({
+  const handleInviteList = (
+    name: string,
+    id: string,
+    token: string,
+    img: string
+  ) => {
+    sendNotification({
       to: token,
       title: "INCOMING BATTLE",
       body: `${user.name} invited you to play a game of foos!`,
@@ -51,13 +57,16 @@ export const MyGames = () => {
         text: `${user.name} invited you to play a game of foos!`,
         id: id,
         time: `${day} ${time}`,
-      }).finally(() => {
-        let newPlayer = { name, id, img };
-        invitedPlayers.push(newPlayer);
-        setInvitedPlayerId(id);
-      }).catch((err) => {
-        console.log("error", err);
-      });
+      })
+        .finally(() => {
+          let newPlayer = { name, id, img };
+          invitedPlayers.push(newPlayer);
+          setInvitedPlayerId(id);
+          setInvitedPlayerId(invitedPlayers);
+        })
+        .catch((err) => {
+          console.log("error", err);
+        });
     });
   };
 
@@ -72,14 +81,14 @@ export const MyGames = () => {
     const host = {
       name: user.name,
       id: user.id,
-      img: user.img
+      img: user.img,
     };
     invitedPlayers.push(host);
     setDoc(doc(db, `games/${loggedInUserId}`), {
       gameName: gameName,
       players: invitedPlayers,
     });
-    setNewGameMode(false)
+    setNewGameMode(false);
   };
 
   const searchFilter = (user: UserProps) =>
@@ -89,16 +98,16 @@ export const MyGames = () => {
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
 
   const handleViews = (value: string) => {
-    if (value === 'active') {
-        setActive(true)
-        setFinished(false)
-    } else if (value === 'finished') {
-        setFinished(true)
-        setActive(false)
+    if (value === "active") {
+      setActive(true);
+      setFinished(false);
+    } else if (value === "finished") {
+      setFinished(true);
+      setActive(false);
     }
-  }
+  };
 
-return (
+  return (
     <div className="my-games">
       {!newGameMode ? (
         <>
@@ -107,30 +116,27 @@ return (
             <ICON.Add />
           </div>
           <div className="games-menu">
-            <h3>Games I host</h3>
+            <h3></h3>
             <div className="links">
-              <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
-              <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
+              <button
+                className={`${active ? "-underline" : ""}`}
+                onClick={() => handleViews("active")}
+              >
+                Active
+              </button>
+              <button
+                className={`${finished ? "-underline" : ""}`}
+                onClick={() => handleViews("finished")}
+              >
+                Finished
+              </button>
             </div>
           </div>
           <div className="my-games-container">
-             <MyGameCard
+            <MyGameCard
               playerData={gameDataArray.players}
               gameName={gameData.gameName}
-            /> 
-          </div>
-          <br></br>
-          <br></br>
-          <br></br>
-          <div className="games-menu">
-            <h3>Games I'm in</h3>
-           {/*  <div className="links">
-              <button className={`${active ? "-underline" : ""}`} onClick={ () => handleViews('active')}>Active</button>
-              <button className={`${finished ? "-underline" : ""}`} onClick={ () => handleViews('finished')}>Finished</button>
-            </div> */}
-          </div>
-          <div className="my-games-container">
-            <GamesImInCard />
+            />
           </div>
         </>
       ) : newGameMode && !isInviteView ? (
@@ -149,7 +155,9 @@ return (
               >
                 Continue
               </button>
-              <button className="exit">Exit</button>
+              <button className="exit" onClick={() => setNewGameMode(false)}>
+                Exit
+              </button>
             </div>
           </div>
         </>
@@ -166,10 +174,7 @@ return (
                 placeholder="Search..."
               />
             ) : (
-              <button
-                className="continue"
-                onClick={createGame}
-              >
+              <button className="continue" onClick={createGame}>
                 Continue
               </button>
             )}

@@ -49,7 +49,7 @@ export const MyGameCard = ({
         Participants:
       </p>
     
-      {playerData.map((player, key: any) => { 
+      {playerData?.map((player, key: any) => { 
         return (
           //IKON: check eller klocka beroende på om personen hunnit accepterat eller ej
           // När alla accepterat kommer knappen med "team-up"
@@ -135,21 +135,8 @@ return(
       <h2>6</h2>
       </div>
   </>
-    ) : <>hej</>}
+    ) : <></>}
     </>
    
-  );
-};
-
-export const GamesImInCard = () => {
-  return (
-    <div className="game-card">
-      <div className="text">
-        <h3>Game name</h3>
-        <p>
-          Participants:<br></br>x, x, x och x
-        </p>
-      </div>
-    </div>
   );
 };
