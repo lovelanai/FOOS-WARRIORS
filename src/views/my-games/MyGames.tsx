@@ -220,7 +220,7 @@ export const MyGames = () => {
                 <>
                   {users
                     .filter(searchFilter)
-                    // .filter(removeLoggedInUser)
+                    .filter(removeLoggedInUser)
                     .map((user: UserProps) => (
                       <PlayerCard
                         title={user.name}

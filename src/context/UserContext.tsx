@@ -1,13 +1,5 @@
-import { db } from "@/firebase/firebase.config";
 import { fetchWithMatch, useFetch } from "@/utils/hooks";
 import { getAuth } from "firebase/auth";
-import {
-  query,
-  collection,
-  where,
-  getDocs,
-  deleteDoc,
-} from "firebase/firestore";
 import {
   createContext,
   FC,
