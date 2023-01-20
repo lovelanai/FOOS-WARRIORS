@@ -1,5 +1,16 @@
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { Route, Routes } from "react-router-dom";
 import { Notification } from "./components/notification/Notification";
+import { PrimaryButton } from "./components/primary-button/PrimaryButton";
+import { db } from "./firebase/firebase.config";
 import "./main.sass";
 import { Battlefield } from "./views/battlefield/Battlefield";
 import { FindPlayers } from "./views/find-players/FindPlayers";
