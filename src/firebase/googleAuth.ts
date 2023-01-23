@@ -27,8 +27,7 @@ export const signInWithGoogle = () =>
       getDoc(userRef).then(async (item) => {
         if (!item.data()) {
           return await getToken(messaging, {
-            vapidKey:
-              "BNoVEWA6F5-4Do1k0o6QkdZRTKLulROCF-XyxtakcYioOHyLq6NLVzoBQyvA1LyGMi1FEa7jzpcn2JrWd6DtOO4",
+            vapidKey: import.meta.env.VITE_VAPID_KEY,
           })
             .then((currentToken) => {
               if (currentToken) {
