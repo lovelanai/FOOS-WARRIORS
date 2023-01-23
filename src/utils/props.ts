@@ -11,7 +11,6 @@ export interface UserProps {
 }
 
 export interface GameProps {
-  gameName: string;
   id: string;
   players: [UserProps];
 }

@@ -30,155 +30,113 @@
             width: 8.5rem
             height: 2.5rem
 
-.my-game-card-players
-    background: Colors.$gradient
-    display: flex
+.playersGrid
+    background: Colors.$black
+    display: grid
+    gap: 2rem
+    grid-template-columns: 1fr 1fr
     flex-direction: column
     width: 100vw
-    height: 20rem
+    height: calc(100vh - 20rem)
+    overflow-y: scroll
     color: Colors.$black
     position: relative
 
-    & > .playerCard
+    & > .players
+        transform-origin: center
+        align-items: flex-end
+        justify-content: flex-start
         display: flex
-        height: 6rem
-        background: none
-        width: 100%    
-              
-        & > .img
-            height: 100%
-            width: 10vh
-            background-color: red
-            background-size: cover
-            background-position: center
-            clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
-        & > .aside
-            display: flex
-            flex-direction: row
-            align-items: center
-            justify-content: flex-start
-            width: 70%
-            & > .title
-                font-size: Fonts.$h3
-                margin: 0
+        height: 100%
+        width: 100%
+        &:nth-child(1)
+            justify-content: flex-end
+            align-items: flex-end
+        &:nth-child(3)
+            align-items: flex-start
+            justify-content: flex-end
+        &:nth-child(4)
+            align-items: flex-start
 
 
-.my-game-card-players-teamed
-    background: linear-gradient(180deg, Colors.$pink 50%, Colors.$red 50%)
-    display: flex
-    flex-direction: column
-    width: 100vw
-    height: 20rem
-    color: Colors.$black
-    position: relative
-   
-            
 
-    & > .playerCard
-        display: flex
-        height: 6rem
-        background: none
-        width: 100% 
-                   
-        & > .img
-            height: 100%
-            width: 10vh
-            background-color: red
-            background-size: cover
-            background-position: center
-            clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
-        & > .aside
-            display: flex
-            flex-direction: row
-            align-items: center
-            justify-content: flex-start
-            width: 70%
-            & > .title
-                font-size: Fonts.$h3
-                margin: 0
-
-.team-n-results
-    transform: translate(-10%, -105%) 
-    display: flex
-    flex-direction: column
+.teamContainer
     align-items: center
-    justify-content: center
-    position: absolute 
-    width: 8rem   
-    height: 18rem  
-    color: Colors.$black
-    right: 0
-    & > h3 
-        display: flex
-        flex-direction: column
-        align-items: center 
-        text-align: center   
-    & > button
-        border: none
-        border-radius: 10rem
-        background-color: Colors.$black
-        color: Colors.$white
-        width: 8.5rem
-        height: 2.5rem
-
-.my-game-card-finished
-    background: linear-gradient(180deg, Colors.$pink 50%, Colors.$red 50%)
     display: flex
     flex-direction: column
+    height: calc( 100vh - 7.8rem )
+    overflow-y: scroll
     width: 100vw
-    height: 20rem
-    color: Colors.$black
-    position: relative
-   
-    & > .playerCard
-        background: none
-        display: flex
-        height: 6rem
-        width: 100%            
-        & > .img
-            height: 100%
-            width: 10vh
-            background-color: red
-            background-size: cover
-            background-position: center
-            clip-path: polygon(0 0, 86% 0, 100% 100%, 0 100%)
-        & > .aside
-            display: flex
-            flex-direction: row
-            align-items: center
-            justify-content: flex-start
-            width: 70%
-            & > .title
-                font-size: Fonts.$h3
-                margin: 0  
-.team-n-results
-    transform: translate(-10%, -105%) 
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    position: absolute 
-    width: 8rem   
-    height: 18rem  
-    font-size: Fonts.$h3
-    color: Colors.$black
-    right: 0
-    & > h2 
-        display: flex
-        flex-direction: column
+    justify-content: space-evenly
+    
+    .register-result-section
         align-items: center
-
-.game-card
-    background: Colors.$gray
-    display: flex
-    justify-content: space-between
-    align-items: center
-    width: 100vw
-    height: 20rem
-    color: Colors.$black
-    & > .text
         display: flex
         flex-direction: column
-        padding-left: 2rem
-        & > h3
-            font-size: Fonts.$h3                
+        
+        & > h2
+            font-size: Fonts.$h3
+            text-align: center
+
+
+    @media screen and ( min-width: 1000px)
+        .results-mobile-view
+            display: none
+        
+
+.teamShuffleAnimation
+    animation: teamShuffle 1.5s ease-in forwards
+    overflow: hidden
+    height: calc( 100vh - 10rem )
+
+.teamSpin
+    animation: teamSpin 1s infinite linear
+    overflow: hidden
+
+.displayTeams
+    animation: displayTeams .2s ease-in forwards
+
+
+
+
+@keyframes teamShuffle
+    0%
+        transform: scale(1)
+    
+    25%
+        transform: scale(1.05)
+
+    50%
+        transform: scale(0.5)
+
+    70%
+        transform: scale(0.3) rotate(360deg)
+    80%
+        transform: scale(0.4) rotate(0deg)
+    90%
+        transform: scale(0.3) rotate(360deg)
+    100%
+        transform: scale(0)
+        display: none
+        
+@keyframes teamSpin
+    from
+        transform: rotate(0deg)
+    
+    to
+        transform: rotate(360deg)
+
+@keyframes displayTeams
+    0%
+        transform: scale(0)
+    
+    100%
+        transform: scale(1)
+
+
+    
+
+
+
+       
+

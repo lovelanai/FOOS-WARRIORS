@@ -1,154 +1,121 @@
-import ICON from "@/assets/icons/icons";
 import { useUser } from "@/context/UserContext";
+import { db } from "@/firebase/firebase.config";
 import { GameProps } from "@/utils/props";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BattlefieldCard } from "../battlefield-card/BattlefieldCard";
+import { PlayerFrame } from "../player-frame/PlayerFrame";
+import { PrimaryButton } from "../primary-button/PrimaryButton";
 import "./MyGameCard.sass";
 
-export const MyGameCard = ({ gameName, players }: GameProps) => {
-  const [teamUpMode, setTeamUpMode] = useState(false);
-  const [pinkTeam, setPinkTeam] = useState([{}]);
-  const [redTeam, setRedTeam] = useState([{}]);
-  const [isTeamsSet, setIsTeamsSet] = useState(false);
-  const { active, finished } = useUser();
+export const MyGameCard = ({ players, id }: GameProps) => {
   const navigate = useNavigate();
+  const { loggedInUserId } = useUser();
+  const [pinkTeam, setPinkTeam] = useState([] as any);
+  const [redTeam, setRedTeam] = useState([] as any);
+  const [isTeamsSet, setIsTeamsSet] = useState(false);
+  const [displayTeams, setDisplayTeams] = useState(false);
+
+  const handleCancelGame = async () => {
+    await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {
+      navigate("/games");
+    });
+  };
 
   const randomTeams = () => {
-    setTeamUpMode(true);
+    const randomArray = players
+      .sort(() => Math.random() - Math.random())
+      .slice(0, 4);
+    const splitArray = Math.ceil(randomArray.length / 2);
+    const pinkTeam = randomArray.splice(0, splitArray);
+    const redTeam = randomArray.splice(-splitArray);
+    setIsTeamsSet(true);
     setTimeout(() => {
-      const randomArray = players
-        .sort(() => Math.random() - Math.random())
-        .slice(0, 4);
-      const splitArray = Math.ceil(randomArray.length / 2);
-      const pinkTeam = randomArray.splice(0, splitArray);
-      const redTeam = randomArray.splice(-splitArray);
+      setDisplayTeams(true);
       setPinkTeam(pinkTeam);
       setRedTeam(redTeam);
-      setIsTeamsSet(true);
-    }, 3000);
+    }, 2000);
+  };
+
+  const pinkTeamData = {
+    player1: pinkTeam[0],
+    player2: pinkTeam[1],
+    color: "pink",
+  };
+  const redTeamData = {
+    player1: redTeam[0],
+    player2: redTeam[1],
+    color: "red",
   };
 
   return (
     <>
-      {active ? (
+      {!displayTeams ? (
         <>
-          {!teamUpMode ? (
-            <div className="my-game-card">
-              <div className="text">
-                <h3>{gameName}</h3>
-                <p className="title">Participants:</p>
-
-                {players.map((player, key: any) => {
-                  return (
-                    //IKON: check eller klocka beroende på om personen hunnit accepterat eller ej
-                    // När alla accepterat kommer knappen med "team-up"
-                    <p key={key}>{player.name} IKON</p>
-                  );
-                })}
-              </div>
-              <div className="button">
-                <button onClick={randomTeams}>Team-up</button>
-              </div>
-            </div>
-          ) : teamUpMode && !isTeamsSet ? (
-            <>
-              <div className="my-game-card-players">
-                {players.map((player, key: any) => {
-                  return (
-                    <div key={key} className="playerCard">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: `url(${player.img})`,
-                        }}
-                      />
-                      <div className="aside">
-                        <h3 className="title">{player.name}</h3>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="my-game-card-players-teamed">
-                {pinkTeam.map((player: any, key: any) => {
-                  return (
-                    <div key={key} className="playerCard">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: `url(${player.img})`,
-                        }}
-                      />
-                      <div className="aside">
-                        <h3 className="title">{player.name}</h3>
-                      </div>
-                    </div>
-                  );
-                })}
-                {redTeam.map((player: any, key: any) => {
-                  return (
-                    <div key={key} className="playerCard">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: `url(${player.img})`,
-                        }}
-                      />
-                      <div className="aside">
-                        <h3 className="title">{player.name}</h3>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="team-n-results">
-                <h3>Pink Team</h3>
-                <button
-                  onClick={() =>
-                    navigate("/battlefield", {
-                      state: { pinkTeam: pinkTeam, redTeam: redTeam },
-                    })
-                  }
-                >
-                  Add result
-                </button>
-                <h3>Red Team</h3>
-              </div>
-            </>
-          )}
-        </>
-      ) : finished ? (
-        <>
-          <div className="my-game-card-finished">
-            {players.map((player: any, key: any) => {
+          <div
+            className={`playersGrid ${
+              isTeamsSet ? "teamShuffleAnimation" : ""
+            }`}
+          >
+            {players.map((player, key: any) => {
               return (
-                //pink-team inx 0, 1. red-team inx 2, 3. styr bakgrunden.
-                <div key={key} className="playerCard">
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: `url(${player.img})`,
-                    }}
+                <div
+                  className={`players ${isTeamsSet ? "teamSpin" : ""}`}
+                  key={key}
+                >
+                  <PlayerFrame
+                    img={player.img}
+                    title={player.name}
+                    key={player.id}
                   />
-                  <div className="aside">
-                    <h3 className="title">{player.name}</h3>
-                  </div>
                 </div>
               );
             })}
           </div>
-          <div className="team-n-results">
-            <h2>
-              <ICON.CrownBlack style={{ width: "4rem" }} /> 10
-            </h2>
-            <h2>6</h2>
+          <div>
+            <PrimaryButton onClick={randomTeams} title="Team-up" secondary />
           </div>
         </>
       ) : (
-        <>hej</>
+        <div className="teamContainer displayTeams">
+          {pinkTeamData.player1 && redTeamData.player1 ? (
+            <BattlefieldCard
+              playerOne={pinkTeamData.player1}
+              playerTwo={pinkTeamData.player2}
+              content={
+                <div className="register-result-section">
+                  <h2>Teams successfully generated</h2>
+                  <PrimaryButton
+                    onClick={() =>
+                      navigate("/battlefield", {
+                        state: { pinkTeam: pinkTeam, redTeam: redTeam },
+                      })
+                    }
+                    title="To Battlefield"
+                    secondary
+                  />
+                </div>
+              }
+              playerThree={redTeamData.player2}
+              playerFour={redTeamData.player2}
+            />
+          ) : null}
+          <div className="results-mobile-view">
+            <div className="register-result-section">
+              <h2>Teams successfully generated</h2>
+              <PrimaryButton
+                onClick={() =>
+                  navigate("/battlefield", {
+                    state: { pinkTeam: pinkTeam, redTeam: redTeam },
+                  })
+                }
+                title="To Battlefield"
+                secondary
+              />
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

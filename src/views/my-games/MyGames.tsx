@@ -1,16 +1,24 @@
 import ICON from "@/assets/icons/icons";
+import { CreateGameCard } from "@/components/create-game-card/CreateGameCard";
 import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input-field/InputField";
-import { MyGameCard } from "@/components/my-games/MyGameCard";
 import { PlayerCard } from "@/components/player-card/PlayerCard";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
-import { sendNotification, useFetch } from "@/utils/hooks";
-import { GameProps, UserProps } from "@/utils/props";
+import { sendNotification } from "@/utils/hooks";
+import { UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
-import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyGames.sass";
 
@@ -31,23 +39,46 @@ export const MyGames = () => {
 
   const user: UserProps = users.find(({ id }) => id === loggedInUserId)!;
 
-  const { response: gameResponse } = useFetch("games", loggedInUserId);
-  const gameData = { ...(gameResponse as unknown as GameProps) };
-  const gameDataArray = gameResponse as unknown as GameProps;
+  const ref = query(collection(db, "games"), where("id", "==", loggedInUserId));
+
+  useEffect(() => {
+    getDocs(ref)
+      .then((res) => {
+        console.log(res.size);
+        if (res.size > 0) {
+          navigate(`/teamGenerator/${loggedInUserId}`);
+        } else {
+          return;
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
 
   const [newGameMode, setNewGameMode] = useState(false);
-  const [gameName, setGameName] = useState("");
+  const [inviteMode, setInviteMode] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
-  const [invitedPlayers, setInvitedPlayers] = useState([] as any);
+  interface invitedPlayerProps {
+    name: string;
+    id: string;
+    img: string;
+    wins: number;
+    losses: number;
+  }
+
+  const [invitedPlayers, setInvitedPlayers] = useState(
+    [] as invitedPlayerProps[]
+  );
 
   const handleInviteList = (
     name: string,
     id: string,
     token: string,
     img: string,
-    wins: number | "",
-    losses: number | ""
+    wins: number,
+    losses: number
   ) => {
     sendNotification({
       to: token,
@@ -86,18 +117,18 @@ export const MyGames = () => {
   const createGame = () => {
     const host = {
       name: user.name,
-      id: user.id,
+      id: loggedInUserId,
       img: user.img,
       wins: user.wins,
       losses: user.losses,
     };
     invitedPlayers.push(host);
     setDoc(doc(db, `games/${loggedInUserId}`), {
-      gameName: gameName,
+      id: loggedInUserId,
       players: invitedPlayers,
     });
     setNewGameMode(false);
-    setNewGameMode(false);
+    navigate(`/teamGenerator/${loggedInUserId}`);
   };
 
   const searchFilter = (user: UserProps) =>
@@ -106,15 +137,9 @@ export const MyGames = () => {
 
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
 
-  const handleViews = (value: string) => {
-    if (value === "active") {
-      setActive(true);
-      setFinished(false);
-    } else if (value === "finished") {
-      setFinished(true);
-      setActive(false);
-    }
-  };
+  const invitedPlayer1 = (user: UserProps) => user.id !== invitedPlayers[0]?.id;
+  const invitedPlayer2 = (user: UserProps) => user.id !== invitedPlayers[1]?.id;
+  const invitedPlayer3 = (user: UserProps) => user.id !== invitedPlayers[2]?.id;
 
   return (
     <div className="my-games">
@@ -126,63 +151,26 @@ export const MyGames = () => {
                 <ICON.Arrow />
               </div>
             }
-            title="My Games"
+            title="Battle"
           />
-          <div className="icon" onClick={() => setNewGameMode(true)}>
-            <ICON.Add />
-          </div>
-          <div className="games-menu">
-            <h3></h3>
-            <div className="links">
-              <button
-                className={`${active ? "-underline" : ""}`}
-                onClick={() => handleViews("active")}
-              >
-                Active
-              </button>
-              <button
-                className={`${finished ? "-underline" : ""}`}
-                onClick={() => handleViews("finished")}
-              >
-                Finished
-              </button>
-            </div>
-          </div>
-          <div className="my-games-container">
-            <MyGameCard
-              players={gameDataArray.players}
-              gameName={gameData.gameName}
-              id={gameData.id}
-            />
-          </div>
+          <CreateGameCard
+            onClick={() => {
+              setNewGameMode(true);
+              setInviteMode(true);
+            }}
+          />
         </>
-      ) : newGameMode && !isInviteView ? (
+      ) : newGameMode && inviteMode ? (
         <>
-          <Header title="New game" />
-          <div className="new-name-view">
-            <h3>Create a new game </h3>
-            <input
-              placeholder="Type game name.."
-              onChange={(e) => setGameName(e.target.value)}
-            ></input>
-            <div className="btn-group">
-              <button
-                className="continue"
-                onClick={() => setIsInviteView(true)}
-              >
-                Continue
-              </button>
-              <button className="exit" onClick={() => setNewGameMode(false)}>
-                Exit
-              </button>
-            </div>
-          </div>
-        </>
-      ) : newGameMode && isInviteView ? (
-        <>
-          <Header title="New game" />
+          <Header
+            title="Invite players"
+            element={
+              <div onClick={() => navigate(-1)}>
+                <ICON.Arrow />
+              </div>
+            }
+          />
           <div className="invite-view">
-            <h3>Invite players for {gameName} </h3>
             {invitedPlayers.length !== 3 ? (
               <InputField
                 onChange={(e) => setInputValue(e.target.value)}
@@ -190,15 +178,8 @@ export const MyGames = () => {
                 type="search"
                 placeholder="Search..."
               />
-            ) : (
-              <button className="continue" onClick={createGame}>
-                Continue
-              </button>
-            )}
+            ) : null}
 
-            <h3 className="amount-invited">
-              {invitedPlayers.length}/3 invited
-            </h3>
             <div className="invited-players">
               {invitedPlayers.map((player: any, index: any) => {
                 <div key={index}></div>;
@@ -206,28 +187,66 @@ export const MyGames = () => {
                 if (invitedPlayers.length > 0) {
                   return (
                     <div className="invite-list" key={index}>
-                      <h3>{player.name}</h3>
-                      <button onClick={() => removeFromInviteList(player)}>
-                        Uninvite player
-                      </button>
+                      <PlayerCard
+                        title={player.name}
+                        buttonText="Remove"
+                        onClick={() => removeFromInviteList(player)}
+                        img={player.img}
+                        style={
+                          invitedPlayers.length >= 3
+                            ? {
+                                height: "18vh",
+                                transition: ".2s ease-in",
+                              }
+                            : {}
+                        }
+                      />
                     </div>
                   );
                 }
               })}
             </div>
-            <div className="content">
+            <div className="amount-invited">
+              <p className="text">{invitedPlayers.length}/3 invited</p>
+            </div>
+
+            {invitedPlayers.length === 3 ? (
+              <div className="button">
+                <PrimaryButton
+                  onClick={createGame}
+                  title="Continue"
+                  secondary
+                />
+              </div>
+            ) : null}
+            <div
+              className="content"
+              style={
+                invitedPlayers.length >= 3
+                  ? { display: "none" }
+                  : invitedPlayers.length === 2
+                  ? { height: "calc(100vh - 35rem)" }
+                  : invitedPlayers.length === 1
+                  ? { height: "calc(100vh - 28rem)" }
+                  : {}
+              }
+            >
               {users && !isLoading ? (
                 <>
                   {users
                     .filter(searchFilter)
                     .filter(removeLoggedInUser)
+                    .filter(invitedPlayer1)
+                    .filter(invitedPlayer2)
+                    .filter(invitedPlayer3)
                     .map((user: UserProps) => (
                       <PlayerCard
                         title={user.name}
                         img={user.img}
                         key={user.id}
-                        id={user.id}
-                        inviteOnClick={() =>
+                        disabled={invitedPlayers.length > 2}
+                        buttonText="invite player"
+                        onClick={() =>
                           handleInviteList(
                             user.name,
                             user.id,
