@@ -6,10 +6,6 @@ import "./Home.sass";
 export const Home = () => {
   return (
     <div className={`home`}>
-      <Link className="playground" to="/playground">
-        Playground <br />
-        {`(dev)`}
-      </Link>
       <div className="content">
         <FrontPageLogo />
         <Navigation />
