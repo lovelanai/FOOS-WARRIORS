@@ -12,37 +12,13 @@ import { useNavigate } from "react-router-dom";
 import "./LeaderBoard.sass";
 
 import { db } from "@/firebase/firebase.config";
-import {
-  doc,
-  collection,
-  updateDoc,
-  deleteField,
-} from "firebase/firestore";
-import { uuidv4 } from "@firebase/util";
+import { doc, collection, updateDoc, deleteField } from "firebase/firestore";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
   const { users, isLoading } = useUser();
   const placementSorter = users.sort((a, b) => a.ratio - b.ratio);
   const [view, setView] = useState(false);
-
-  /* const [timerDays, setTimerDays] = useState('00')
-  const [timerHours, setTimerHours] = useState('00')
-  const [timerMinutes, setTimerMinutes] = useState('00')
-  const [timerSeconds, setTimerSeconds] = useState('00')
-
-  let val = useRef()
-
-  const startTimer = () => {
-    const countdownDate = new Date('May 30 2023 00:00:00').getTime()
-    
-    val = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-    }, 1000)
-  
-  } */
-
 
   const date = new Date();
   const year = date.getFullYear();
@@ -89,58 +65,45 @@ export const LeaderBoard = () => {
   const noGamesPlayedFilter = (user: UserProps) =>
     user.wins !== 0 || user.losses !== 0;
 
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
+  function calculateTimeLeft() {
+    const year = new Date().getFullYear();
+    const difference = +new Date(`${year}-2-1`) - +new Date();
+    let timeLeft: { [char: string]: number } = {};
 
-
-
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-    function calculateTimeLeft() {
-      const year = new Date().getFullYear();
-      const difference = +new Date(`${year}-2-1`) - +new Date();
-      let timeLeft: { [char: string]: number} = {};
-    
-      if (difference > 0) {
-         timeLeft = {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        };
-      }
-      return timeLeft;
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
     }
-    
-      useEffect(() => {
-        const id = setTimeout(() => {
-          setTimeLeft(calculateTimeLeft());
-        }, 1000);
-       /*  return () => {
+    return timeLeft;
+  }
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    /*  return () => {
           clearTimeout(id);
         }; */
-      });
+  });
 
-  
-      const deleteFieldValue = async () => {
-        console.log('hej')
-       // const id = uuidv4() 
-        let playerId = users.map(user => {
-          return user.id
-        });
-        console.log(playerId)
-        //const today = new Date().getDate();
-        const ref =  doc( db, "users/IIW0c5MelBXrgT8kSyRNtgYy1ft2" ) //`users/${playerId}`, "losses") //db, `users/${playerId}`)
-        
-
-        await updateDoc(ref, {
-          losses: deleteField(),
-          wins: deleteField(),
-          ratio: deleteField() 
-        })
-    }
-
-    
-    
+  const deleteFieldValue = async () => {
+    let playerId = users.map((user) => {
+      return user.id;
+    });
+    console.log(playerId);
+    const ref = doc(db, "users/IIW0c5MelBXrgT8kSyRNtgYy1ft2"); //`users/${playerId}`, "losses") //db, `users/${playerId}`)
+    await updateDoc(ref, {
+      losses: deleteField(),
+      wins: deleteField(),
+      ratio: deleteField(),
+    });
+  };
 
   return (
     <div className="leaderBoard">
@@ -154,7 +117,7 @@ export const LeaderBoard = () => {
           title="Leaderboard"
           asideElement={<HeaderNotification />}
         />
-        
+
         <div className="banner">
           <Logo.HiQ className="icon" />
         </div>
@@ -165,24 +128,31 @@ export const LeaderBoard = () => {
         <button onClick={deleteFieldValue}>ta bort test</button>
         <p className="reset-text">Resets in</p>
         <div className="timer">
-        <br></br>
-        <br></br>
-        {Object.keys(timeLeft).map(interval => {
-          if (!timeLeft[interval]) {
-            return;
-        }
-        return (
-          <div key={interval} className="holder">
-          <span>
-            <p className='number'style={{ fontSize: '4rem', margin: '0rem'}}>{timeLeft[interval]}</p> 
-            <p className="entity" style={{ fontSize: '1rem', margin: '0rem'}}>{interval}</p>
-          </span>
-          </div>
-        )
-      })}
-
-
-          {/* <div style={{display: 'flex'}}>{timerComponents.length ? timerComponents : <span>Time's up!</span>}</div> */}
+          <br></br>
+          <br></br>
+          {Object.keys(timeLeft).map((interval) => {
+            if (!timeLeft[interval]) {
+              return;
+            }
+            return (
+              <div key={interval} className="holder">
+                <span>
+                  <p
+                    className="number"
+                    style={{ fontSize: "4rem", margin: "0rem" }}
+                  >
+                    {timeLeft[interval]}
+                  </p>
+                  <p
+                    className="entity"
+                    style={{ fontSize: "1rem", margin: "0rem" }}
+                  >
+                    {interval}
+                  </p>
+                </span>
+              </div>
+            );
+          })}
         </div>
         <div className="buttonContainer">
           <SliderButton
