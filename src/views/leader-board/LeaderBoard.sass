@@ -12,6 +12,8 @@
         top: 0
         width: 100%
         z-index: 10
+
+       
         
         & > .banner
             align-items: center
@@ -32,6 +34,22 @@
                 font-size: Fonts.$h2
                 margin: 0
 
+        & > .reset-text
+            margin-bottom: 0rem
+            text-align: center
+        & > .timer
+            display: flex
+            align-items: center
+            justify-content: center
+            color: Colors.$white
+            & > .holder
+                & > span
+                    display: flex
+                    flex-direction: column
+                    align-items: center 
+                    padding: 1rem
+                   
+
         & > .buttonContainer
             display: flex
             align-items: center
@@ -39,7 +57,7 @@
             padding: 1rem 0
 
     & > .content
-        height: calc(100vh - 27.68rem)
+        height: calc(100vh - 37.5rem)
         overflow-y: scroll
 
         & > .leaderboardCard:nth-child(1)
