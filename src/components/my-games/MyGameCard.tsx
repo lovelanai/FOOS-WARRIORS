@@ -17,12 +17,6 @@ export const MyGameCard = ({ players, id }: GameProps) => {
   const [isTeamsSet, setIsTeamsSet] = useState(false);
   const [displayTeams, setDisplayTeams] = useState(false);
 
-  const handleCancelGame = async () => {
-    await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {
-      navigate("/games");
-    });
-  };
-
   const randomTeams = () => {
     const randomArray = players
       .sort(() => Math.random() - Math.random())
@@ -97,7 +91,7 @@ export const MyGameCard = ({ players, id }: GameProps) => {
                   />
                 </div>
               }
-              playerThree={redTeamData.player2}
+              playerThree={redTeamData.player1}
               playerFour={redTeamData.player2}
             />
           ) : null}
