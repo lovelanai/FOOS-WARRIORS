@@ -19,7 +19,7 @@ export const LandingPage = () => {
   const deleteCollection = async () => {
     const today = new Date().getDate();
     const collectionRef = query(
-      collection(db, "matchHistory"),
+      collection(db, "todaysBattles"),
       where("date", "!=", today)
     );
     const data = await getDocs(collectionRef);

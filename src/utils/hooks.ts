@@ -53,24 +53,25 @@ export const useFetch = (api: string, id?: string) => {
 export const fetchWithMatch = (
   api: string,
   dbValue: string,
-  clientValue: string
+  clientValue: string | number | boolean,
+  reverse?: boolean
 ) => {
   const [response, setResponse] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const ref = query(
+  const ascref = query(
     collection(db, api),
     where(dbValue, "==", clientValue),
     orderBy("time", "asc")
   );
-  const notificationRef = query(
+  const descref = query(
     collection(db, api),
     where(dbValue, "==", clientValue),
-    orderBy("time", "asc")
+    orderBy("time", "desc")
   );
 
   useEffect(() => {
-    getDocs(api === "notifications" ? notificationRef : ref)
+    getDocs(reverse ? descref : ascref)
       .then((res) => {
         setResponse(
           res.docs.map((item) => {

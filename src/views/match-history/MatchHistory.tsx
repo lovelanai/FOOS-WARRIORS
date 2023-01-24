@@ -3,7 +3,7 @@ import Logo from "@/assets/logos/logos";
 import { BattleCard } from "@/components/battle-card/BattleCard";
 import { Header } from "@/components/header/Header";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
-import { useFetch } from "@/utils/hooks";
+import { fetchWithMatch, useFetch } from "@/utils/hooks";
 import { TeamProps } from "@/utils/props";
 import { useNavigate } from "react-router-dom";
 import "./MatchHistory.sass";
@@ -11,7 +11,14 @@ import { BattleCardSkeleton } from "./skeleton/BattleCardSkeleton";
 
 export const MatchHistory = () => {
   const navigate = useNavigate();
-  const { response, isLoading } = useFetch("matchHistory");
+  // const { response, isLoading } = useFetch("todaysBattles");
+  const today = new Date().getDate();
+  const { response, isLoading } = fetchWithMatch(
+    "todaysBattles",
+    "date",
+    today,
+    true
+  );
 
   interface GameDataProps {
     id: string;
@@ -28,7 +35,7 @@ export const MatchHistory = () => {
       <div className="nav">
         <Header
           element={
-            <div onClick={() => navigate(-1)}>
+            <div onClick={() => navigate("/home")}>
               <ICON.Arrow />
             </div>
           }

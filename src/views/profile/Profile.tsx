@@ -26,11 +26,6 @@ export const Profile = () => {
   const userData = { ...(userConnectedToProfile as unknown as UserProps) };
 
   const personalProfileCheck = loggedInUserId === userData.id;
-
-  // this test ratio. wins + losses = gamesPlayer. wlratio = wins / gamesplayed
-  // const gamesPlayed = userData.wins + userData.losses;
-  // const wlRatio = (userData.wins / gamesPlayed).toFixed(2);
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [imageUpload, setImageUpload] = useState();
   const [photoURL, setPhotoURL] = useState("");

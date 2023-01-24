@@ -23,12 +23,14 @@ export const NotificationsView = () => {
           title="Notifications"
           asideElement={<HeaderNotification />}
         />
-        <SliderButton
-          primary="Invites"
-          secondary="Games"
-          state={view}
-          onClick={() => setView(!view)}
-        />
+        <div className="button">
+          <SliderButton
+            primary="Invites"
+            secondary="News"
+            state={view}
+            onClick={() => setView(!view)}
+          />
+        </div>
       </div>
       <div className="content">
         <NotificationCards state={view} />

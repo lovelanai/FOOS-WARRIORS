@@ -24,22 +24,24 @@ import "./MyGames.sass";
 
 export const MyGames = () => {
   const navigate = useNavigate();
-  const {
-    loggedInUserId,
-    users,
-    isLoading,
-    isInviteView,
-    setIsInviteView,
-    finished,
-    setFinished,
-    active,
-    setActive,
-    setInvitedPlayerId,
-  } = useUser();
+  const { loggedInUserId, users, isLoading, setInvitedPlayerId } = useUser();
 
   const user: UserProps = users.find(({ id }) => id === loggedInUserId)!;
-
   const ref = query(collection(db, "games"), where("id", "==", loggedInUserId));
+
+  const [newGameMode, setNewGameMode] = useState(false);
+  const [inviteMode, setInviteMode] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  interface invitedPlayerProps {
+    name: string;
+    id: string;
+    img: string;
+    wins: number;
+    losses: number;
+  }
+  const [invitedPlayers, setInvitedPlayers] = useState(
+    [] as invitedPlayerProps[]
+  );
 
   useEffect(() => {
     getDocs(ref)
@@ -55,22 +57,6 @@ export const MyGames = () => {
         console.log("error", error);
       });
   }, []);
-
-  const [newGameMode, setNewGameMode] = useState(false);
-  const [inviteMode, setInviteMode] = useState(false);
-
-  const [inputValue, setInputValue] = useState("");
-  interface invitedPlayerProps {
-    name: string;
-    id: string;
-    img: string;
-    wins: number;
-    losses: number;
-  }
-
-  const [invitedPlayers, setInvitedPlayers] = useState(
-    [] as invitedPlayerProps[]
-  );
 
   const handleInviteList = (
     name: string,
@@ -134,9 +120,7 @@ export const MyGames = () => {
   const searchFilter = (user: UserProps) =>
     inputValue === "" ||
     user.name.toLowerCase().includes(inputValue.toLowerCase());
-
   const removeLoggedInUser = (user: UserProps) => user.id !== loggedInUserId;
-
   const invitedPlayer1 = (user: UserProps) => user.id !== invitedPlayers[0]?.id;
   const invitedPlayer2 = (user: UserProps) => user.id !== invitedPlayers[1]?.id;
   const invitedPlayer3 = (user: UserProps) => user.id !== invitedPlayers[2]?.id;
@@ -170,16 +154,17 @@ export const MyGames = () => {
               </div>
             }
           />
-          <div className="invite-view">
-            {invitedPlayers.length !== 3 ? (
+          {invitedPlayers.length !== 3 ? (
+            <div className="inputField">
               <InputField
                 onChange={(e) => setInputValue(e.target.value)}
                 value={inputValue}
                 type="search"
                 placeholder="Search..."
               />
-            ) : null}
-
+            </div>
+          ) : null}
+          <div className="invite-view">
             <div className="invited-players">
               {invitedPlayers.map((player: any, index: any) => {
                 <div key={index}></div>;

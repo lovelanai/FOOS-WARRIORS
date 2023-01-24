@@ -72,11 +72,7 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                       <p className="time">{invite.time}</p>
                     </div>
                     <div className="buttons">
-                      <ICON.Check
-                        className="icon"
-                        onClick={() => handleAccept(invite.id)}
-                      />
-                      <ICON.Decline
+                      <ICON.Trash
                         className="icon"
                         onClick={() => handleDecline(invite.id)}
                       />
@@ -91,12 +87,15 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                 .map((res: NotificationProps, index) => (
                   <div key={index} className="notification">
                     <div className="info">
-                      <p className="title">{res.title}</p>
+                      <p className="title">{res.title.toUpperCase()}</p>
                       <p className="text">{res.text}</p>
                       <p className="time">{res.time}</p>
                     </div>
                     <div className="buttons">
-                      <ICON.Trash className="icon" />
+                      <ICON.Trash
+                        className="icon"
+                        onClick={() => handleDecline(res.id)}
+                      />
                     </div>
                   </div>
                 ))}

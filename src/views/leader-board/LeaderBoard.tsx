@@ -121,9 +121,6 @@ export const LeaderBoard = () => {
           asideElement={<HeaderNotification />}
         />
 
-        <div className="banner">
-          <Logo.HiQ className="icon" />
-        </div>
         <div className="title">
           <p className="text">{month}</p>
           <p className="text">{year}</p>
@@ -169,78 +166,6 @@ export const LeaderBoard = () => {
         {users && !isLoading ? (
           <>
             {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
               .filter(noGamesPlayedFilter)
               .reverse()
               .map((user: UserProps, index) => {

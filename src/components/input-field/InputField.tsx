@@ -23,6 +23,7 @@ export const InputField = ({
         placeholder={placeholder}
         onChange={onChange}
       />
+
       {value ? null : <ICON.Search className="icon" />}
     </div>
   );

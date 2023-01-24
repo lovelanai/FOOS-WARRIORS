@@ -1,5 +1,12 @@
 $black: #333;
+$headerBlack: rgba(51, 51, 51, 0.7);
+$gradientBlack: radial-gradient(
+  circle at 24.1% 68.8%,
+  rgb(50, 50, 50) 0%,
+  rgb(27, 27, 27) 99.4%
+);
 $white: #fffdf9;
+$whiteGradient: linear-gradient(45deg, #eeeeee, #faf8f9, #fffdf9);
 $pink: #ff87dd;
 $gray: #b4b4b4;
 $red: #fc6464;
