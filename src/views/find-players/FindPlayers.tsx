@@ -103,13 +103,11 @@ export const FindPlayers = () => {
               .filter(removeLoggedInUser)
               .map((user: UserProps) => (
                 <PlayerCard
-                  profileLink={user.id}
                   title={user.name}
                   img={user.img}
                   key={user.id}
-                  inviteOnClick={() =>
-                    handleInvitation(user.name, user.currentToken, user.id)
-                  }
+                  onClick={() => navigate(`/profile/${user.id}`)}
+                  buttonText="View Profile"
                 />
               ))}
           </>

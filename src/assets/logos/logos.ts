@@ -6,6 +6,7 @@ import { ReactComponent as Ball } from "./ball.svg";
 import { ReactComponent as PlayerOnField } from "./playerOnField.svg";
 import { ReactComponent as HiQ } from "./hiq.svg";
 import { ReactComponent as Offline } from "./offlineLogo.svg";
+import { ReactComponent as BattleSkull } from "./battleSkull.svg";
 
 const Logo = {
   Player,
@@ -16,6 +17,7 @@ const Logo = {
   PlayerOnField,
   HiQ,
   Offline,
+  BattleSkull,
 };
 
 export default Logo;

@@ -1,12 +1,12 @@
 import { mockedUser } from "@/mockedUsers/mockedUsers";
-import { ResultProps } from "@/utils/props";
+import { ResultProps, UserProps } from "@/utils/props";
 import "./BattlefieldCard.sass";
 
 export interface BattleFieldCardProps {
-  playerOne: mockedUser;
-  playerTwo: mockedUser;
-  playerThree: mockedUser;
-  playerFour: mockedUser;
+  playerOne: UserProps;
+  playerTwo: UserProps;
+  playerThree: UserProps;
+  playerFour: UserProps;
   score?: string;
   winners?: string;
   content?: JSX.Element;

@@ -1,6 +1,5 @@
 import { FrontPageLogo } from "@/components/front-page-logo/FrontPageLogo";
 import { Navigation } from "@/components/navigation/Navigation";
-import { Link } from "react-router-dom";
 import "./Home.sass";
 
 export const Home = () => {
