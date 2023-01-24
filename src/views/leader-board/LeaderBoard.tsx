@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import "./LeaderBoard.sass";
 
 import { db } from "@/firebase/firebase.config";
-import { doc, collection, updateDoc, deleteField } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
@@ -87,23 +87,26 @@ export const LeaderBoard = () => {
     const id = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
-    /*  return () => {
-          clearTimeout(id);
-        }; */
+    return () => {
+      clearTimeout(id);
+    };
   });
 
   const deleteFieldValue = async () => {
-    let playerId = users.map((user) => {
-      return user.id;
-    });
-    console.log(playerId);
-    const ref = doc(db, "users/IIW0c5MelBXrgT8kSyRNtgYy1ft2"); //`users/${playerId}`, "losses") //db, `users/${playerId}`)
-    await updateDoc(ref, {
-      losses: deleteField(),
-      wins: deleteField(),
-      ratio: deleteField(),
-    });
+    for (const user of users) {
+      console.log(user.id);
+      const ref = doc(db, `users/${user.id}`);
+      await updateDoc(ref, {
+        losses: 0,
+        wins: 0,
+        ratio: "0.00",
+      });
+    }
   };
+
+  if (date.getDate() === 1) {
+    deleteFieldValue();
+  }
 
   return (
     <div className="leaderBoard">
@@ -125,7 +128,6 @@ export const LeaderBoard = () => {
           <p className="text">{month}</p>
           <p className="text">{year}</p>
         </div>
-        <button onClick={deleteFieldValue}>ta bort test</button>
         <p className="reset-text">Resets in</p>
         <div className="timer">
           <br></br>
@@ -167,6 +169,78 @@ export const LeaderBoard = () => {
         {users && !isLoading ? (
           <>
             {placementSorter
+              .filter(noGamesPlayedFilter)
+              .reverse()
+              .map((user: UserProps, index) => {
+                return (
+                  <LeaderboardCard
+                    state={view}
+                    title={user.name}
+                    img={user.img}
+                    key={user.id}
+                    placement={index + 1}
+                    ratio={user.ratio}
+                    wins={user.wins}
+                    losses={user.losses}
+                    gamesPlayed={user.wins + user.losses}
+                  />
+                );
+              })}
+               {placementSorter
+              .filter(noGamesPlayedFilter)
+              .reverse()
+              .map((user: UserProps, index) => {
+                return (
+                  <LeaderboardCard
+                    state={view}
+                    title={user.name}
+                    img={user.img}
+                    key={user.id}
+                    placement={index + 1}
+                    ratio={user.ratio}
+                    wins={user.wins}
+                    losses={user.losses}
+                    gamesPlayed={user.wins + user.losses}
+                  />
+                );
+              })}
+               {placementSorter
+              .filter(noGamesPlayedFilter)
+              .reverse()
+              .map((user: UserProps, index) => {
+                return (
+                  <LeaderboardCard
+                    state={view}
+                    title={user.name}
+                    img={user.img}
+                    key={user.id}
+                    placement={index + 1}
+                    ratio={user.ratio}
+                    wins={user.wins}
+                    losses={user.losses}
+                    gamesPlayed={user.wins + user.losses}
+                  />
+                );
+              })}
+               {placementSorter
+              .filter(noGamesPlayedFilter)
+              .reverse()
+              .map((user: UserProps, index) => {
+                return (
+                  <LeaderboardCard
+                    state={view}
+                    title={user.name}
+                    img={user.img}
+                    key={user.id}
+                    placement={index + 1}
+                    ratio={user.ratio}
+                    wins={user.wins}
+                    losses={user.losses}
+                    gamesPlayed={user.wins + user.losses}
+                  />
+                );
+              })}
+               {placementSorter
               .filter(noGamesPlayedFilter)
               .reverse()
               .map((user: UserProps, index) => {
