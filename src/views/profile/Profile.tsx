@@ -1,6 +1,7 @@
 import ICON from "@/assets/icons/icons";
 import { Header } from "@/components/header/Header";
 import { ImageUploader } from "@/components/image-uploader/ImageUploader";
+import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/firebase/authHooks";
 import { db, storage } from "@/firebase/firebase.config";
@@ -141,27 +142,39 @@ export const Profile = () => {
                   })`,
                 }}
               />
-            </div>
-            <div className="icon-div">
-              {personalProfileCheck ? (
-                <>
-                  {!isEditMode ? (
-                    <div className="icon" onClick={() => setIsEditMode(true)}>
-                      <ICON.Pen />
-                    </div>
-                  ) : (
-                    <div className="icon">
-                      <ImageUploader
-                        onChange={(e: any) =>
-                          setImageUpload(e.currentTarget.files[0])
-                        }
-                      />
-                    </div>
-                  )}
-                </>
-              ) : (
-                <></>
-              )}
+              <div
+                className={`imgblur ${isEditMode ? "img--edit" : ""}`}
+                style={{
+                  backgroundImage: `url(${
+                    isEditMode
+                      ? photoURL
+                        ? photoURL
+                        : userData.img
+                      : userData.img
+                  })`,
+                }}
+              />
+              <div className="iconContainer">
+                {personalProfileCheck ? (
+                  <>
+                    {!isEditMode ? (
+                      <div className="icon" onClick={() => setIsEditMode(true)}>
+                        <ICON.Pen />
+                      </div>
+                    ) : (
+                      <div className="icon">
+                        <ImageUploader
+                          onChange={(e: any) =>
+                            setImageUpload(e.currentTarget.files[0])
+                          }
+                        />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             {!isEditMode ? (
               <div className="info">
@@ -205,9 +218,8 @@ export const Profile = () => {
                     placeholder="Add a description"
                   />
                 </label>
-                <button className="button" type="submit">
-                  Update profile
-                </button>
+                <PrimaryButton title="Update profile" submit />
+
                 <button
                   className="button-exit"
                   onClick={() => setIsEditMode(false)}

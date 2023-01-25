@@ -7,6 +7,7 @@ interface PrimaryButtonProps {
   profileButton?: boolean;
   icon?: JSX.Element;
   disabled?: boolean;
+  submit?: boolean;
 }
 
 export const PrimaryButton = ({
@@ -16,6 +17,7 @@ export const PrimaryButton = ({
   profileButton = false,
   icon,
   disabled = false,
+  submit,
 }: PrimaryButtonProps) => {
   return (
     <button
@@ -26,6 +28,7 @@ export const PrimaryButton = ({
           ? `primaryButton ${secondary ? "-secondary" : ""}`
           : "profileButton"
       }
+      type={submit ? "submit" : "button"}
     >
       <span className="title">{title}</span>
       <div className="icon">{icon}</div>

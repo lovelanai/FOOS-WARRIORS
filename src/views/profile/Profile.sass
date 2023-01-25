@@ -4,12 +4,11 @@
     background: Colors.$white
     height: 100vh
     width: 100%
-   
+    
     & > .header
         align-items: center
         position: absolute
-        z-index: 100
-
+        z-index: 2
 
         .asideElement
             display: flex
@@ -17,48 +16,53 @@
 
     & > .profileContent
         animation: fadeIn 1s ease forwards
+        display: flex
+        flex-direction: column
+        height: 100%
+        justify-content: space-between
            
         & > .img-container
             filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5))
-           
+            position: relative
+
+            & > .imgblur
+                display: none
             
             & > .img
                 background-position: center
                 background-repeat: no-repeat
                 background-size: cover
                 box-shadow: 0 8px 6px -6px black
-                clip-path: polygon(0 0, 1600px 0, 1600px 53%, 0 100%)
+                clip-path: polygon(0 0, 100% 0, 200% 53%, 0 100%)
                 display: flex
-                height: 65vh
-                width: 100vw
+                height: 70vh
                 transition: height 0.5s ease
+                width: 100vw
                 &--edit
                     height: 50vh
                     transition: height 0.5s ease
     
-        & > .icon-div
-            display: flex
-            justify-content: center
-            transform: translateY(-6rem)
-            width: 100%
-    
-            & > .icon
-                align-items: center
-                background: Colors.$black
-                border-radius: 100%
-                display: flex
-                height: 5.7rem
-                justify-content: center
-                width: 5.7rem
-    
+            & > .iconContainer    
+                & > .icon
+                    align-items: center
+                    background: Colors.$black
+                    border-radius: 100%
+                    bottom: 6%
+                    cursor: pointer 
+                    display: flex
+                    height: 5.7rem
+                    justify-content: center
+                    left: calc( 50% - 2.85rem )
+                    position: fixed
+                    width: 5.7rem
+                    
         & > .info 
             align-items: center
             bottom: 0
             display: flex
             flex-direction: column
-            height: 35%
             justify-content: center
-            position: absolute
+            margin-bottom: 6vh
             width: 100%
     
             & > .name
@@ -80,7 +84,6 @@
                 width: 80%
     
                 & > div
-                
                     & > .value
                         color: Colors.$black
                         font-family: Fonts.$bold
@@ -102,16 +105,16 @@
         & > .form
             align-items: center
             bottom: 0
+            color: Colors.$black
             display: flex
             flex-direction: column
-            height: 50%
-            gap: 3rem
-            justify-content: center
-            position: absolute
-            width: 100%
-            color: Colors.$black
             font-family: Fonts.$regular
             font-size: Fonts.$h3
+            gap: 2rem
+            height: 50%
+            justify-content: center
+            margin-bottom: 6vh
+            width: 100%
     
             & > label
                 display: flex
@@ -155,15 +158,54 @@
             & > .button-exit
                 border: none
                 background: none  
-                text-decoration: underline
                 color: Colors.$black   
-                font-size: Fonts.$p   
-        
+                cursor: pointer
+                font-size: Fonts.$p
+                text-decoration: underline
+
 @keyframes fadeIn
     0%
         opacity: 50%
-
         
     100%
         opacity: 100%
 
+@media screen and (min-width: 1000px)
+    .profile
+        & > .profileContent
+            & >.img-container
+                align-items: center
+                background: Colors.$gradientBlack
+                display: flex
+                filter: none
+                justify-content: center
+                position: relative
+                
+                & > .img
+                    box-shadow: none
+                    clip-path: none
+                    width: 60%
+                    z-index: 2
+
+                & > .imgblur
+                    background-position: center
+                    background-repeat: no-repeat
+                    background-size: cover
+                    box-shadow: none
+                    position: absolute
+                    clip-path: none
+                    display: flex
+                    filter: blur(4rem)
+                    height: 100%
+                    transition: height 0.5s ease
+                    width: 100%
+                    z-index: 1
+
+                & > .iconContainer
+                    & > .icon
+                        bottom: -3.5%
+                        position: absolute
+                        z-index: 3
+                
+                
+              

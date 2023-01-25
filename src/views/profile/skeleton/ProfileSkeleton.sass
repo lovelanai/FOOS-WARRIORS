@@ -8,27 +8,34 @@
            
     & > .img-container
         filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.5))
+        position: relative
 
         & > .img
             border-radius: 0
             display: flex
             align-items: center
             justify-content: center
-            clip-path: polygon(0 0, 1600px 0, 1600px 53%, 0 100%)
-            height: 65vh
+            clip-path: polygon(0 0, 100% 0, 200% 53%, 0 100%)
+            height: 70vh
             background: gray
             width: 100vw
 
-    & > .icon-div
-        display: flex
-        justify-content: center
-        transform: translateY(-6rem)
-        width: 100%
+        & > .iconContainer
+            & > .icon
+                border-radius: 100%
+                height: 5.7rem
+                width: 5.7rem
+                position: absolute
+                bottom: 7%
+                left: calc(50vw - 2.85rem)
+        @media screen and (min-width: 1000px)
+            & > .img
+                clip-path: none
 
-        & > .icon
-            border-radius: 100%
-            height: 5.7rem
-            width: 5.7rem
+            & > .iconContainer
+                & > .icon
+                    bottom: -4.5%
+        
 
     & > .info 
         align-items: center
@@ -101,5 +108,7 @@
         opacity: 0.8
         transform: scaleX(1)
 
+
+    
 
     
