@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Notification } from "./components/notification/Notification";
 import "./main.sass";
 import { Battlefield } from "./views/battlefield/Battlefield";
+import { Error404 } from "./views/error-404/Error404";
 import { FindPlayers } from "./views/find-players/FindPlayers";
 import { Home } from "./views/home/Home";
 import { LandingPage } from "./views/landing-page/LandingPage";
@@ -18,6 +19,7 @@ function App() {
     <div>
       <Notification />
       <Routes>
+        <Route path="*" element={<Error404 />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/logIn" element={<LogIn />} />

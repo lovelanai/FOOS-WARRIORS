@@ -107,7 +107,13 @@ export const Profile = () => {
               isEditMode ? (
                 <></>
               ) : (
-                <div onClick={() => navigate(-1)}>
+                <div
+                  onClick={
+                    personalProfileCheck
+                      ? () => navigate("/home")
+                      : () => navigate(-1)
+                  }
+                >
                   <ICON.Arrow />
                 </div>
               )
