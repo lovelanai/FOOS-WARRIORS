@@ -22,7 +22,7 @@ export const Error404 = () => {
       <div className="content">
         <div className="banner">
           <h1 className="title">Oops!</h1>
-          <h2 className="text">Something went wrong..</h2>
+          <h2 className="text">Something went wrong...</h2>
         </div>
         <div className="cubeContainer">
           <div className="cube">
