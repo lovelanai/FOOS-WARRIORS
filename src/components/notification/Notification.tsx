@@ -45,15 +45,16 @@ export const Notification = () => {
   onMessageListener()
     .then((payload: any) => {
       const backgroundMessage = {
-        title: payload?.notification?.title,
-        body: payload?.notification?.body,
-        image: payload?.notification?.image,
+        title: payload?.data?.title,
+        body: payload?.data?.body,
+        image: payload?.data?.image,
+        click_action: payload?.data?.click_action,
       };
       setMessage(backgroundMessage);
 
       const clientMessage = {
-        title: payload?.notification?.title,
-        text: payload?.notification?.body,
+        title: payload?.data?.title,
+        text: payload?.data?.body,
         time: `${day} ${time}`,
       };
       setNotifications([...notifications, clientMessage]);

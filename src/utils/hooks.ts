@@ -97,11 +97,12 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
       method: "POST",
       body: JSON.stringify({
         to: to,
-        notification: {
+        data: {
           body: body,
           title: title,
           image:
-            "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/Logo512.png?alt=media&token=204a88c6-651f-42e7-8fd3-7782af799c38",
+            "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/maskedLogo.svg?alt=media&token=a003d848-0fdd-42f7-b10c-7cb4485c5137",
+          click_action: "https://fooswarriors.vercel.app",
         },
       }),
       headers: {

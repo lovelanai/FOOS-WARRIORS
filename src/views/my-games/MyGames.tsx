@@ -79,7 +79,7 @@ export const MyGames = () => {
       setDoc(ref, {
         title: "INCOMING BATTLE",
         text: `${user.name} invited you to play a game of foos!`,
-        id: user.id,
+        id: id,
         time: `${day} ${time}`,
       })
         .finally(() => {
@@ -220,7 +220,7 @@ export const MyGames = () => {
                 <>
                   {users
                     .filter(searchFilter)
-                    .filter(removeLoggedInUser)
+                    // .filter(removeLoggedInUser)
                     .filter(invitedPlayer1)
                     .filter(invitedPlayer2)
                     .filter(invitedPlayer3)
