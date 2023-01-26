@@ -20,7 +20,18 @@
             margin: 0.2rem
     
     & > .buttonContainer
-        margin-top: 5vh
+        
+        
+
+    & > .message
+        text-align: center
+        
+        & > .title
+            font-size: Fonts.$h3
+            margin: 1rem
+        & > .text
+            font-size: Fonts.$h4
+            margin: 1rem
 
 
 .playersGrid
@@ -29,11 +40,10 @@
     grid-template-columns: 1fr 1fr
     flex-direction: column
     width: 100vw
-    height: calc(100vh - 20rem)
+    height: calc(100vh - 30vh)
     overflow-y: scroll
     color: Colors.$black
     position: relative
-    padding-top: 1rem
 
     & > .players
         transform-origin: center

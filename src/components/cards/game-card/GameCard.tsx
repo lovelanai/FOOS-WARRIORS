@@ -61,7 +61,14 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
       )}
       {!displayTeams ? (
         <>
-          {host ? null : <h1>Current Battle</h1>}
+          {host ? null : (
+            <div className="message">
+              <h2 className="title">Time for battle!</h2>
+              <h3 className="text">
+                Displayed players are waiting at the Foos Table
+              </h3>
+            </div>
+          )}
           <div
             className={`playersGrid ${
               isTeamsSet ? "teamShuffleAnimation" : ""

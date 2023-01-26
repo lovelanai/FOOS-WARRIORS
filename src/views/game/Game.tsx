@@ -96,6 +96,8 @@ export const Game = () => {
       });
   }, [user]);
 
+  console.log(gameResponse);
+
   const handleInviteList = (
     name: string,
     id: string,
@@ -181,7 +183,7 @@ export const Game = () => {
                 <>
                   <Header
                     element={
-                      <div onClick={() => navigate(-1)}>
+                      <div onClick={() => navigate("/home")}>
                         <ICON.Arrow />
                       </div>
                     }
