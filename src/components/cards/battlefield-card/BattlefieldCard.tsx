@@ -2,10 +2,10 @@ import { ResultProps, UserProps } from "@/utils/props";
 import "./BattlefieldCard.sass";
 
 export interface BattleFieldCardProps {
-  playerOne: UserProps;
-  playerTwo: UserProps;
-  playerThree: UserProps;
-  playerFour: UserProps;
+  playerOne: any;
+  playerTwo: any;
+  playerThree: any;
+  playerFour: any;
   score?: string;
   winners?: string;
   content?: JSX.Element;

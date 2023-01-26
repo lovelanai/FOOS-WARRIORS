@@ -61,30 +61,41 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
       )}
       {!displayTeams ? (
         <>
-          {host ? null : <h1>Current Battle</h1>}
+          {host ? null : (
+            <div className="message">
+              <h2 className="title">Time for battle!</h2>
+              <h3 className="text">
+                Displayed players are waiting at the Foos Table
+              </h3>
+            </div>
+          )}
           <div
             className={`playersGrid ${
               isTeamsSet ? "teamShuffleAnimation" : ""
             }`}
           >
             <>
-              {players.map((player, key: any) => {
-                return (
-                  <div
-                    className={`players ${isTeamsSet ? "teamSpin" : ""}`}
-                    key={key}
-                  >
-                    <PlayerFrame
-                      img={player.img}
-                      title={player.name}
-                      key={player.id}
-                    />
-                  </div>
-                );
-              })}
+              {players.length ? (
+                <>
+                  {players.map((player, key: any) => {
+                    return (
+                      <div
+                        className={`players ${isTeamsSet ? "teamSpin" : ""}`}
+                        key={key}
+                      >
+                        <PlayerFrame
+                          img={player.img}
+                          title={player.name}
+                          key={player.id}
+                        />
+                      </div>
+                    );
+                  })}
+                </>
+              ) : null}
             </>
           </div>
-          {host ? (
+          {host && !isTeamsSet ? (
             <div className="buttonContainer">
               <PrimaryButton onClick={randomTeams} title="Team-up" secondary />
             </div>

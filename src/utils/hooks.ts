@@ -37,7 +37,7 @@ export const useFetch = (api: string, id?: string) => {
       getDoc(fetchById)
         .then((item) => {
           setResponse({ ...item.data(), id: item.id } as any);
-          console.log("usefetch by id", item.data());
+          // console.log("usefetch by id", item.data());
         })
         .then(() => {
           setIsLoading(false);
