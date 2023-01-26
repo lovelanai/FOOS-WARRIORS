@@ -10,10 +10,19 @@ import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { TeamProps } from "@/utils/props";
 import { uuidv4 } from "@firebase/util";
-import { deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Battlefield.sass";
+import { useFetch } from "@/utils/hooks";
 
 export const Battlefield = () => {
   const navigate = useNavigate();
@@ -23,8 +32,8 @@ export const Battlefield = () => {
   const [results, setResults] = useState(false);
   const location = useLocation();
 
-  const [winners, setWinners] = useState<TeamProps>();
-  const [losers, setLosers] = useState<TeamProps>();
+  const [winners, setWinners] = useState<any>();
+  const [losers, setLosers] = useState<any>();
   const [loserGoals, setLoserGoals] = useState(Number);
   const [viewGoalPicker, setViewGoalPicker] = useState(false);
 
@@ -36,15 +45,32 @@ export const Battlefield = () => {
     }
   };
 
+  const { response: pinkPlayer1 } = useFetch(
+    "users",
+    location.state.pinkTeam[0].id
+  );
+  const { response: pinkPlayer2 } = useFetch(
+    "users",
+    location.state.pinkTeam[1].id
+  );
+  const { response: redPlayer1 } = useFetch(
+    "users",
+    location.state.redTeam[0].id
+  );
+  const { response: redPlayer2 } = useFetch(
+    "users",
+    location.state.redTeam[1].id
+  );
+
   const pinkTeam = {
-    player1: location.state.pinkTeam[0],
-    player2: location.state.pinkTeam[1],
+    player1: pinkPlayer1,
+    player2: pinkPlayer2,
     color: "pink",
   };
 
   const redTeam = {
-    player1: location.state.redTeam[0],
-    player2: location.state.redTeam[1],
+    player1: redPlayer1,
+    player2: redPlayer2,
     color: "red",
   };
 

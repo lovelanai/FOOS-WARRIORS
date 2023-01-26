@@ -8,13 +8,14 @@ import { InputField } from "@/components/input/input-field/InputField";
 import { Loader } from "@/components/loader/Loader";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
-import { sendNotification } from "@/utils/hooks";
+import { sendNotification, useFetch } from "@/utils/hooks";
 import { GameProps, UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -28,7 +29,9 @@ export const Game = () => {
   const navigate = useNavigate();
   const { loggedInUserId, users, isLoading, setInvitedPlayerId } = useUser();
 
-  const user: UserProps = users.find(({ id }) => id === loggedInUserId)!;
+  const loggedInUser: UserProps = users.find(
+    ({ id }) => id === loggedInUserId
+  )!;
   const hostRef = query(
     collection(db, "games"),
     where("id", "==", loggedInUserId)
@@ -37,6 +40,7 @@ export const Game = () => {
   const [newGameMode, setNewGameMode] = useState(false);
   const [inviteMode, setInviteMode] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
   interface invitedPlayerProps {
     name: string;
     id: string;
@@ -45,9 +49,7 @@ export const Game = () => {
     losses: number;
     token: string;
   }
-  const [invitedPlayers, setInvitedPlayers] = useState(
-    [] as invitedPlayerProps[]
-  );
+  const [invitedPlayers, setInvitedPlayers] = useState([] as any);
 
   const [gameResponse, setGameResponse] = useState<GameProps>();
   const [gameIsLoading, setGameIsLoading] = useState(true);
@@ -57,22 +59,16 @@ export const Game = () => {
     getDocs(hostRef)
       .then((res) => {
         if (res.size > 0) {
-          navigate(`/teamGenerator/${loggedInUserId}`);
+          navigate(`/teamGenerator/${loggedInUserId}`, {
+            state: { invitedPlayers: invitedPlayers },
+          });
         }
       })
       .then(() => {
-        if (user && loggedInUserId) {
-          const playerInfo = {
-            id: user.id,
-            img: user.img,
-            losses: user.losses,
-            name: user.name,
-            wins: user.wins,
-            token: user.currentToken,
-          };
+        if (loggedInUser && loggedInUserId) {
           const invitedPlayerRef = query(
             collection(db, "games"),
-            where("players", "array-contains", playerInfo)
+            where("players", "array-contains", loggedInUserId)
           );
 
           getDocs(invitedPlayerRef).then((res) => {
@@ -81,7 +77,7 @@ export const Game = () => {
                 return { ...item.data(), id: item.id };
               }) as any;
               const gameDataArray = {
-                ...(resMap[0] as unknown as GameProps),
+                ...(resMap[0] as unknown as any),
               };
               setGameResponse(gameDataArray);
             }
@@ -94,9 +90,7 @@ export const Game = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, [user]);
-
-  console.log(gameResponse);
+  }, [users]);
 
   const handleInviteList = (
     name: string,
@@ -119,29 +113,32 @@ export const Game = () => {
   };
 
   const createGame = () => {
-    const notificationFilter = invitedPlayers.filter(function (player) {
+    const notificationFilter = invitedPlayers.filter(function (player: any) {
       return player.id !== loggedInUserId;
     });
 
     const host = {
-      name: user.name,
+      name: loggedInUser.name,
       id: loggedInUserId,
-      img: user.img,
-      wins: user.wins,
-      losses: user.losses,
-      token: user.currentToken,
+      img: loggedInUser.img,
+      wins: loggedInUser.wins,
+      losses: loggedInUser.losses,
+      token: loggedInUser.currentToken,
     };
     invitedPlayers.push(host);
 
+    let invitedPlayersId = invitedPlayers.map((user: invitedPlayerProps) => {
+      return user.id;
+    });
     setDoc(doc(db, `games/${loggedInUserId}`), {
       id: loggedInUserId,
-      players: invitedPlayers,
+      players: invitedPlayersId,
     }).then(() => {
-      notificationFilter.forEach((player) => {
+      notificationFilter.forEach((player: any) => {
         sendNotification({
           to: player.token,
           title: "INCOMING BATTLE",
-          body: `${user.name} invited you to play a game of foos!`,
+          body: `${loggedInUser.name} invited you to play a game of foos!`,
           recieverId: player.id,
         }).then(() => {
           const uid = uuidv4();
@@ -150,7 +147,7 @@ export const Game = () => {
           const time = new Date().toLocaleTimeString();
           setDoc(ref, {
             title: "INCOMING BATTLE",
-            text: `${user.name} invited you to play a game of foos!`,
+            text: `${loggedInUser.name} invited you to play a game of foos!`,
             id: player.id,
             time: `${day} ${time}`,
           }).catch((err) => {
@@ -160,7 +157,9 @@ export const Game = () => {
       });
     });
     setNewGameMode(false);
-    navigate(`/teamGenerator/${loggedInUserId}`);
+    navigate(`/teamGenerator/${loggedInUserId}`, {
+      state: { invitedPlayers: invitedPlayers },
+    });
   };
 
   const searchFilter = (user: UserProps) =>
@@ -171,12 +170,17 @@ export const Game = () => {
   const invitedPlayer2 = (user: UserProps) => user.id !== invitedPlayers[1]?.id;
   const invitedPlayer3 = (user: UserProps) => user.id !== invitedPlayers[2]?.id;
 
+  const playersInGame = [] as any;
+  gameResponse?.players.forEach((res) => {
+    playersInGame.push(users.find(({ id }) => id === res));
+  });
+
   return (
     <div className="game">
       {!gameIsLoading ? (
         <>
           {gameResponse && !gameIsLoading ? (
-            <GameCard players={gameResponse.players} id={gameResponse.id} />
+            <GameCard players={playersInGame} id={gameResponse.id} />
           ) : (
             <>
               {!newGameMode ? (
