@@ -5,8 +5,7 @@ import { db } from "@/firebase/firebase.config";
 import { fetchWithMatch } from "@/utils/hooks";
 import { NotificationProps } from "@/utils/props";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { SliderButton } from "../slider-button/SliderButton";
+import { useEffect } from "react";
 import "./NotificationCards.sass";
 import { NotificationCardSkeleton } from "./skeleton/NotificationCardSkeleton";
 
@@ -27,11 +26,7 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
   const newsFilter = (notification: NotificationProps) =>
     notification.title !== "INCOMING BATTLE";
 
-  const handleAccept = async (id: string) => {
-    console.log("accept", id);
-  };
-
-  const handleDecline = async (id: string) => {
+  const handleRemove = async (id: string) => {
     setNotifications((current) =>
       current.filter((notifications) => {
         return notifications.id !== id;
@@ -72,13 +67,9 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                       <p className="time">{invite.time}</p>
                     </div>
                     <div className="buttons">
-                      <ICON.Check
+                      <ICON.Trash
                         className="icon"
-                        onClick={() => handleAccept(invite.id)}
-                      />
-                      <ICON.Decline
-                        className="icon"
-                        onClick={() => handleDecline(invite.id)}
+                        onClick={() => handleRemove(invite.id)}
                       />
                     </div>
                   </div>
@@ -91,12 +82,15 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                 .map((res: NotificationProps, index) => (
                   <div key={index} className="notification">
                     <div className="info">
-                      <p className="title">{res.title}</p>
+                      <p className="title">{res.title.toUpperCase()}</p>
                       <p className="text">{res.text}</p>
                       <p className="time">{res.time}</p>
                     </div>
                     <div className="buttons">
-                      <ICON.Trash className="icon" />
+                      <ICON.Trash
+                        className="icon"
+                        onClick={() => handleRemove(res.id)}
+                      />
                     </div>
                   </div>
                 ))}

@@ -8,11 +8,10 @@ export const ProfileSkeleton = () => {
           <div className="img">
             <Loader />
           </div>
+          <div className="iconContainer">
+            <div className="icon animation-black"></div>
+          </div>
         </div>
-        <div className="icon-div">
-          <div className="icon animation-black"></div>
-        </div>
-
         <div className="info">
           <div className="name animation-black"></div>
           <div className="bio animation-gray"></div>

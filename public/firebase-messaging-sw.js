@@ -19,15 +19,27 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function (payload) {
-  // console.log("Received background message ", payload);
+  console.log("Received background message ", payload);
   // Customize notification here
 
-  const notificationTitle = payload.notification.title;
+  const notificationTitle = payload.data.title;
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: "Logo192",
-    badge: "Logo192",
+    body: payload.data.body,
+    icon: "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/maskedLogo.svg?alt=media&token=a003d848-0fdd-42f7-b10c-7cb4485c5137",
+    badge:
+      "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/maskedLogo.svg?alt=media&token=a003d848-0fdd-42f7-b10c-7cb4485c5137",
+    data: {
+      click_action: payload.data.click_action,
+    },
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener("notificationclick", function (event) {
+  console.log(event.notification);
+  var action_click = event.notification.data.click_action;
+  event.notification.close();
+
+  event.waitUntil(clients.openWindow(action_click));
 });

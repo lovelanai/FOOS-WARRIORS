@@ -2,10 +2,8 @@
 @use "@/styles/Colors.scss"
 
 .battlefield
-    display: flex
-    flex-direction: column
-    height: 100vh
-    justify-content: space-evenly
+    min-height: 100vh
+    
 
     & > .head
         align-items: center
@@ -20,6 +18,7 @@
             align-items: center
             display: flex
             flex-direction: column
+            background: rgba(51, 51, 51, 0.7)
 
             & > .text
                 color: Colors.$pink
@@ -38,12 +37,14 @@
         height: calc( 100vh - 7.8rem )
         justify-content: center
         overflow-y: scroll
+
         
         .register-result-section
             align-items: center
             display: flex
             flex-direction: column
-            grid-area: three
+            position: relative
+
 
             & > h2
                 font-size: Fonts.$h2
@@ -54,6 +55,7 @@
                 justify-content: center
                 & > button
                     color: Colors.$white
+                
                     border: none
                     border-radius: 10rem 
                     font-family: Fonts.$regular
@@ -72,57 +74,37 @@
                     align-items: center
                     border: none
                     border-radius: 10rem 
-                    color: Colors.$white
+                    color: Colors.$black
+                    cursor: pointer
                     display: flex
+                    align-items: center
                     font-size: Fonts.$p
                     font-family: Fonts.$regular
                     height: 5rem
                     justify-content: center
                     margin: 0rem 3rem 3rem 3rem
                     width: 11rem
+               
 
-                
-
-                    & > .number-container
+                    & > .title
+                        font-size: Fonts.$h2
+           
+                    & > .goalPicker
+                        position: absolute
+                        padding: 1rem
+                        border-radius: 1rem
+                        top: 0rem
+                        left: 0      
+                        display: grid
+                        grid-template-columns: 1fr 1fr 1fr 1fr 1fr
                         align-items: center
-                        display: flex
-                        flex-direction: row
-                        gap: .5rem
-                        overflow: scroll
-                        padding: 0 .2rem
-                        width: 70%
+                        justify-content: center
+                        gap: 1rem
 
-                        & > .goal-value
-                            background: none   
-                            border: none
-
-                        & > .goal-value:focus
-                            color: Colors.$white
-                            font-size: Fonts.$h3
-
-                    & > .number-container::-webkit-scrollbar
-                            display: none
-
-                    
-                    & > .number-container
-                        align-items: center
-                        display: flex
-                        flex-direction: row
-                        gap: .5rem
-                        overflow: scroll
-                        padding: 0 .2rem
-                        width: 70%
-
-                        & > .goal-value
-                            background: none   
-                            border: none
-
-                        & > .goal-value:focus
-                            color: Colors.$white
-                            font-size: Fonts.$h3
-
-                    & > .number-container::-webkit-scrollbar
-                        display: none
+                    & > .-pink
+                        background: Colors.$pink
+                    & > .-red
+                        background: Colors.$red  
             
                 & > .winner
                     align-items: center
@@ -138,6 +120,7 @@
                 background: none
                 border: none
                 color: Colors.$red
+                cursor: pointer
                 font-size: Fonts.$p
                 margin: 2rem
                 text-decoration: underline
@@ -146,6 +129,8 @@
                 fill: Colors.$pink
             .-red path
                 fill: Colors.$red
+
+
 
 
 

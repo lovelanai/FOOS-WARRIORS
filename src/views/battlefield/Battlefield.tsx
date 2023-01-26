@@ -2,9 +2,10 @@ import ICON from "@/assets/icons/icons";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
-} from "@/components/battlefield-card/BattlefieldCard";
+} from "@/components/cards/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { InputCheckbox } from "@/components/input/input-checkbox/InputCheckbox";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { TeamProps } from "@/utils/props";
@@ -25,8 +26,8 @@ export const Battlefield = () => {
   const [winners, setWinners] = useState<TeamProps>();
   const [losers, setLosers] = useState<TeamProps>();
   const [loserGoals, setLoserGoals] = useState(Number);
+  const [viewGoalPicker, setViewGoalPicker] = useState(false);
 
-  console.log(winnerTeam);
   const handleToggleButtons = (value: string) => {
     if (value === "pinkTeam") {
       setWinnerTeam("pinkTeam");
@@ -59,7 +60,10 @@ export const Battlefield = () => {
     }
   };
   const today = new Date().getDate();
+  const dayString = new Date().toDateString();
+  const timeString = new Date().toLocaleTimeString();
   const gameData = {
+    time: `${dayString} ${timeString}`,
     date: today,
     hostId: loggedInUserId,
     winners: winners,
@@ -77,7 +81,7 @@ export const Battlefield = () => {
   };
   const submitGame = () => {
     const id = uuidv4();
-    const ref = doc(db, `matchHistory/${id}`);
+    const ref = doc(db, `todaysBattles/${id}`);
     setDoc(ref, gameData)
       .then(async () => {
         await deleteDoc(doc(db, "games", loggedInUserId));
@@ -94,7 +98,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -109,7 +113,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -124,7 +128,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -139,9 +143,15 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
+      })
+      .finally(() => {
+        navigate("/matchHistory");
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -163,9 +173,6 @@ export const Battlefield = () => {
               </div>
             }
           />
-          {/* <div className="banner">
-            <Logo.PlayerOnField className="icon" />
-          </div> */}
         </div>
       ) : (
         <div className="winner">
@@ -325,23 +332,32 @@ export const Battlefield = () => {
                     className={`loser ${
                       winners?.color === "pink" ? "red-team" : "pink-team"
                     }`}
+                    onClick={() => setViewGoalPicker(!viewGoalPicker)}
                   >
-                    <div className="number-container">
-                      {goals.map((goal, index) => (
-                        <button
-                          className="goal-value"
-                          key={index}
-                          onClick={() => setLoserGoals(goal)}
-                        >
-                          {goal}
-                        </button>
-                      ))}
-                    </div>
+                    <h2 className="title">{loserGoals}</h2>
+
+                    {viewGoalPicker ? (
+                      <div
+                        className={`goalPicker ${
+                          losers?.color === "pink" ? "-pink" : "-red"
+                        }`}
+                      >
+                        <>
+                          {goals.map((goal, index) => (
+                            <InputCheckbox
+                              onClick={() => setLoserGoals(goal)}
+                              key={goal}
+                              title={index}
+                            />
+                          ))}
+                        </>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
                 <PrimaryButton
                   secondary
-                  disabled={!gameData.loserGoals}
+                  disabled={gameData.loserGoals < -1}
                   title="Finish Game"
                   onClick={submitGame}
                 />

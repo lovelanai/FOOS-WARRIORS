@@ -38,8 +38,6 @@ export const signInWithMicrosoft = () =>
             .catch((err) => {
               console.log("error", err);
             });
-        } else {
-          console.log("användare finns redan");
         }
       });
     })

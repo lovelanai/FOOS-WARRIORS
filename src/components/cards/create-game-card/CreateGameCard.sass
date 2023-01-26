@@ -1,0 +1,33 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.createGameCard
+    align-items: center
+    display: flex
+    height: calc( 100vh - 7.83rem )
+    justify-content: center
+    overflow-y: scroll
+    width: 100%
+
+    & > .cardContainer
+        align-items: center
+        background: linear-gradient(45deg, #eeeeee, #faf8f9, #fffdf9)
+        box-shadow: rgba(113, 113, 113, 0.35) 0px 5px 15px
+        border-radius: .1rem
+        display: flex
+        flex-direction: column
+        height: 60vh
+        justify-content: space-around
+        padding: 2rem
+        position: relative
+        width: 80%
+
+
+        & > .text
+            color: Colors.$black
+            text-align: center
+        & > .logo
+            height: 40vh
+            & > .icon
+                height: 100%
+                width: 100% 

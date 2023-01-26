@@ -1,6 +1,6 @@
 import ICON from "@/assets/icons/icons";
+import { GameCard } from "@/components/cards/game-card/GameCard";
 import { Header } from "@/components/header/Header";
-import { MyGameCard } from "@/components/my-games/MyGameCard";
 import { useFetch } from "@/utils/hooks";
 import { GameProps } from "@/utils/props";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,7 +13,7 @@ export const TeamGenerator = () => {
   const { response, isLoading } = useFetch("games", gameId);
   const gameDataArray = response as unknown as GameProps;
 
-  console.log(gameDataArray.players);
+  console.log(gameDataArray);
   return (
     <div className="teamGenerator">
       <Header
@@ -27,7 +27,11 @@ export const TeamGenerator = () => {
 
       {response && !isLoading ? (
         <div className="content">
-          <MyGameCard players={gameDataArray.players} id={gameDataArray.id} />
+          <GameCard
+            host
+            players={gameDataArray.players}
+            id={gameDataArray.id}
+          />
         </div>
       ) : null}
     </div>

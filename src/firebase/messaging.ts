@@ -20,14 +20,14 @@ export const requestForToken = async () => {
       }
     })
     .catch((error) => {
-      // console.log("Error accoured while recieving token", error);
+      console.log(error);
     });
 };
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("payload", payload.notification);
+      console.log("payload", payload);
       resolve(payload);
     });
   });

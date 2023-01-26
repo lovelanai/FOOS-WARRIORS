@@ -1,9 +1,8 @@
 import ICON from "@/assets/icons/icons";
-import Logo from "@/assets/logos/logos";
+import { SliderButton } from "@/components/buttons/slider-button/SliderButton";
+import { LeaderboardCard } from "@/components/cards/leaderboard-card/LeaderboardCard";
 import { Header } from "@/components/header/Header";
-import { LeaderboardCard } from "@/components/leaderboard-card/LeaderboardCard";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
-import { SliderButton } from "@/components/slider-button/SliderButton";
 import { useUser } from "@/context/UserContext";
 import { UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
@@ -17,9 +16,11 @@ import { doc, updateDoc } from "firebase/firestore";
 export const LeaderBoard = () => {
   const navigate = useNavigate();
   const { users, isLoading } = useUser();
-  const placementSorter = users.sort((a, b) => a.ratio - b.ratio);
-  const [view, setView] = useState(false);
 
+  const [view, setView] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  const placementSorter = users.sort((a, b) => a.ratio - b.ratio);
   const date = new Date();
   const year = date.getFullYear();
   let month;
@@ -65,8 +66,6 @@ export const LeaderBoard = () => {
   const noGamesPlayedFilter = (user: UserProps) =>
     user.wins !== 0 || user.losses !== 0;
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
   function calculateTimeLeft() {
     const year = new Date().getFullYear();
     const difference = +new Date(`${year}-2-1`) - +new Date();
@@ -94,7 +93,6 @@ export const LeaderBoard = () => {
 
   const deleteFieldValue = async () => {
     for (const user of users) {
-      console.log(user.id);
       const ref = doc(db, `users/${user.id}`);
       await updateDoc(ref, {
         losses: 0,
@@ -121,9 +119,6 @@ export const LeaderBoard = () => {
           asideElement={<HeaderNotification />}
         />
 
-        <div className="banner">
-          <Logo.HiQ className="icon" />
-        </div>
         <div className="title">
           <p className="text">{month}</p>
           <p className="text">{year}</p>
@@ -169,78 +164,6 @@ export const LeaderBoard = () => {
         {users && !isLoading ? (
           <>
             {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
-              .filter(noGamesPlayedFilter)
-              .reverse()
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-               {placementSorter
               .filter(noGamesPlayedFilter)
               .reverse()
               .map((user: UserProps, index) => {

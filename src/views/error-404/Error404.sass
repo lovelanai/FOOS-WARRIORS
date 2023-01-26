@@ -1,0 +1,130 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+
+.error404
+    height: 100vh
+
+    & > .content
+        align-items: center
+        display: flex
+        flex-direction: column
+        height: calc( 100vh - 8.5rem )
+        justify-content: space-around
+        text-align: center
+        transition: all 0.2s ease-in-out
+
+        & > .nav
+            & > .text
+                font-size: Fonts.$h3
+
+            & > .buttonContainer
+                display: flex
+                flex-direction: column
+                gap: 2rem
+                
+                & > .primaryButton
+                    &:nth-child(2)
+                        background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
+
+        & > .banner
+            & > .title
+                font-size: Fonts.$h2
+            & > .text
+                font-size: Fonts.$h3
+
+        & > .cubeContainer
+            align-items: center
+            display: flex
+            height: 10vh
+            justify-content: center
+
+            & > .cube 
+                animation: squareSpin 3s linear infinite 
+                height: 10rem
+                left: 0
+                position: relative
+                top: 0
+                transition: all 0.2s ease-in-out
+                transform-style: preserve-3d
+                width: 10rem
+
+                & > .top 
+                    margin-top: -5rem
+                    transform: rotateX(90deg)
+
+                & > .right 
+                    margin-left: 5rem
+                    transform: rotateY(90deg)
+
+                & > .bottom 
+                    margin-top: 5rem
+                    transform: rotateX(-90deg)
+
+                & > .left 
+                    margin-left: -5rem
+                    transform: rotateY(-90deg)
+
+                & > .front 
+                    transform: translateZ(5rem)
+
+                & > .back
+                    transform: translateZ(-5rem) rotateX(180deg)
+
+                & > .square
+                    align-items: center
+                    background: linear-gradient(90deg, #ff87dd8f 48.44%, #fc6464b0 100%)
+                    box-shadow: inset 0px 0px 0px 1px rgba(10, 0, 0, 0.8)
+                    display: flex
+                    font-size: Fonts.$h1
+                    height: 10rem
+                    justify-content: center
+                    line-height: 10rem
+                    position: absolute
+                    text-align: center
+                    width: 10rem
+
+        @media screen and ( min-width: 500px)
+            & > .cubeContainer
+                height: 30vh
+
+                & > .cube 
+                    width: 20rem
+                    height: 20rem
+
+                    & > .top 
+                        margin-top: -10rem
+
+                    & > .right 
+                        margin-left: 10rem
+
+                    & > .bottom 
+                        margin-top: 10rem
+
+                    & > .left 
+                        margin-left: -10rem
+
+                    & > .front 
+                        transform: translateZ(10rem)
+
+                    & > .back
+                        transform: translateZ(-10rem) rotateX(180deg)
+
+                    & > .square
+                        width: 20rem
+                        height: 20rem
+                        line-height: 20rem
+
+        @media screen and ( min-width: 470px)
+            height: calc( 100vh - 8rem )
+
+
+
+@keyframes squareSpin 
+    0%
+        transform: rotateX(-20deg) rotateY(0deg)
+    100%
+        transform: rotateX(-20deg) rotateY(360deg)
+
+       
+     

@@ -1,0 +1,60 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+.game
+    display: flex
+    flex-direction: column
+    align-items: center
+    min-height: 100vh
+
+    & > .loaderContainer
+        align-items: center
+        display: flex
+        height: 100vh
+        justify-content: center
+        width: 100vw
+
+    & > .inputField
+        align-items: center
+        background: rgba(51, 51, 51, 0.7)
+        display: flex
+        justify-content: center
+        padding-bottom: 2rem
+        width: 100%
+
+    .inviteView
+        align-items: center
+        display: flex        
+        flex-direction: column
+        gap: 2rem
+        padding-top:1rem
+        width: 100%
+            
+        & > .invitedPlayers
+            display: flex
+            flex-direction: column
+            text-align: right
+            width: 90%
+
+            & > .inviteList
+                align-items: center
+                display: flex
+                justify-content: space-between
+
+                & > .playerCard
+                    background: Colors.$gray
+                    height: 7rem
+
+        & > .info
+            text-align: left
+            width: 100%
+
+            & > .text
+                font-size: Fonts.$p
+                margin: 0 5%
+            
+        & > .content
+            width: 100vw
+            height: calc( 100vh - 20rem )
+            overflow-y: scroll
+     

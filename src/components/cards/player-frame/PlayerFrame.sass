@@ -1,0 +1,41 @@
+@use "@/styles/Fonts.scss"
+@use "@/styles/Colors.scss"
+
+    
+.playerFrame
+    background-position: center
+    background-size: cover
+    background-repeat: no-repeat
+    height: 70%
+    position: relative
+    width: 90%
+    
+    & > .overlay
+        background: Colors.$gray
+        bottom: 0
+        left: 0
+        position: absolute
+        height: 15%
+        width: 100%
+        & > .name
+            font-size: Fonts.$p
+            text-align: center
+            margin: 3%    
+        
+    @media screen and ( min-width: 700px)        
+        height: 100%
+        width: 70%
+        & > .overlay
+            & > .name
+                font-size: Fonts.$h4
+                margin: 3%
+
+    @media screen and ( min-width: 1000px)
+        height: 100%
+        width: 40%
+        & > .overlay
+            & > .name
+                font-size: Fonts.$h4
+                margin: 3%
+
+

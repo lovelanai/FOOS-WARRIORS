@@ -1,5 +1,5 @@
 import ICON from "@/assets/icons/icons";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { signInWithGoogle } from "@/firebase/googleAuth";
 import { signInWithMicrosoft } from "@/firebase/microsoftAuth";

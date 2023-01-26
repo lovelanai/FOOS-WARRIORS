@@ -1,13 +1,13 @@
 import Logo from "@/assets/logos/logos";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import {
-  query,
   collection,
-  where,
-  getDocs,
   deleteDoc,
+  getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.sass";
@@ -19,7 +19,7 @@ export const LandingPage = () => {
   const deleteCollection = async () => {
     const today = new Date().getDate();
     const collectionRef = query(
-      collection(db, "matchHistory"),
+      collection(db, "todaysBattles"),
       where("date", "!=", today)
     );
     const data = await getDocs(collectionRef);
@@ -29,8 +29,6 @@ export const LandingPage = () => {
         deleteDoc(doc.ref);
       });
       console.log("Deleted old games");
-    } else {
-      console.log("Todays games is up to date");
     }
     return;
   };

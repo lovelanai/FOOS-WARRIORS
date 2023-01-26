@@ -1,11 +1,13 @@
-
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
-
 .findPlayers
+    min-height: 100vh
+    
     & > .nav
         background: Colors.$black
+        background-image: url("@/assets/logos/findPattern.svg")
+        background-position: 50% 0
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
         display: flex
         flex-direction: column
@@ -16,17 +18,19 @@
         & > .banner
             display: flex
             justify-content: center
-            padding-top: 2rem
-            padding-bottom: 3rem
+            padding: 4rem 0
 
     & > .content
-        height: calc(100vh - 16.878rem)
+        height: calc(100vh - 18rem)
         overflow-y: scroll
         padding-bottom: 1rem
         position: relative
 
-
         & > .invite-container
             position: absolute
             z-index: 1
+
+        @media screen and ( min-width: 400px)
+            height: calc(100vh - 20rem)
+            
         

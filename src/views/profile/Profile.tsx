@@ -1,6 +1,7 @@
 import ICON from "@/assets/icons/icons";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { Header } from "@/components/header/Header";
-import { ImageUploader } from "@/components/image-uploader/ImageUploader";
+import { ImageUploader } from "@/components/input/image-uploader/ImageUploader";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/firebase/authHooks";
 import { db, storage } from "@/firebase/firebase.config";
@@ -26,11 +27,6 @@ export const Profile = () => {
   const userData = { ...(userConnectedToProfile as unknown as UserProps) };
 
   const personalProfileCheck = loggedInUserId === userData.id;
-
-  // this test ratio. wins + losses = gamesPlayer. wlratio = wins / gamesplayed
-  // const gamesPlayed = userData.wins + userData.losses;
-  // const wlRatio = (userData.wins / gamesPlayed).toFixed(2);
-
   const [isEditMode, setIsEditMode] = useState(false);
   const [imageUpload, setImageUpload] = useState();
   const [photoURL, setPhotoURL] = useState("");
@@ -44,7 +40,6 @@ export const Profile = () => {
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setPhotoURL(url);
-        console.log(url);
       });
     });
   }, [imageUpload]);
@@ -111,7 +106,13 @@ export const Profile = () => {
               isEditMode ? (
                 <></>
               ) : (
-                <div onClick={() => navigate(-1)}>
+                <div
+                  onClick={
+                    personalProfileCheck
+                      ? () => navigate("/home")
+                      : () => navigate(-1)
+                  }
+                >
                   <ICON.Arrow />
                 </div>
               )
@@ -146,27 +147,39 @@ export const Profile = () => {
                   })`,
                 }}
               />
-            </div>
-            <div className="icon-div">
-              {personalProfileCheck ? (
-                <>
-                  {!isEditMode ? (
-                    <div className="icon" onClick={() => setIsEditMode(true)}>
-                      <ICON.Pen />
-                    </div>
-                  ) : (
-                    <div className="icon">
-                      <ImageUploader
-                        onChange={(e: any) =>
-                          setImageUpload(e.currentTarget.files[0])
-                        }
-                      />
-                    </div>
-                  )}
-                </>
-              ) : (
-                <></>
-              )}
+              <div
+                className={`imgblur ${isEditMode ? "img--edit" : ""}`}
+                style={{
+                  backgroundImage: `url(${
+                    isEditMode
+                      ? photoURL
+                        ? photoURL
+                        : userData.img
+                      : userData.img
+                  })`,
+                }}
+              />
+              <div className="iconContainer">
+                {personalProfileCheck ? (
+                  <>
+                    {!isEditMode ? (
+                      <div className="icon" onClick={() => setIsEditMode(true)}>
+                        <ICON.Pen />
+                      </div>
+                    ) : (
+                      <div className="icon">
+                        <ImageUploader
+                          onChange={(e: any) =>
+                            setImageUpload(e.currentTarget.files[0])
+                          }
+                        />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             {!isEditMode ? (
               <div className="info">
@@ -210,9 +223,8 @@ export const Profile = () => {
                     placeholder="Add a description"
                   />
                 </label>
-                <button className="button" type="submit">
-                  Update profile
-                </button>
+                <PrimaryButton title="Update profile" submit />
+
                 <button
                   className="button-exit"
                   onClick={() => setIsEditMode(false)}
