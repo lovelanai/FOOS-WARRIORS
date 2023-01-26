@@ -56,7 +56,6 @@ export const Game = () => {
     setGameIsLoading(true);
     getDocs(hostRef)
       .then((res) => {
-        console.log(res.size);
         if (res.size > 0) {
           navigate(`/teamGenerator/${loggedInUserId}`);
         }
@@ -219,7 +218,7 @@ export const Game = () => {
                     <div className="invitedPlayers">
                       {invitedPlayers.map((player: any, index: any) => {
                         <div key={index}></div>;
-                        // console.log(player);
+
                         if (invitedPlayers.length > 0) {
                           return (
                             <div className="inviteList" key={index}>

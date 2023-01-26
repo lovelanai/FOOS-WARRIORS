@@ -60,8 +60,6 @@ export const LeaderboardCard = ({
       break;
   }
 
-  console.log(view);
-
   return (
     <div
       className="leaderboardCard"

@@ -79,7 +79,6 @@ export const fetchWithMatch = (
             return { ...item.data(), id: item.id };
           }) as any
         );
-        console.log("fetchwithmatch", res);
       })
       .then(() => {
         setIsLoading(false);

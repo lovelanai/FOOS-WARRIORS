@@ -40,7 +40,6 @@ export const Profile = () => {
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setPhotoURL(url);
-        console.log(url);
       });
     });
   }, [imageUpload]);

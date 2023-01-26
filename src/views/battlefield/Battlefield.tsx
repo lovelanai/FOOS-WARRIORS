@@ -28,7 +28,6 @@ export const Battlefield = () => {
   const [loserGoals, setLoserGoals] = useState(Number);
   const [viewGoalPicker, setViewGoalPicker] = useState(false);
 
-  console.log(loserGoals);
   const handleToggleButtons = (value: string) => {
     if (value === "pinkTeam") {
       setWinnerTeam("pinkTeam");
@@ -99,7 +98,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -114,7 +113,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -129,7 +128,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })
@@ -144,7 +143,7 @@ export const Battlefield = () => {
           losses: losses,
           ratio: ratio,
         };
-        console.log(playerId, updatedStats);
+
         const ref = doc(db, `users/${playerId}`);
         updateDoc(ref, updatedStats);
       })

@@ -93,7 +93,6 @@ export const LeaderBoard = () => {
 
   const deleteFieldValue = async () => {
     for (const user of users) {
-      console.log(user.id);
       const ref = doc(db, `users/${user.id}`);
       await updateDoc(ref, {
         losses: 0,

@@ -29,8 +29,6 @@ export const LandingPage = () => {
         deleteDoc(doc.ref);
       });
       console.log("Deleted old games");
-    } else {
-      console.log("Todays games is up to date");
     }
     return;
   };

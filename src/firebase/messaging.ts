@@ -20,7 +20,7 @@ export const requestForToken = async () => {
       }
     })
     .catch((error) => {
-      // console.log("Error accoured while recieving token", error);
+      console.log(error);
     });
 };
 
