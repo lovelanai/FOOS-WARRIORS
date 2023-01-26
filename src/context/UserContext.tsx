@@ -10,6 +10,7 @@ import {
 } from "react";
 
 interface UserContextValue {
+  authLoading: boolean;
   isLoggedIn: boolean;
   loggedInUserId: string;
   viewGreetingPage: boolean;
@@ -32,6 +33,7 @@ interface UserContextValue {
 }
 
 export const UserContext = createContext<UserContextValue>({
+  authLoading: true,
   isLoggedIn: false,
   loggedInUserId: "",
   viewGreetingPage: false,
@@ -81,6 +83,9 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const { isLoggedIn, loggedInUserId } = UserStatus();
 
+  // sets loadingscreen when waiting for authentication
+  let authLoading = loggedInUserId ? false : true;
+
   // global fetch
 
   const {
@@ -95,6 +100,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        authLoading,
         isLoggedIn,
         loggedInUserId,
         viewGreetingPage,

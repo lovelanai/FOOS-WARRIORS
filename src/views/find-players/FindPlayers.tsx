@@ -57,42 +57,6 @@ export const FindPlayers = () => {
                   buttonText="View Profile"
                 />
               ))}
-            {users
-              .filter(searchFilter)
-              .filter(removeLoggedInUser)
-              .map((user: UserProps) => (
-                <PlayerCard
-                  title={user.name}
-                  img={user.img}
-                  key={user.id}
-                  onClick={() => navigate(`/profile/${user.id}`)}
-                  buttonText="View Profile"
-                />
-              ))}
-            {users
-              .filter(searchFilter)
-              .filter(removeLoggedInUser)
-              .map((user: UserProps) => (
-                <PlayerCard
-                  title={user.name}
-                  img={user.img}
-                  key={user.id}
-                  onClick={() => navigate(`/profile/${user.id}`)}
-                  buttonText="View Profile"
-                />
-              ))}
-            {users
-              .filter(searchFilter)
-              .filter(removeLoggedInUser)
-              .map((user: UserProps) => (
-                <PlayerCard
-                  title={user.name}
-                  img={user.img}
-                  key={user.id}
-                  onClick={() => navigate(`/profile/${user.id}`)}
-                  buttonText="View Profile"
-                />
-              ))}
           </>
         ) : (
           <>
