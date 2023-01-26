@@ -50,6 +50,7 @@ export const useFetch = (api: string, id?: string) => {
 
   return { response, isLoading, setResponse };
 };
+
 export const fetchWithMatch = (
   api: string,
   dbValue: string,
@@ -102,7 +103,7 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
           title: title,
           image:
             "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/maskedLogo.svg?alt=media&token=a003d848-0fdd-42f7-b10c-7cb4485c5137",
-          click_action: "https://fooswarriors.vercel.app",
+          click_action: "https://fooswarriors.vercel.app/games",
         },
       }),
       headers: {
@@ -128,10 +129,3 @@ export const sendNotification = async ({ to, body, title }: MessageProps) => {
     }
   }
 };
-
-/* export postNewGame = async ({ myGames }: UserProps) => {
-  try {
-
-  }
-
-} */

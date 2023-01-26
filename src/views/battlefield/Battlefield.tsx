@@ -2,10 +2,10 @@ import ICON from "@/assets/icons/icons";
 import {
   BattlefieldCard,
   BattlefieldWinnerCard,
-} from "@/components/battlefield-card/BattlefieldCard";
+} from "@/components/cards/battlefield-card/BattlefieldCard";
 import { Header } from "@/components/header/Header";
-import { InputCheckbox } from "@/components/input-checkbox/InputCheckbox";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { InputCheckbox } from "@/components/input/input-checkbox/InputCheckbox";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import { TeamProps } from "@/utils/props";
@@ -174,9 +174,6 @@ export const Battlefield = () => {
               </div>
             }
           />
-          {/* <div className="banner">
-            <Logo.PlayerOnField className="icon" />
-          </div> */}
         </div>
       ) : (
         <div className="winner">

@@ -2,8 +2,8 @@
 @use "@/styles/Colors.scss"
 
 .notificationCardSkeleton
-    padding-top: 1rem
     animation: SkeletonBounce 2s infinite
+    padding-top: 1rem
     
     & > .inner
         background: #e0e0e0
@@ -12,9 +12,8 @@
         height: 10rem
         justify-content: space-between
         min-width: 35rem
-        position: relative
         overflow: hidden
-
+        position: relative
 
     & > .inner::before 
         animation: SkeletonGradient .6s cubic-bezier(0.4, 0.0, 0.2, 1) infinite

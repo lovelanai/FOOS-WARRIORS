@@ -12,7 +12,6 @@ export const ProfileSkeleton = () => {
             <div className="icon animation-black"></div>
           </div>
         </div>
-
         <div className="info">
           <div className="name animation-black"></div>
           <div className="bio animation-gray"></div>

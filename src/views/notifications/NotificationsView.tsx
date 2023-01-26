@@ -1,8 +1,8 @@
 import ICON from "@/assets/icons/icons";
+import { SliderButton } from "@/components/buttons/slider-button/SliderButton";
 import { Header } from "@/components/header/Header";
 import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { NotificationCards } from "@/components/notification/NotificationCards";
-import { SliderButton } from "@/components/slider-button/SliderButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./NotificationsView.sass";

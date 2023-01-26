@@ -1,7 +1,7 @@
 import ICON from "@/assets/icons/icons";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { Header } from "@/components/header/Header";
-import { ImageUploader } from "@/components/image-uploader/ImageUploader";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { ImageUploader } from "@/components/input/image-uploader/ImageUploader";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/firebase/authHooks";
 import { db, storage } from "@/firebase/firebase.config";

@@ -9,6 +9,6 @@ export const logout = () => {
       console.log(auth);
     })
     .catch((error) => {
-      // An error happened.
+      console.log(error);
     });
 };

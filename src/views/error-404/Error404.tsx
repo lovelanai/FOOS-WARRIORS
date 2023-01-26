@@ -1,7 +1,7 @@
 import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { Header } from "@/components/header/Header";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import "./Error404.sass";

@@ -6,21 +6,21 @@
 
     & > .nav
         background: Colors.$gradientBlack
+        background-image: url("@/assets/logos/hiqPattern.svg")
+        background-position: 50% 0
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
         display: flex
         flex-direction: column
         top: 0
         width: 100%
         z-index: 10
-        background-image: url("@/assets/logos/hiqPattern.svg")
-        background-position: 50% 0
 
         & > .title
             display: flex
+            gap: 1rem
             justify-content: center
             margin: 2rem 0
             width: 100%
-            gap: 1rem
 
             & > .text
                 font-size: Fonts.$h2
@@ -29,22 +29,23 @@
         & > .reset-text
             margin-bottom: 0rem
             text-align: center
+
         & > .timer
-            display: flex
             align-items: center
-            justify-content: center
             color: Colors.$white
+            display: flex
+            justify-content: center
+
             & > .holder
                 & > span
+                    align-items: center 
                     display: flex
                     flex-direction: column
-                    align-items: center 
                     padding: 1rem
                    
-
         & > .buttonContainer
-            display: flex
             align-items: center
+            display: flex
             justify-content: center
             padding: 2rem 0
 
@@ -55,17 +56,18 @@
         & > .leaderboardCard:nth-child(1)
             background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
             color: Colors.$black
+
             & > .content
                 & > .placement
                     align-items: center
                     display: flex
 
                 & > .placement::after
-                    height: 100%
-                    display: flex
                     align-items: center                
-                    margin-left: 1rem
                     content: url("@/assets/icons/essentials/trophy.svg")
+                    display: flex
+                    height: 100%
+                    margin-left: 1rem
         
         & > .leaderboardCard:nth-child(2)
             background: linear-gradient(to right, #a1a1a1, #dedede, #dadada, #dedede, #a1a1a1)
@@ -73,8 +75,8 @@
 
         & > .leaderboardCard:nth-child(3)
             background: linear-gradient(to right, #ca7345, #ffbb90,#ffbb90, #f28c54, #fca46e)
-            margin-bottom: 2rem
             color: Colors.$black
+            margin-bottom: 2rem
         
         @media screen and ( min-width: 400px  )
             height: calc(100vh - 33.5rem)

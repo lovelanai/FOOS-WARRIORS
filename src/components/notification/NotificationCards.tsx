@@ -5,8 +5,7 @@ import { db } from "@/firebase/firebase.config";
 import { fetchWithMatch } from "@/utils/hooks";
 import { NotificationProps } from "@/utils/props";
 import { deleteDoc, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { SliderButton } from "../slider-button/SliderButton";
+import { useEffect } from "react";
 import "./NotificationCards.sass";
 import { NotificationCardSkeleton } from "./skeleton/NotificationCardSkeleton";
 
@@ -27,11 +26,7 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
   const newsFilter = (notification: NotificationProps) =>
     notification.title !== "INCOMING BATTLE";
 
-  const handleAccept = async (id: string) => {
-    console.log("accept", id);
-  };
-
-  const handleDecline = async (id: string) => {
+  const handleRemove = async (id: string) => {
     setNotifications((current) =>
       current.filter((notifications) => {
         return notifications.id !== id;
@@ -74,7 +69,7 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                     <div className="buttons">
                       <ICON.Trash
                         className="icon"
-                        onClick={() => handleDecline(invite.id)}
+                        onClick={() => handleRemove(invite.id)}
                       />
                     </div>
                   </div>
@@ -94,7 +89,7 @@ export const NotificationCards = ({ state }: NotificationCardProps) => {
                     <div className="buttons">
                       <ICON.Trash
                         className="icon"
-                        onClick={() => handleDecline(res.id)}
+                        onClick={() => handleRemove(res.id)}
                       />
                     </div>
                   </div>

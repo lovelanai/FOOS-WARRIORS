@@ -1,13 +1,13 @@
 import Logo from "@/assets/logos/logos";
-import { PrimaryButton } from "@/components/primary-button/PrimaryButton";
+import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
 import {
-  query,
   collection,
-  where,
-  getDocs,
   deleteDoc,
+  getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.sass";
