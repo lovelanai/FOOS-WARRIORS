@@ -15,7 +15,7 @@ interface UserContextValue {
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   users: any[];
-  setUsers: React.Dispatch<React.SetStateAction<[]>>;
+  setUsers: React.Dispatch<React.SetStateAction<any[]>>;
   notifications: any[];
   setNotifications: React.Dispatch<React.SetStateAction<any[]>>;
   isLoading: boolean;

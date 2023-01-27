@@ -17,7 +17,7 @@ import "./LogIn.sass";
 
 export const LogIn = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, isNotificationsAllowed } = useUser();
+  const { isLoggedIn, isNotificationsAllowed, users, setUsers } = useUser();
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ export const LogIn = () => {
     } else return;
   }, [isLoggedIn, navigate]);
 
-  const googleProvider = new GoogleAuthProvider();
   const microsoftProvider = new OAuthProvider("microsoft.com");
   microsoftProvider.setCustomParameters({ prompt: "select_account" });
   const signInWithMicrosoft = () => {
@@ -44,7 +43,7 @@ export const LogIn = () => {
               })
                 .then((currentToken) => {
                   if (currentToken) {
-                    setDoc(doc(db, `users/${user.uid}`), {
+                    const data = {
                       name: user.displayName,
                       email: user.email,
                       img: user.photoURL,
@@ -54,19 +53,20 @@ export const LogIn = () => {
                       wins: 0,
                       losses: 0,
                       ratio: "1.00",
+                    };
+                    setUsers([...users, data]);
+                    setDoc(doc(db, `users/${user.uid}`), data).then(() => {
+                      console.log("sign up och token finns");
+                      navigate("/home");
                     });
-                    console.log("sign up och token finns");
                   }
-                })
-                .then(() => {
-                  navigate("/home");
                 })
                 .catch((err) => {
                   console.log("error", err);
                   navigate("/");
                 });
             } else {
-              setDoc(doc(db, `users/${user.uid}`), {
+              const data = {
                 name: user.displayName,
                 email: user.email,
                 img: user.photoURL,
@@ -76,10 +76,18 @@ export const LogIn = () => {
                 wins: 0,
                 losses: 0,
                 ratio: "1.00",
-              }).then(() => {
-                console.log("sign up och token finns inte");
-                navigate("/home");
-              });
+              };
+              setUsers([...users, data]);
+              setDoc(doc(db, `users/${user.uid}`), data)
+                .then(() => {
+                  console.log("sign up och token finns inte");
+                  navigate("/home");
+                })
+
+                .catch((err) => {
+                  console.log("error", err);
+                  navigate("/");
+                });
             }
           }
         });
@@ -90,6 +98,7 @@ export const LogIn = () => {
       });
   };
 
+  const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider).then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -106,7 +115,7 @@ export const LogIn = () => {
             })
               .then((currentToken) => {
                 if (currentToken) {
-                  setDoc(doc(db, `users/${user.uid}`), {
+                  const data = {
                     name: user.displayName,
                     email: user.email,
                     img: user.photoURL,
@@ -116,19 +125,20 @@ export const LogIn = () => {
                     wins: 0,
                     losses: 0,
                     ratio: "1.00",
+                  };
+                  setUsers([...users, data]);
+                  setDoc(doc(db, `users/${user.uid}`), data).then(() => {
+                    console.log("sign up och token finns");
+                    navigate("/home");
                   });
-                  console.log("sign up och token finns");
                 }
-              })
-              .then(() => {
-                navigate("/home");
               })
               .catch((err) => {
                 console.log("error", err);
                 navigate("/");
               });
           } else {
-            setDoc(doc(db, `users/${user.uid}`), {
+            const data = {
               name: user.displayName,
               email: user.email,
               img: user.photoURL,
@@ -138,10 +148,18 @@ export const LogIn = () => {
               wins: 0,
               losses: 0,
               ratio: "1.00",
-            }).then(() => {
-              console.log("sign up och token finns inte");
-              navigate("/home");
-            });
+            };
+            setUsers([...users, data]);
+            setDoc(doc(db, `users/${user.uid}`), data)
+              .then(() => {
+                console.log("sign up och token finns inte");
+                navigate("/home");
+              })
+
+              .catch((err) => {
+                console.log("error", err);
+                navigate("/");
+              });
           }
         }
       });

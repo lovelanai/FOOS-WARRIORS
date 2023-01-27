@@ -18,6 +18,7 @@ import { ProfileSkeleton } from "./skeleton/ProfileSkeleton";
 export const Profile = () => {
   const navigate = useNavigate();
   const { loggedInUserId, users, setUsers, isLoading } = useUser();
+
   const params = useParams();
   const userId = params.id;
 
