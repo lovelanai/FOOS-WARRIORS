@@ -11,6 +11,7 @@ import {
 
 interface UserContextValue {
   isLoggedIn: boolean;
+  iphoneCheck: boolean;
   loggedInUserId: string;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,6 +35,7 @@ interface UserContextValue {
 }
 
 export const UserContext = createContext<UserContextValue>({
+  iphoneCheck: false,
   isLoggedIn: false,
   loggedInUserId: "",
   viewGreetingPage: false,
@@ -157,6 +159,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setNotifications,
         isNotificationsAllowed,
         setIsNotificationsAllowed,
+        iphoneCheck,
       }}
     >
       {children}
