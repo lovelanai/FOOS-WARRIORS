@@ -88,13 +88,40 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   // global fetch
 
-  Notification.requestPermission().then((permission) => {
-    if (permission === "granted") {
-      setIsNotificationsAllowed(true);
-    } else {
-      setIsNotificationsAllowed(false);
+  function isIOS() {
+    const browserInfo = navigator.userAgent.toLowerCase();
+
+    if (browserInfo.match("iphone") || browserInfo.match("ipad")) {
+      return true;
     }
-  });
+    if (
+      [
+        "iPad Simulator",
+        "iPhone Simulator",
+        "iPod Simulator",
+        "iPad",
+        "iPhone",
+        "iPod",
+      ].includes(navigator.platform)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  console.log("här", isIOS());
+
+  let iphoneCheck = isIOS();
+
+  if (!iphoneCheck) {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        setIsNotificationsAllowed(true);
+      } else {
+        setIsNotificationsAllowed(false);
+      }
+    });
+  }
 
   console.log("notificationstate", isNotificationsAllowed);
   const {
