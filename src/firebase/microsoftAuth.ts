@@ -36,6 +36,18 @@ export const signInWithMicrosoft = () =>
               }
             })
             .catch((err) => {
+              setDoc(doc(db, `users/${user.uid}`), {
+                name: user.displayName,
+                email: user.email,
+                img: user.photoURL,
+                description: "",
+                currentToken: "",
+                id: user.uid,
+                wins: 0,
+                losses: 0,
+                ratio: "1.00",
+              });
+
               console.log("error", err);
             });
         }

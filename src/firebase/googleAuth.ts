@@ -4,17 +4,9 @@ import { getToken } from "firebase/messaging";
 import { app, db, messaging } from "./firebase.config";
 
 const provider = new GoogleAuthProvider();
-provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-
-// provider.setCustomParameters({
-//   login_hint: "user@example.com",
-// });
-
 // To apply the default browser preference instead of explicitly setting it.
-// firebase.auth().useDeviceLanguage();
 
 const auth = getAuth(app);
-auth.languageCode = "it";
 
 export const signInWithGoogle = () =>
   signInWithPopup(auth, provider)
@@ -45,6 +37,17 @@ export const signInWithGoogle = () =>
               }
             })
             .catch((err) => {
+              setDoc(doc(db, `users/${user.uid}`), {
+                name: user.displayName,
+                email: user.email,
+                img: user.photoURL,
+                description: "",
+                currentToken: "",
+                id: user.uid,
+                wins: 0,
+                losses: 0,
+                ratio: "1.00",
+              });
               console.log("error", err);
             });
         }

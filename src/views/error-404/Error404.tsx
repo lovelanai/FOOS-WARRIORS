@@ -14,7 +14,7 @@ export const Error404 = () => {
       <Header
         title="EXCUSE ME IM LOST"
         element={
-          <div onClick={() => navigate(-1)}>
+          <div onClick={() => navigate("/home")}>
             <ICON.Arrow />
           </div>
         }
