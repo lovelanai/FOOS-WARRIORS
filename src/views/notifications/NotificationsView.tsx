@@ -16,7 +16,7 @@ export const NotificationsView = () => {
       <div className="nav">
         <Header
           element={
-            <div onClick={() => navigate(-1)}>
+            <div onClick={() => navigate("/home")}>
               <ICON.Arrow />
             </div>
           }

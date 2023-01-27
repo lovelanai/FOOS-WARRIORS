@@ -205,7 +205,7 @@ export const Game = () => {
                   <Header
                     title="Invite players"
                     element={
-                      <div onClick={() => navigate(-1)}>
+                      <div onClick={() => navigate("/home")}>
                         <ICON.Arrow />
                       </div>
                     }

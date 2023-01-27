@@ -194,7 +194,7 @@ export const Battlefield = () => {
           <Header
             title="BATTLEFIELD"
             element={
-              <div onClick={() => navigate(-1)}>
+              <div onClick={() => navigate("/home")}>
                 <ICON.Arrow />
               </div>
             }
