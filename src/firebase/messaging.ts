@@ -4,15 +4,15 @@ import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
 
 export const requestForToken = async () => {
-  const { loggedInUserId, isNotificationsAllowed } = useUser();
-  if (isNotificationsAllowed) {
+  const { loggedInUserId, isNotificationsAllowed, iphoneCheck } = useUser();
+  if (isNotificationsAllowed && !iphoneCheck) {
     return await getToken(messaging, {
       vapidKey: import.meta.env.VITE_VAPID_KEY,
     })
       .then((currentToken) => {
+        console.log("funkar");
         if (currentToken) {
           const sendTokenToServer = doc(db, `users/${loggedInUserId}`);
-
           updateDoc(sendTokenToServer, {
             currentToken: currentToken,
           }).catch((err) => {
