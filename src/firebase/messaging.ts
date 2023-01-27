@@ -4,9 +4,10 @@ import { getToken, onMessage } from "firebase/messaging";
 import { db, messaging } from "./firebase.config";
 
 export const requestForToken = async () => {
+  let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const { loggedInUserId, isNotificationsAllowed, iphoneCheck } = useUser();
-  if (isNotificationsAllowed && !iphoneCheck) {
-    return await getToken(messaging, {
+  if (isNotificationsAllowed && !iphoneCheck && !isSafari) {
+    return await getToken(messaging!, {
       vapidKey: import.meta.env.VITE_VAPID_KEY,
     })
       .then((currentToken) => {
@@ -28,7 +29,7 @@ export const requestForToken = async () => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
+    onMessage(messaging!, (payload) => {
       console.log("payload", payload);
       resolve(payload);
     });

@@ -39,7 +39,7 @@ export const LogIn = () => {
         getDoc(userRef).then(async (item) => {
           if (!item.data()) {
             if (isNotificationsAllowed && !iphoneCheck) {
-              await getToken(messaging, {
+              await getToken(messaging!, {
                 vapidKey: import.meta.env.VITE_VAPID_KEY,
               })
                 .then((currentToken) => {
@@ -111,7 +111,7 @@ export const LogIn = () => {
       getDoc(userRef).then(async (item) => {
         if (!item.data()) {
           if (isNotificationsAllowed && !iphoneCheck) {
-            await getToken(messaging, {
+            await getToken(messaging!, {
               vapidKey: import.meta.env.VITE_VAPID_KEY,
             })
               .then((currentToken) => {

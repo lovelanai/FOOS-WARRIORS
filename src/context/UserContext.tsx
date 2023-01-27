@@ -1,5 +1,6 @@
 import { fetchWithMatch, useFetch } from "@/utils/hooks";
 import { getAuth } from "firebase/auth";
+
 import {
   createContext,
   FC,
@@ -111,11 +112,10 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     return false;
   }
 
-  console.log("här", isIOS());
-
+  let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   let iphoneCheck = isIOS();
 
-  if (!iphoneCheck) {
+  if (!isSafari && !iphoneCheck) {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
         setIsNotificationsAllowed(true);
