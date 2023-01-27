@@ -1,5 +1,8 @@
 import ICON from "@/assets/icons/icons";
+import { useUser } from "@/context/UserContext";
+import { db } from "@/firebase/firebase.config";
 import { UserProps } from "@/utils/props";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../../buttons/primary-button/PrimaryButton";
@@ -20,6 +23,7 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
   const [redTeam, setRedTeam] = useState([] as any);
   const [isTeamsSet, setIsTeamsSet] = useState(false);
   const [displayTeams, setDisplayTeams] = useState(false);
+  const { loggedInUserId } = useUser();
 
   const randomTeams = () => {
     const randomArray = players
@@ -45,6 +49,12 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
     player1: redTeam[0],
     player2: redTeam[1],
     color: "red",
+  };
+
+  const handleCancelGame = async () => {
+    await deleteDoc(doc(db, "games", loggedInUserId)).then(() => {
+      navigate("/games");
+    });
   };
 
   return (
@@ -98,6 +108,9 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
           {host && !isTeamsSet ? (
             <div className="buttonContainer">
               <PrimaryButton onClick={randomTeams} title="Team-up" secondary />
+              <p className="text" onClick={handleCancelGame}>
+                Cancel Game
+              </p>
             </div>
           ) : null}
         </>

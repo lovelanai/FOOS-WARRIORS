@@ -20,8 +20,15 @@
             margin: 0.2rem
     
     & > .buttonContainer
+        & > .text
+            cursor: pointer
+            color: Colors.$red
+            font-size: Fonts.$p
+            margin: 2rem
+            text-align: center
+            text-decoration: underline
         @media screen and ( min-width: 700px)
-            margin-top: 6vh
+            margin-top: 5vh
                 
         
         
@@ -46,6 +53,7 @@
     height: calc(100vh - 30vh)
     overflow-y: scroll
     color: Colors.$black
+    margin-top: 1vh
     position: relative
 
     & > .players
