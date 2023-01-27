@@ -17,7 +17,8 @@ import "./LogIn.sass";
 
 export const LogIn = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, isNotificationsAllowed, users, setUsers } = useUser();
+  const { isLoggedIn, isNotificationsAllowed, users, setUsers, iphoneCheck } =
+    useUser();
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const LogIn = () => {
         const userRef = doc(db, "users", user.uid);
         getDoc(userRef).then(async (item) => {
           if (!item.data()) {
-            if (isNotificationsAllowed) {
+            if (isNotificationsAllowed && !iphoneCheck) {
               await getToken(messaging, {
                 vapidKey: import.meta.env.VITE_VAPID_KEY,
               })
@@ -109,7 +110,7 @@ export const LogIn = () => {
 
       getDoc(userRef).then(async (item) => {
         if (!item.data()) {
-          if (isNotificationsAllowed) {
+          if (isNotificationsAllowed && !iphoneCheck) {
             await getToken(messaging, {
               vapidKey: import.meta.env.VITE_VAPID_KEY,
             })
