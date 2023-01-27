@@ -15,7 +15,7 @@ interface UserContextValue {
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   users: any[];
-  setUsers: React.Dispatch<React.SetStateAction<[]>>;
+  setUsers: React.Dispatch<React.SetStateAction<any[]>>;
   notifications: any[];
   setNotifications: React.Dispatch<React.SetStateAction<any[]>>;
   isLoading: boolean;
@@ -29,6 +29,8 @@ interface UserContextValue {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   finished: boolean;
   setFinished: React.Dispatch<React.SetStateAction<boolean>>;
+  isNotificationsAllowed: boolean;
+  setIsNotificationsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextValue>({
@@ -51,6 +53,8 @@ export const UserContext = createContext<UserContextValue>({
   setNotifications: () => undefined,
   notifications: [],
   isLoading: true,
+  isNotificationsAllowed: true,
+  setIsNotificationsAllowed: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -60,6 +64,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [pending, setPending] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const [finished, setFinished] = useState<boolean>(false);
+  const [isNotificationsAllowed, setIsNotificationsAllowed] = useState(Boolean);
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -83,6 +88,15 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   // global fetch
 
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      setIsNotificationsAllowed(true);
+    } else {
+      setIsNotificationsAllowed(false);
+    }
+  });
+
+  console.log("notificationstate", isNotificationsAllowed);
   const {
     response: users,
     isLoading,
@@ -114,6 +128,8 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         isLoading,
         notifications,
         setNotifications,
+        isNotificationsAllowed,
+        setIsNotificationsAllowed,
       }}
     >
       {children}

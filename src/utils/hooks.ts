@@ -1,3 +1,4 @@
+import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config.js";
 import {
   collection,
@@ -12,7 +13,7 @@ import { useEffect, useState } from "react";
 import { MessageProps } from "./props";
 
 export const useFetch = (api: string, id?: string) => {
-  const [response, setResponse] = useState<[]>([]);
+  const [response, setResponse] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
