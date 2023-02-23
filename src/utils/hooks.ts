@@ -1,4 +1,8 @@
+import { IncomingWebhook } from "ms-teams-webhook";
+import { MessageProps } from "./props";
 import { useUser } from "@/context/UserContext";
+
+import axios from "axios";
 import { db } from "@/firebase/firebase.config.js";
 import {
   collection,
@@ -10,7 +14,6 @@ import {
   where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { MessageProps } from "./props";
 
 export const useFetch = (api: string, id?: string) => {
   const [response, setResponse] = useState<any[]>([]);
@@ -92,40 +95,38 @@ export const fetchWithMatch = (
   return { response, isLoading, setResponse };
 };
 
-export const sendNotification = async ({ to, body, title }: MessageProps) => {
-  try {
-    const response = await fetch("https://fcm.googleapis.com/fcm/send", {
-      method: "POST",
-      body: JSON.stringify({
-        to: to,
-        data: {
-          body: body,
-          title: title,
-          image:
-            "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/maskedLogo.svg?alt=media&token=a003d848-0fdd-42f7-b10c-7cb4485c5137",
-          click_action: "https://fooswarriors.vercel.app/games",
-        },
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "key=AAAALB8TIAw:APA91bEnaOmac-vjC-UzV9IMUq4miRuombGUCEMVjeghbI9LNCaN2YzW2ONZZ2hgPYzizptOPhHUjsvf37-0kEKPWEiNCHCCn7VEFLn-qWqzkmHMlRUfE5HBgHIjkb_u96pi4QuAXKlN",
+export const sendWebhookMessage = async (amount: string, user: string) => {
+  const webhookUrl =
+    "https://hiq365.webhook.office.com/webhookb2/df74ffc4-9e38-47e9-b722-1ae45a6a1871@81210fa4-862d-4076-8aaf-e504b2cdd263/IncomingWebhook/1fe4c258a5e84da8b211efe2b22ede8f/37079c78-8d74-4187-bd10-a8acc9c1be78";
+
+  const message = {
+    "@type": "MessageCard",
+    summary: "New message from your app",
+    themeColor: "#ff87dd",
+    sections: [
+      {
+        activityTitle: "INCOMING BATTLE",
+        activitySubtitle: `Invite from ${user}`,
+        activityImage:
+          "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/swords.png?alt=media&token=fe221e5c-f333-48a0-b562-c8949991aa00",
+        facts: [
+          {
+            name: "Players needed",
+            value: `${amount}`,
+          },
+        ],
+        markdown: true,
+        text: "First ones to respond gets the spots",
       },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log("result is: ", JSON.stringify(result));
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log("error message: ", error.message);
-      return error.message;
-    } else {
-      console.log("unexpected error: ", error);
-      return "An unexpected error occurred";
-    }
-  }
+    ],
+  };
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    body: JSON.stringify(message),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "no-cors",
+  });
+  console.log(response);
 };
