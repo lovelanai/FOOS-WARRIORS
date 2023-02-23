@@ -112,7 +112,11 @@ export const GameCard = ({ players, id, host }: MyGameCardProps) => {
                 Cancel Game
               </p>
             </div>
-          ) : null}
+          ) : (
+            <p className="cancel" onClick={handleCancelGame}>
+              Cancel Game
+            </p>
+          )}
         </>
       ) : (
         <div className="teamContainer displayTeams">

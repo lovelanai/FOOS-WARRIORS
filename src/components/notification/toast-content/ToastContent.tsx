@@ -2,15 +2,16 @@ import "./ToastContent.sass";
 
 interface ToastContentProps {
   title: string;
-  body: string;
-  image: string;
+  body?: string;
+  image?: JSX.Element;
 }
 
 export const ToastContent = ({ title, body, image }: ToastContentProps) => {
   return (
     <div className="toastContent">
       <div className="image">
-        <img src={image} alt="toast-image" />
+        {image}
+        {/* <img src={image} alt="toast-image" /> */}
       </div>
       <div className="text">
         <p className="title">

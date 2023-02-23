@@ -12,14 +12,12 @@ import {
 
 interface UserContextValue {
   isLoggedIn: boolean;
-  iphoneCheck: boolean;
   loggedInUserId: string;
   viewGreetingPage: boolean;
   setViewGreetingPage: React.Dispatch<React.SetStateAction<boolean>>;
   users: any[];
   setUsers: React.Dispatch<React.SetStateAction<any[]>>;
-  notifications: any[];
-  setNotifications: React.Dispatch<React.SetStateAction<any[]>>;
+
   isLoading: boolean;
   isInviteView: boolean;
   setIsInviteView: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,12 +29,13 @@ interface UserContextValue {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   finished: boolean;
   setFinished: React.Dispatch<React.SetStateAction<boolean>>;
-  isNotificationsAllowed: boolean;
-  setIsNotificationsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
+  error: { title: string; body: string };
+  setError: React.Dispatch<
+    React.SetStateAction<{ title: string; body: string }>
+  >;
 }
 
 export const UserContext = createContext<UserContextValue>({
-  iphoneCheck: false,
   isLoggedIn: false,
   loggedInUserId: "",
   viewGreetingPage: false,
@@ -53,11 +52,10 @@ export const UserContext = createContext<UserContextValue>({
   setFinished: () => undefined,
   users: [],
   setUsers: () => undefined,
-  setNotifications: () => undefined,
-  notifications: [],
+  error: { title: "", body: "" },
+  setError: () => undefined,
+
   isLoading: true,
-  isNotificationsAllowed: true,
-  setIsNotificationsAllowed: () => undefined,
 });
 
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -67,7 +65,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [pending, setPending] = useState<boolean>(false);
   const [active, setActive] = useState<boolean>(false);
   const [finished, setFinished] = useState<boolean>(false);
-  const [isNotificationsAllowed, setIsNotificationsAllowed] = useState(Boolean);
+  const [error, setError] = useState({ title: "", body: "" });
 
   const UserStatus = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -91,49 +89,11 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   // global fetch
 
-  function isIOS() {
-    const browserInfo = navigator.userAgent.toLowerCase();
-
-    if (browserInfo.match("iphone") || browserInfo.match("ipad")) {
-      return true;
-    }
-    if (
-      [
-        "iPad Simulator",
-        "iPhone Simulator",
-        "iPod Simulator",
-        "iPad",
-        "iPhone",
-        "iPod",
-      ].includes(navigator.platform)
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  let iphoneCheck = isIOS();
-
-  if (!isSafari && !iphoneCheck) {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        setIsNotificationsAllowed(true);
-      } else {
-        setIsNotificationsAllowed(false);
-      }
-    });
-  }
-
-  console.log("notificationstate", isNotificationsAllowed);
   const {
     response: users,
     isLoading,
     setResponse: setUsers,
   } = useFetch("users");
-
-  const { response: notifications, setResponse: setNotifications } =
-    fetchWithMatch("notifications", "id", loggedInUserId);
 
   return (
     <UserContext.Provider
@@ -155,11 +115,8 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
         users,
         setUsers,
         isLoading,
-        notifications,
-        setNotifications,
-        isNotificationsAllowed,
-        setIsNotificationsAllowed,
-        iphoneCheck,
+        error,
+        setError,
       }}
     >
       {children}

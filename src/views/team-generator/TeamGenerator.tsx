@@ -18,7 +18,7 @@ export const TeamGenerator = () => {
   let playersInGame = [] as any;
 
   if (!isLoading) {
-    (response as any)?.players.forEach((element: any) => {
+    (response as any)?.players?.forEach((element: any) => {
       playersInGame.push(users.find(({ id }) => id === element));
     });
   }

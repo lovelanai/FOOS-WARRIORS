@@ -2,7 +2,6 @@ import ICON from "@/assets/icons/icons";
 import { PlayerCard } from "@/components/cards/player-card/PlayerCard";
 import { Header } from "@/components/header/Header";
 import { InputField } from "@/components/input/input-field/InputField";
-import { HeaderNotification } from "@/components/notification/HeaderNotification";
 import { useUser } from "@/context/UserContext";
 import { UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
@@ -31,7 +30,6 @@ export const FindPlayers = () => {
             </div>
           }
           title="Find Players"
-          asideElement={<HeaderNotification />}
         />
         <div className="banner">
           <InputField

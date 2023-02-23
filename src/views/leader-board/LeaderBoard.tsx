@@ -2,7 +2,7 @@ import ICON from "@/assets/icons/icons";
 import { SliderButton } from "@/components/buttons/slider-button/SliderButton";
 import { LeaderboardCard } from "@/components/cards/leaderboard-card/LeaderboardCard";
 import { Header } from "@/components/header/Header";
-import { HeaderNotification } from "@/components/notification/HeaderNotification";
+
 import { useUser } from "@/context/UserContext";
 import { UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
@@ -19,8 +19,10 @@ export const LeaderBoard = () => {
 
   const [view, setView] = useState(false);
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [showInfo, setShowInfo] = useState(false);
 
-  const placementSorter = users.sort((a, b) => a.ratio - b.ratio);
+  const placementSorter = users.sort((a, b) => b.score - a.score);
+
   const date = new Date();
   const year = date.getFullYear();
   let month;
@@ -116,61 +118,89 @@ export const LeaderBoard = () => {
             </div>
           }
           title="Leaderboard"
-          asideElement={<HeaderNotification />}
+          asideElement={
+            showInfo ? (
+              <></>
+            ) : (
+              <div onClick={() => setShowInfo(!showInfo)}>Info</div>
+            )
+          }
         />
+        {showInfo ? (
+          <>
+            <div className="title">
+              <p className="text">Info</p>
+            </div>
+            <p className="reset-text">1 Win = 3p</p>
+            <p className="reset-text">1 Loss = -1p</p>
+            <p className="reset-text">
+              all stats will reset at the start of the month
+            </p>
 
-        <div className="title">
-          <p className="text">{month}</p>
-          <p className="text">{year}</p>
-        </div>
-        <p className="reset-text">Resets in</p>
-        <div className="timer">
-          <br></br>
-          <br></br>
-          {Object.keys(timeLeft).map((interval) => {
-            if (!timeLeft[interval]) {
-              return;
-            }
-            return (
-              <div key={interval} className="holder">
-                <span>
-                  <p
-                    className="number"
-                    style={{ fontSize: "4rem", margin: "0rem" }}
-                  >
-                    {timeLeft[interval]}
-                  </p>
-                  <p
-                    className="entity"
-                    style={{ fontSize: "1rem", margin: "0rem" }}
-                  >
-                    {interval}
-                  </p>
-                </span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="buttonContainer">
-          <SliderButton
-            state={view}
-            onClick={() => setView(!view)}
-            primary="Ranking"
-            secondary="Stats"
-          />
-        </div>
+            <p
+              onClick={() => setShowInfo(!showInfo)}
+              className="reset-text -cancel"
+            >
+              close info
+            </p>
+          </>
+        ) : (
+          <>
+            <div className="title">
+              <p className="text">{month}</p>
+              <p className="text">{year}</p>
+            </div>
+            <p className="reset-text">Resets in</p>
+            <div className="timer">
+              <br></br>
+              <br></br>
+              {Object.keys(timeLeft).map((interval) => {
+                if (!timeLeft[interval]) {
+                  return;
+                }
+                return (
+                  <div key={interval} className="holder">
+                    <span>
+                      <p
+                        className="number"
+                        style={{ fontSize: "4rem", margin: "0rem" }}
+                      >
+                        {timeLeft[interval]}
+                      </p>
+                      <p
+                        className="entity"
+                        style={{ fontSize: "1rem", margin: "0rem" }}
+                      >
+                        {interval}
+                      </p>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="buttonContainer">
+              <SliderButton
+                state={view}
+                onClick={() => setView(!view)}
+                primary="Ranking"
+                secondary="Stats"
+              />
+            </div>
+          </>
+        )}
       </div>
       <div className="content">
         {users && !isLoading ? (
           <>
             {placementSorter
               .filter(noGamesPlayedFilter)
-              .reverse()
+
               .map((user: UserProps, index) => {
                 return (
                   <LeaderboardCard
                     state={view}
                     title={user.name}
+                    score={user.score}
                     img={user.img}
                     key={user.id}
                     placement={index + 1}

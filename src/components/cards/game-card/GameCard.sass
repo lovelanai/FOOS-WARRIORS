@@ -18,7 +18,7 @@
             font-family: Fonts.$bold
         & > p
             margin: 0.2rem
-    
+
     & > .buttonContainer
         & > .text
             cursor: pointer
@@ -29,20 +29,22 @@
             text-decoration: underline
         @media screen and ( min-width: 700px)
             margin-top: 5vh
-                
-        
-        
 
     & > .message
         text-align: center
-        
         & > .title
             font-size: Fonts.$h3
             margin: 1rem
         & > .text
             font-size: Fonts.$h4
             margin: 1rem
-
+    & > .cancel
+        cursor: pointer
+        color: Colors.$red
+        font-size: Fonts.$p
+        margin: 2rem
+        text-align: center
+        text-decoration: underline
 
 .playersGrid
     display: grid
@@ -72,9 +74,6 @@
         &:nth-child(4)
             align-items: flex-start
 
-
-
-
 .teamContainer
     align-items: center
     display: flex
@@ -83,21 +82,19 @@
     overflow-y: scroll
     width: 100vw
     justify-content: space-evenly
-    
+
     .register-result-section
         align-items: center
         display: flex
         flex-direction: column
-        
+
         & > h2
             font-size: Fonts.$h3
             text-align: center
 
-
     @media screen and ( min-width: 1000px)
         .results-mobile-view
             display: none
-        
 
 .teamShuffleAnimation
     animation: teamShuffle 1.5s ease-in forwards
@@ -111,13 +108,10 @@
 .displayTeams
     animation: displayTeams .2s ease-in forwards
 
-
-
-
 @keyframes teamShuffle
     0%
         transform: scale(1)
-    
+
     25%
         transform: scale(1.05)
 
@@ -133,25 +127,17 @@
     100%
         transform: scale(0)
         display: none
-        
+
 @keyframes teamSpin
     from
         transform: rotate(0deg)
-    
+
     to
         transform: rotate(360deg)
 
 @keyframes displayTeams
     0%
         transform: scale(0)
-    
+
     100%
         transform: scale(1)
-
-
-    
-
-
-
-       
-

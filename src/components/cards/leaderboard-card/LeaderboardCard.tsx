@@ -12,6 +12,7 @@ interface LeaderboardCard {
   wins: number;
   losses: number;
   gamesPlayed: number;
+  score?: number;
 }
 
 export const LeaderboardCard = ({
@@ -23,9 +24,8 @@ export const LeaderboardCard = ({
   losses,
   gamesPlayed,
   state,
+  score,
 }: LeaderboardCard) => {
-  const [view, setView] = useState(false);
-
   let placementText;
   switch (placement) {
     case 1:
@@ -97,6 +97,8 @@ export const LeaderboardCard = ({
       </div>
       <div className="aside">
         <h3 className="title">{title}</h3>
+
+        <p className="text">Points: {score}</p>
       </div>
     </div>
   );
