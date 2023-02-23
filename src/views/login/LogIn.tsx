@@ -45,6 +45,7 @@ export const LogIn = () => {
               wins: 0,
               losses: 0,
               ratio: "1.00",
+              score: 0,
             };
             setUsers([...users, data]);
             setDoc(doc(db, `users/${user.uid}`), data).then(() => {
@@ -84,6 +85,7 @@ export const LogIn = () => {
               wins: 0,
               losses: 0,
               ratio: "1.00",
+              score: 0,
             };
             setUsers([...users, data]);
             setDoc(doc(db, `users/${user.uid}`), data).then(() => {
