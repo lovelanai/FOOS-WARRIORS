@@ -1,7 +1,7 @@
 import ICON from "@/assets/icons/icons";
 import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
-import { app, db, messaging } from "@/firebase/firebase.config";
+import { app, db } from "@/firebase/firebase.config";
 
 import {
   getAuth,
@@ -10,15 +10,13 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { getToken } from "firebase/messaging";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LogIn.sass";
 
 export const LogIn = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, isNotificationsAllowed, users, setUsers, iphoneCheck } =
-    useUser();
+  const { isLoggedIn, users, setUsers, setError, error } = useUser();
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -34,137 +32,75 @@ export const LogIn = () => {
       .then((result) => {
         const user = result.user;
         console.log("additionaluserinfo", user);
-
         const userRef = doc(db, "users", user.uid);
+
         getDoc(userRef).then(async (item) => {
           if (!item.data()) {
-            if (isNotificationsAllowed && !iphoneCheck) {
-              await getToken(messaging!, {
-                vapidKey: import.meta.env.VITE_VAPID_KEY,
-              })
-                .then((currentToken) => {
-                  if (currentToken) {
-                    const data = {
-                      name: user.displayName,
-                      email: user.email,
-                      img: user.photoURL,
-                      description: "",
-                      currentToken: currentToken,
-                      id: user.uid,
-                      wins: 0,
-                      losses: 0,
-                      ratio: "1.00",
-                    };
-                    setUsers([...users, data]);
-                    setDoc(doc(db, `users/${user.uid}`), data).then(() => {
-                      console.log("sign up och token finns");
-                      navigate("/home");
-                    });
-                  }
-                })
-                .catch((err) => {
-                  console.log("error", err);
-                  navigate("/");
-                });
-            } else {
-              const data = {
-                name: user.displayName,
-                email: user.email,
-                img: user.photoURL,
-                description: "",
-                currentToken: "",
-                id: user.uid,
-                wins: 0,
-                losses: 0,
-                ratio: "1.00",
-              };
-              setUsers([...users, data]);
-              setDoc(doc(db, `users/${user.uid}`), data)
-                .then(() => {
-                  console.log("sign up och token finns inte");
-                  navigate("/home");
-                })
-
-                .catch((err) => {
-                  console.log("error", err);
-                  navigate("/");
-                });
-            }
-          }
-        });
-      })
-      .catch((error) => {
-        console.log("error", error);
-        navigate("/");
-      });
-  };
-
-  const googleProvider = new GoogleAuthProvider();
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, googleProvider).then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
-      const user = result.user;
-      console.log(user);
-      const userRef = doc(db, "users", user.uid);
-
-      getDoc(userRef).then(async (item) => {
-        if (!item.data()) {
-          if (isNotificationsAllowed && !iphoneCheck) {
-            await getToken(messaging!, {
-              vapidKey: import.meta.env.VITE_VAPID_KEY,
-            })
-              .then((currentToken) => {
-                if (currentToken) {
-                  const data = {
-                    name: user.displayName,
-                    email: user.email,
-                    img: user.photoURL,
-                    description: "",
-                    currentToken: currentToken,
-                    id: user.uid,
-                    wins: 0,
-                    losses: 0,
-                    ratio: "1.00",
-                  };
-                  setUsers([...users, data]);
-                  setDoc(doc(db, `users/${user.uid}`), data).then(() => {
-                    console.log("sign up och token finns");
-                    navigate("/home");
-                  });
-                }
-              })
-              .catch((err) => {
-                console.log("error", err);
-                navigate("/");
-              });
-          } else {
             const data = {
               name: user.displayName,
               email: user.email,
               img: user.photoURL,
               description: "",
-              currentToken: "",
               id: user.uid,
               wins: 0,
               losses: 0,
               ratio: "1.00",
+              score: 0,
             };
             setUsers([...users, data]);
-            setDoc(doc(db, `users/${user.uid}`), data)
-              .then(() => {
-                console.log("sign up och token finns inte");
-                navigate("/home");
-              })
-
-              .catch((err) => {
-                console.log("error", err);
-                navigate("/");
-              });
+            setDoc(doc(db, `users/${user.uid}`), data).then(() => {
+              navigate("/home");
+            });
           }
-        }
+        });
+      })
+      .catch((error) => {
+        console.log("error", error.code);
+        console.log("error", error.message);
+        setError({
+          title: "Error",
+          body: "Something went wrong while trying to login... Try again",
+        });
       });
-    });
+  };
+
+  const googleProvider = new GoogleAuthProvider();
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+        const user = result.user;
+        console.log(user);
+        const userRef = doc(db, "users", user.uid);
+
+        getDoc(userRef).then(async (item) => {
+          if (!item.data()) {
+            const data = {
+              name: user.displayName,
+              email: user.email,
+              img: user.photoURL,
+              description: "",
+              id: user.uid,
+              wins: 0,
+              losses: 0,
+              ratio: "1.00",
+              score: 0,
+            };
+            setUsers([...users, data]);
+            setDoc(doc(db, `users/${user.uid}`), data).then(() => {
+              navigate("/home");
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setError({
+          title: "Error",
+          body: "Something went wrong while trying to login... Try again",
+        });
+      });
   };
 
   return (

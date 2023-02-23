@@ -7,7 +7,7 @@ export interface UserProps {
   wins: number;
   losses: number;
   ratio: number;
-  currentToken: string;
+  score?: number;
 }
 
 export interface GameProps {
@@ -25,14 +25,6 @@ export interface ResultProps {
   winners: TeamProps;
   losers: TeamProps;
 }
-
-export interface NotificationProps {
-  title: string;
-  text: string;
-  time: string;
-  id: string;
-}
-
 export interface MessageProps {
   to: string;
   body: string;

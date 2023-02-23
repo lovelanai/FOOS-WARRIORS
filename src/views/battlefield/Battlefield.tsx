@@ -47,19 +47,19 @@ export const Battlefield = () => {
 
   const { response: pinkPlayer1 } = useFetch(
     "users",
-    location.state.pinkTeam[0].id
+    location.state.pinkTeam[0]?.id
   );
   const { response: pinkPlayer2 } = useFetch(
     "users",
-    location.state.pinkTeam[1].id
+    location.state.pinkTeam[1]?.id
   );
   const { response: redPlayer1 } = useFetch(
     "users",
-    location.state.redTeam[0].id
+    location.state.redTeam[0]?.id
   );
   const { response: redPlayer2 } = useFetch(
     "users",
-    location.state.redTeam[1].id
+    location.state.redTeam[1]?.id
   );
 
   const pinkTeam = {
@@ -118,11 +118,13 @@ export const Battlefield = () => {
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
         let playerId = winners?.player1.id;
+        let score = winners?.player1.score + 3;
 
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);
@@ -134,10 +136,13 @@ export const Battlefield = () => {
         let losses = winners?.player2.losses;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
+        let score = winners?.player2.score + 3;
+
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);
@@ -149,10 +154,13 @@ export const Battlefield = () => {
         let losses = losers?.player1.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
+        let score = losers?.player1.score ? losers?.player1.score - 2 : -2;
+
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);
@@ -164,10 +172,13 @@ export const Battlefield = () => {
         let losses = losers?.player2.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
+        let score = losers?.player2.score ? losers?.player2.score - 2 : -2;
+
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);

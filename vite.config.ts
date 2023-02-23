@@ -3,18 +3,12 @@ import * as path from "path";
 import { defineConfig } from "vite";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
+import replace from "@rollup/plugin-replace";
 
 const pwaOptions: Partial<VitePWAOptions> = {
   mode: "development",
   base: "/",
   registerType: "autoUpdate",
-  // includeAssets: [
-  //   "maskedLogo.svg",
-  //   "Noir_medium.woff2",
-  //   "Noir_regular.woff2",
-  //   "offline.html",
-  //   "OfflineLogo.png",
-  // ],
   injectRegister: "auto",
   manifest: {
     name: "FOOS WARRIORS",
@@ -48,6 +42,15 @@ const pwaOptions: Partial<VitePWAOptions> = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      plugins: [
+        replace({
+          "import.meta.env": JSON.stringify(process.env),
+        }),
+      ],
+    },
+  },
   plugins: [react(), svgr(), VitePWA(pwaOptions)],
   resolve: {
     alias: {
@@ -56,5 +59,8 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+  },
+  define: {
+    process: {},
   },
 });

@@ -11,6 +11,7 @@
         box-shadow: 0 0.1rem 1.2rem rgb(0 0 0 / 50%)
         display: flex
         flex-direction: column
+        min-height: 30rem
         top: 0
         width: 100%
         z-index: 10
@@ -29,20 +30,30 @@
         & > .reset-text
             margin-bottom: 0rem
             text-align: center
+            @media screen and ( min-width: 500px )
+                font-size: Fonts.$h4
+
+        & > .-cancel
+            color: Colors.$red
+            text-decoration: underline
+            cursor: pointer
+            @media screen and ( min-width: 500px )
+                margin-bottom: 1rem
 
         & > .timer
             align-items: center
             color: Colors.$white
             display: flex
             justify-content: center
+            min-height: 7rem
 
             & > .holder
                 & > span
-                    align-items: center 
+                    align-items: center
                     display: flex
                     flex-direction: column
                     padding: 1rem
-                   
+
         & > .buttonContainer
             align-items: center
             display: flex
@@ -63,12 +74,12 @@
                     display: flex
 
                 & > .placement::after
-                    align-items: center                
+                    align-items: center
                     content: url("@/assets/icons/essentials/trophy.svg")
                     display: flex
                     height: 100%
                     margin-left: 1rem
-        
+
         & > .leaderboardCard:nth-child(2)
             background: linear-gradient(to right, #a1a1a1, #dedede, #dadada, #dedede, #a1a1a1)
             color: Colors.$black
@@ -77,6 +88,6 @@
             background: linear-gradient(to right, #ca7345, #ffbb90,#ffbb90, #f28c54, #fca46e)
             color: Colors.$black
             margin-bottom: 2rem
-        
+
         @media screen and ( min-width: 400px  )
             height: calc(100vh - 33.5rem)

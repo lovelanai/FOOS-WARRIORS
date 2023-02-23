@@ -1,10 +1,12 @@
 import ICON from "@/assets/icons/icons";
 import { useUser } from "@/context/UserContext";
+import { sendWebhookMessage } from "@/utils/hooks";
 import { useNavigate } from "react-router-dom";
 import "./Navigation.sass";
 
 export const Navigation = () => {
   const { loggedInUserId } = useUser();
+
   const navigate = useNavigate();
   return (
     <div className="navigation">

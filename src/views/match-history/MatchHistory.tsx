@@ -2,7 +2,7 @@ import ICON from "@/assets/icons/icons";
 import Logo from "@/assets/logos/logos";
 import { BattleCard } from "@/components/cards/battle-card/BattleCard";
 import { Header } from "@/components/header/Header";
-import { HeaderNotification } from "@/components/notification/HeaderNotification";
+
 import { fetchWithMatch } from "@/utils/hooks";
 import { TeamProps } from "@/utils/props";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,6 @@ export const MatchHistory = () => {
             </div>
           }
           title="Todays Battles"
-          asideElement={<HeaderNotification />}
         />
         <div className="banner">
           <Logo.Swords />

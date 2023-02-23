@@ -8,7 +8,6 @@ import { InputField } from "@/components/input/input-field/InputField";
 import { Loader } from "@/components/loader/Loader";
 import { useUser } from "@/context/UserContext";
 import { db } from "@/firebase/firebase.config";
-import { sendNotification, useFetch } from "@/utils/hooks";
 import { GameProps, UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { uuidv4 } from "@firebase/util";
@@ -38,6 +37,7 @@ export const Game = () => {
   );
 
   const [newGameMode, setNewGameMode] = useState(false);
+  const [teamsInvite, setTeamsInvite] = useState(false);
   const [inviteMode, setInviteMode] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -47,7 +47,6 @@ export const Game = () => {
     img: string;
     wins: number;
     losses: number;
-    token: string;
   }
   const [invitedPlayers, setInvitedPlayers] = useState([] as any);
 
@@ -95,12 +94,11 @@ export const Game = () => {
   const handleInviteList = (
     name: string,
     id: string,
-    token: string,
     img: string,
     wins: number,
     losses: number
   ) => {
-    let newPlayer = { name, id, img, wins, losses, token };
+    let newPlayer = { name, id, img, wins, losses };
     invitedPlayers.push(newPlayer);
     setInvitedPlayerId(id);
   };
@@ -113,17 +111,12 @@ export const Game = () => {
   };
 
   const createGame = () => {
-    const notificationFilter = invitedPlayers.filter(function (player: any) {
-      return player.id !== loggedInUserId;
-    });
-
     const host = {
       name: loggedInUser.name,
       id: loggedInUserId,
       img: loggedInUser.img,
       wins: loggedInUser.wins,
       losses: loggedInUser.losses,
-      token: loggedInUser.currentToken,
     };
     invitedPlayers.push(host);
 
@@ -133,28 +126,6 @@ export const Game = () => {
     setDoc(doc(db, `games/${loggedInUserId}`), {
       id: loggedInUserId,
       players: invitedPlayersId,
-    }).then(() => {
-      notificationFilter.forEach((player: any) => {
-        sendNotification({
-          to: player.token,
-          title: "INCOMING BATTLE",
-          body: `${loggedInUser.name} invited you to play a game of foos!`,
-          recieverId: player.id,
-        }).then(() => {
-          const uid = uuidv4();
-          const ref = doc(db, `notifications/${uid}`);
-          const day = new Date().toDateString();
-          const time = new Date().toLocaleTimeString();
-          setDoc(ref, {
-            title: "INCOMING BATTLE",
-            text: `${loggedInUser.name} invited you to play a game of foos!`,
-            id: player.id,
-            time: `${day} ${time}`,
-          }).catch((err) => {
-            console.log("error", err);
-          });
-        });
-      });
     });
     setNewGameMode(false);
     navigate(`/teamGenerator/${loggedInUserId}`, {
@@ -194,6 +165,9 @@ export const Game = () => {
                     title="Battle"
                   />
                   <CreateGameCard
+                    invite={() => setTeamsInvite(true)}
+                    showInvite={teamsInvite}
+                    closeModal={() => setTeamsInvite(false)}
                     onClick={() => {
                       setNewGameMode(true);
                       setInviteMode(true);
@@ -203,7 +177,7 @@ export const Game = () => {
               ) : newGameMode && inviteMode ? (
                 <>
                   <Header
-                    title="Invite players"
+                    title="Select players"
                     element={
                       <div onClick={() => navigate("/home")}>
                         <ICON.Arrow />
@@ -286,12 +260,11 @@ export const Game = () => {
                                 img={user.img}
                                 key={user.id}
                                 disabled={invitedPlayers.length > 2}
-                                buttonText="invite player"
+                                buttonText="Add player"
                                 onClick={() =>
                                   handleInviteList(
                                     user.name,
                                     user.id,
-                                    user.currentToken,
                                     user.img,
                                     user.wins,
                                     user.losses

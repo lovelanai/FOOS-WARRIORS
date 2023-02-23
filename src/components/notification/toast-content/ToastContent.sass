@@ -1,18 +1,20 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
-
 .toastContent
     align-items: center
     display: flex
     gap: 2rem
     height: 10rem
-    
-    & > .image
-        height: 40%
 
-        & > img
-            height: 100%
+    & > .image
+        display: flex
+        height: 100%
+        align-items: center
+        justify-content: center
+
+        & > .svg
+            height: 90%
 
     & > .text
         display: flex
@@ -20,7 +22,7 @@
 
         & > .title
             margin: 0
-            
+
         & > .body
             font-size: calc(Fonts.$p - 4px)
             margin: 0
