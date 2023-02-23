@@ -1,8 +1,3 @@
-import { IncomingWebhook } from "ms-teams-webhook";
-import { MessageProps } from "./props";
-import { useUser } from "@/context/UserContext";
-
-import axios from "axios";
 import { db } from "@/firebase/firebase.config.js";
 import {
   collection,
@@ -107,8 +102,7 @@ export const sendWebhookMessage = async (amount: string, user: string) => {
       {
         activityTitle: "INCOMING BATTLE",
         activitySubtitle: `Invite from ${user}`,
-        activityImage:
-          "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/swords.png?alt=media&token=fe221e5c-f333-48a0-b562-c8949991aa00",
+        activityImage: import.meta.env.VITE_TEAMS_WEBHOOK_URL,
         facts: [
           {
             name: "Players needed",
