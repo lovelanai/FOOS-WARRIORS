@@ -1,4 +1,3 @@
-import ICON from "@/assets/icons/icons";
 import { PrimaryButton } from "@/components/buttons/primary-button/PrimaryButton";
 import { useUser } from "@/context/UserContext";
 import { sendWebhookMessage } from "@/utils/hooks";

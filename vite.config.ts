@@ -8,13 +8,6 @@ const pwaOptions: Partial<VitePWAOptions> = {
   mode: "development",
   base: "/",
   registerType: "autoUpdate",
-  // includeAssets: [
-  //   "maskedLogo.svg",
-  //   "Noir_medium.woff2",
-  //   "Noir_regular.woff2",
-  //   "offline.html",
-  //   "OfflineLogo.png",
-  // ],
   injectRegister: "auto",
   manifest: {
     name: "FOOS WARRIORS",

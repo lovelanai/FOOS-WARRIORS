@@ -102,7 +102,7 @@ export const sendWebhookMessage = async (amount: string, user: string) => {
       {
         activityTitle: "INCOMING BATTLE",
         activitySubtitle: `Invite from ${user}`,
-        activityImage: import.meta.env.VITE_TEAMS_WEBHOOK_URL,
+        activityImage: process.env.VITE_TEAMS_WEBHOOK_URL,
         facts: [
           {
             name: "Players needed",
