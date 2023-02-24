@@ -118,7 +118,7 @@ export const Battlefield = () => {
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
         let playerId = winners?.player1.id;
-        let score = winners?.player1.score + 3;
+        let score = winners?.player1.score ? winners?.player1?.score + 3 : 3;
 
         const updatedStats = {
           wins: wins,
@@ -136,7 +136,7 @@ export const Battlefield = () => {
         let losses = winners?.player2.losses;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
-        let score = winners?.player2.score + 3;
+        let score = winners?.player2?.score ? winners?.player2?.score + 3 : 3;
 
         const updatedStats = {
           wins: wins,
@@ -154,7 +154,7 @@ export const Battlefield = () => {
         let losses = losers?.player1.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
-        let score = losers?.player1.score ? losers?.player1.score - 2 : -2;
+        let score = losers?.player1?.score ? losers?.player1?.score - 2 : -2;
 
         const updatedStats = {
           wins: wins,
@@ -172,7 +172,7 @@ export const Battlefield = () => {
         let losses = losers?.player2.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
-        let score = losers?.player2.score ? losers?.player2.score - 2 : -2;
+        let score = losers?.player2?.score ? losers?.player2?.score - 2 : -2;
 
         const updatedStats = {
           wins: wins,

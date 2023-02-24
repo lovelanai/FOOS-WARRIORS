@@ -91,8 +91,7 @@ export const fetchWithMatch = (
 };
 
 export const sendWebhookMessage = async (amount: string, user: string) => {
-  const webhookUrl =
-    "https://hiq365.webhook.office.com/webhookb2/df74ffc4-9e38-47e9-b722-1ae45a6a1871@81210fa4-862d-4076-8aaf-e504b2cdd263/IncomingWebhook/1fe4c258a5e84da8b211efe2b22ede8f/37079c78-8d74-4187-bd10-a8acc9c1be78";
+  const webhookUrl = import.meta.env.VITE_TEAMS_WEBHOOK_URL;
 
   const message = {
     "@type": "MessageCard",
@@ -102,7 +101,8 @@ export const sendWebhookMessage = async (amount: string, user: string) => {
       {
         activityTitle: "INCOMING BATTLE",
         activitySubtitle: `Invite from ${user}`,
-        activityImage: import.meta.env.VITE_TEAMS_WEBHOOK_URL,
+        activityImage:
+          "https://firebasestorage.googleapis.com/v0/b/fooswarriors-bdc5e.appspot.com/o/swords.png?alt=media&token=fe221e5c-f333-48a0-b562-c8949991aa00",
         facts: [
           {
             name: "Players needed",
