@@ -12,13 +12,14 @@ import "./LeaderBoard.sass";
 
 import { db } from "@/firebase/firebase.config";
 import { doc, updateDoc } from "firebase/firestore";
+import Countdown from "./CountDown";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
   const { users, isLoading } = useUser();
 
   const [view, setView] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
   const [showInfo, setShowInfo] = useState(false);
 
   const placementSorter = users.sort((a, b) => b.score - a.score);
@@ -68,31 +69,6 @@ export const LeaderBoard = () => {
   const noGamesPlayedFilter = (user: UserProps) =>
     user.wins !== 0 || user.losses !== 0;
 
-  function calculateTimeLeft() {
-    const year = new Date().getFullYear();
-    const difference = +new Date(`${year}-2-1`) - +new Date();
-    let timeLeft: { [char: string]: number } = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-    return timeLeft;
-  }
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-    return () => {
-      clearTimeout(id);
-    };
-  });
-
   const deleteFieldValue = async () => {
     for (const user of users) {
       const ref = doc(db, `users/${user.id}`);
@@ -132,7 +108,7 @@ export const LeaderBoard = () => {
               <p className="text">Info</p>
             </div>
             <p className="reset-text">1 Win = 3p</p>
-            <p className="reset-text">1 Loss = -1p</p>
+            <p className="reset-text">1 Loss = -2p</p>
             <p className="reset-text">
               all stats will reset at the start of the month
             </p>
@@ -154,29 +130,7 @@ export const LeaderBoard = () => {
             <div className="timer">
               <br></br>
               <br></br>
-              {Object.keys(timeLeft).map((interval) => {
-                if (!timeLeft[interval]) {
-                  return;
-                }
-                return (
-                  <div key={interval} className="holder">
-                    <span>
-                      <p
-                        className="number"
-                        style={{ fontSize: "4rem", margin: "0rem" }}
-                      >
-                        {timeLeft[interval]}
-                      </p>
-                      <p
-                        className="entity"
-                        style={{ fontSize: "1rem", margin: "0rem" }}
-                      >
-                        {interval}
-                      </p>
-                    </span>
-                  </div>
-                );
-              })}
+              <Countdown />
             </div>
             <div className="buttonContainer">
               <SliderButton
