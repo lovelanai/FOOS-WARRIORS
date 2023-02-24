@@ -13,16 +13,18 @@ import "./LeaderBoard.sass";
 import { db } from "@/firebase/firebase.config";
 import { doc, updateDoc } from "firebase/firestore";
 import Countdown from "./CountDown";
+import { useFetch } from "@/utils/hooks";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
-  const { users, isLoading } = useUser();
+
+  const { response: users, isLoading } = useFetch("users");
 
   const [view, setView] = useState(false);
 
   const [showInfo, setShowInfo] = useState(false);
 
-  const placementSorter = users.sort((a, b) => b.score - a.score);
+  const placementSorter = users?.sort((a, b) => b.score - a.score);
 
   const date = new Date();
   const year = date.getFullYear();
