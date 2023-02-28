@@ -78,6 +78,7 @@ export const LeaderBoard = () => {
         losses: 0,
         wins: 0,
         ratio: "0.00",
+        score: 0,
       });
     }
   };
