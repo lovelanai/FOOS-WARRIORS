@@ -14,6 +14,7 @@ import { db } from "@/firebase/firebase.config";
 import { doc, updateDoc } from "firebase/firestore";
 import Countdown from "./CountDown";
 import { useFetch } from "@/utils/hooks";
+import Logo from "@/assets/logos/logos";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export const LeaderBoard = () => {
   const [view, setView] = useState(false);
 
   const [showInfo, setShowInfo] = useState(false);
+
+  const [reset, setReset] = useState(false);
 
   const placementSorter = users?.sort((a, b) => b.score - a.score);
 
@@ -83,9 +86,12 @@ export const LeaderBoard = () => {
     }
   };
 
-  if (date.getDate() === 1) {
-    deleteFieldValue();
-  }
+  useEffect(() => {
+    if (date.getDate() === 1) {
+      deleteFieldValue();
+      setReset(true);
+    }
+  }, [users]);
 
   return (
     <div className="leaderBoard">
@@ -147,35 +153,47 @@ export const LeaderBoard = () => {
         )}
       </div>
       <div className="content">
-        {users && !isLoading ? (
-          <>
-            {placementSorter
-              .filter(noGamesPlayedFilter)
-
-              .map((user: UserProps, index) => {
-                return (
-                  <LeaderboardCard
-                    state={view}
-                    title={user.name}
-                    score={user.score}
-                    img={user.img}
-                    key={user.id}
-                    placement={index + 1}
-                    ratio={user.ratio}
-                    wins={user.wins}
-                    losses={user.losses}
-                    gamesPlayed={user.wins + user.losses}
-                  />
-                );
-              })}
-          </>
+        {reset ? (
+          <div className="reset-message">
+            <Logo.BattleSkull />
+            <h3>
+              Leaderboard is preparing for a new battle-period. <br /> Today you
+              can warm up until the battles begin again tomorrow!
+            </h3>
+          </div>
         ) : (
           <>
-            {Array(6)
-              .fill(null)
-              .map((key, index) => (
-                <PlayerCardSkeleton key={index} />
-              ))}
+            {users && !isLoading ? (
+              <>
+                {placementSorter
+                  .filter(noGamesPlayedFilter)
+
+                  .map((user: UserProps, index) => {
+                    return (
+                      <LeaderboardCard
+                        state={view}
+                        title={user.name}
+                        score={user.score}
+                        img={user.img}
+                        key={user.id}
+                        placement={index + 1}
+                        ratio={user.ratio}
+                        wins={user.wins}
+                        losses={user.losses}
+                        gamesPlayed={user.wins + user.losses}
+                      />
+                    );
+                  })}
+              </>
+            ) : (
+              <>
+                {Array(6)
+                  .fill(null)
+                  .map((key, index) => (
+                    <PlayerCardSkeleton key={index} />
+                  ))}
+              </>
+            )}
           </>
         )}
       </div>
