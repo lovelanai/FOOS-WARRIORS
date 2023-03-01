@@ -160,6 +160,7 @@ export const LeaderBoard = () => {
               Leaderboard is preparing for a new battle-period. <br /> Today you
               can warm up until the battles begin again tomorrow!
             </h3>
+            <span>Warm up === scoreless</span>
           </div>
         ) : (
           <>
