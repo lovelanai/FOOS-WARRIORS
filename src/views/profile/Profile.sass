@@ -175,6 +175,12 @@
                     background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
                     -webkit-background-clip: text
                     -webkit-text-fill-color: transparent
+                    -moz-background-clip: text
+                    -moz-text-fill-color: transparent
+                    -ms-background-clip: text
+                    -ms-text-fill-color: transparent
+                    background-clip: text
+                    text-fill-color: transparent
 
                 & > .bio
                     color: Colors.$black
@@ -183,6 +189,12 @@
                     background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
                     -webkit-background-clip: text
                     -webkit-text-fill-color: transparent
+                    -moz-background-clip: text
+                    -moz-text-fill-color: transparent
+                    -ms-background-clip: text
+                    -ms-text-fill-color: transparent
+                    background-clip: text
+                    text-fill-color: transparent
 
                 & > .stats
                     display: flex
@@ -193,32 +205,19 @@
                     background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
                     -webkit-background-clip: text
                     -webkit-text-fill-color: transparent
+                    -moz-background-clip: text
+                    -moz-text-fill-color: transparent
+                    -ms-background-clip: text
+                    -ms-text-fill-color: transparent
+                    background-clip: text
+                    text-fill-color: transparent
 
-                    & > div
-                    & > .value
-                        color: Colors.$black
-                        font-family: Fonts.$bold
-                        font-size: Fonts.$h3
-                        margin: .5rem
+    @keyframes fadeIn
+        0%
+            opacity: 50%
 
-                    & > .type
-                        color: Colors.$gray
-                        font-family: Fonts.$regular
-                        font-size: Fonts.$h3
-                        margin: .5rem
-                        padding-bottom: 1rem
-
-                    & > .border
-                        border-bottom: solid linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C) 1px
-                        margin-left: .5rem
-                        width: 30%
-
-@keyframes fadeIn
-    0%
-        opacity: 50%
-
-    100%
-        opacity: 100%
+        100%
+            opacity: 100%
 
 @media screen and (min-width: 1000px)
     .profile

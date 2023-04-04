@@ -1,7 +1,6 @@
 @use "@/styles/Fonts.scss"
 @use "@/styles/Colors.scss"
 
-
 .error404
     height: 100vh
 
@@ -22,10 +21,18 @@
                 display: flex
                 flex-direction: column
                 gap: 2rem
-                
+
                 & > .primaryButton
                     &:nth-child(2)
                         background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
+                        -webkit-background-clip: text
+                        -webkit-text-fill-color: transparent
+                        -moz-background-clip: text
+                        -moz-text-fill-color: transparent
+                        -ms-background-clip: text
+                        -ms-text-fill-color: transparent
+                        background-clip: text
+                        text-fill-color: transparent
 
         & > .banner
             & > .title
@@ -39,8 +46,8 @@
             height: 10vh
             justify-content: center
 
-            & > .cube 
-                animation: squareSpin 3s linear infinite 
+            & > .cube
+                animation: squareSpin 3s linear infinite
                 height: 10rem
                 left: 0
                 position: relative
@@ -49,23 +56,23 @@
                 transform-style: preserve-3d
                 width: 10rem
 
-                & > .top 
+                & > .top
                     margin-top: -5rem
                     transform: rotateX(90deg)
 
-                & > .right 
+                & > .right
                     margin-left: 5rem
                     transform: rotateY(90deg)
 
-                & > .bottom 
+                & > .bottom
                     margin-top: 5rem
                     transform: rotateX(-90deg)
 
-                & > .left 
+                & > .left
                     margin-left: -5rem
                     transform: rotateY(-90deg)
 
-                & > .front 
+                & > .front
                     transform: translateZ(5rem)
 
                 & > .back
@@ -88,23 +95,23 @@
             & > .cubeContainer
                 height: 30vh
 
-                & > .cube 
+                & > .cube
                     width: 20rem
                     height: 20rem
 
-                    & > .top 
+                    & > .top
                         margin-top: -10rem
 
-                    & > .right 
+                    & > .right
                         margin-left: 10rem
 
-                    & > .bottom 
+                    & > .bottom
                         margin-top: 10rem
 
-                    & > .left 
+                    & > .left
                         margin-left: -10rem
 
-                    & > .front 
+                    & > .front
                         transform: translateZ(10rem)
 
                     & > .back
@@ -118,13 +125,8 @@
         @media screen and ( min-width: 470px)
             height: calc( 100vh - 8rem )
 
-
-
-@keyframes squareSpin 
+@keyframes squareSpin
     0%
         transform: rotateX(-20deg) rotateY(0deg)
     100%
         transform: rotateX(-20deg) rotateY(360deg)
-
-       
-     
