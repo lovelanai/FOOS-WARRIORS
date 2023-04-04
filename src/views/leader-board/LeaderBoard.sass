@@ -77,7 +77,8 @@
             text-align: center
             margin: 0 2rem
 
-        & > .leaderboardCard:nth-child(1)
+        & > .leaderboardCard:nth-child(1):not(.-winner)
+
             background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
             color: Colors.$black
 
@@ -93,11 +94,13 @@
                     height: 100%
                     margin-left: 1rem
 
-        & > .leaderboardCard:nth-child(2)
+        & > .leaderboardCard:nth-child(2):not(.-winner)
+
             background: linear-gradient(to right, #a1a1a1, #dedede, #dadada, #dedede, #a1a1a1)
             color: Colors.$black
 
-        & > .leaderboardCard:nth-child(3)
+        & > .leaderboardCard:nth-child(3):not(.-winner)
+
             background: linear-gradient(to right, #ca7345, #ffbb90,#ffbb90, #f28c54, #fca46e)
             color: Colors.$black
             margin-bottom: 2rem

@@ -9,6 +9,7 @@ interface PlayerCardProps {
   buttonText: string;
   disabled?: boolean;
   style?: CSSProperties;
+  id: string;
 }
 
 export const PlayerCard = ({
@@ -18,9 +19,12 @@ export const PlayerCard = ({
   buttonText,
   disabled,
   style,
+  id,
 }: PlayerCardProps) => {
+  const winner = id === "2KswaJJdJfO278Yqlbgv3fXl1wz2";
+
   return (
-    <div className="playerCard" style={style}>
+    <div className={`playerCard ${winner ? "-winner" : ""}`} style={style}>
       <div
         className="img"
         style={{
@@ -28,7 +32,7 @@ export const PlayerCard = ({
         }}
       />
       <div className="aside">
-        <h3 className="title">{title}</h3>
+        <h3 className="title">{winner ? `♛ ${title} ♛` : title}</h3>
         <div className="button-container">
           <PrimaryButton
             disabled={disabled}

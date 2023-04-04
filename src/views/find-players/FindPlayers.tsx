@@ -48,6 +48,7 @@ export const FindPlayers = () => {
               .filter(removeLoggedInUser)
               .map((user: UserProps) => (
                 <PlayerCard
+                  id={user.id}
                   title={user.name}
                   img={user.img}
                   key={user.id}

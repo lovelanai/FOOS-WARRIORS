@@ -16,6 +16,7 @@ interface LeaderboardCard {
 }
 
 export const LeaderboardCard = ({
+  id,
   img,
   title,
   ratio,
@@ -26,6 +27,8 @@ export const LeaderboardCard = ({
   state,
   score,
 }: LeaderboardCard) => {
+  const winner = id === "2KswaJJdJfO278Yqlbgv3fXl1wz2";
+
   let placementText;
   switch (placement) {
     case 1:
@@ -61,11 +64,7 @@ export const LeaderboardCard = ({
   }
 
   return (
-    <div
-      className="leaderboardCard"
-      // style={view ? { background: "red" } : {}}
-      // onClick={() => setView(!view)}
-    >
+    <div className={`leaderboardCard ${winner ? "-winner" : ""}`}>
       <div className="content">
         {!state ? (
           <>
@@ -96,7 +95,7 @@ export const LeaderboardCard = ({
         )}
       </div>
       <div className="aside">
-        <h3 className="title">{title}</h3>
+        <h3 className="title">{winner ? `♛ ${title} ♛` : title}</h3>
 
         <p className="text">Points: {score}</p>
       </div>

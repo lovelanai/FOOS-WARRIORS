@@ -203,6 +203,7 @@ export const Game = () => {
                           return (
                             <div className="inviteList" key={index}>
                               <PlayerCard
+                                id={player.id}
                                 title={player.name}
                                 buttonText="Remove"
                                 onClick={() => removeFromInviteList(player)}
@@ -256,6 +257,7 @@ export const Game = () => {
                             .filter(invitedPlayer3)
                             .map((user: UserProps) => (
                               <PlayerCard
+                                id={user.id}
                                 title={user.name}
                                 img={user.img}
                                 key={user.id}

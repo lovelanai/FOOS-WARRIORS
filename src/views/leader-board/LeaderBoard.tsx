@@ -172,6 +172,7 @@ export const LeaderBoard = () => {
                   .map((user: UserProps, index) => {
                     return (
                       <LeaderboardCard
+                        id={user.id}
                         state={view}
                         title={user.name}
                         score={user.score}

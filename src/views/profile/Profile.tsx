@@ -22,6 +22,8 @@ export const Profile = () => {
   const params = useParams();
   const userId = params.id;
 
+  const winner = userId === "2KswaJJdJfO278Yqlbgv3fXl1wz2";
+
   const userConnectedToProfile: UserProps = users.find(
     ({ id }) => id === userId
   )!;
@@ -100,7 +102,7 @@ export const Profile = () => {
 
   return (
     <>
-      <div className="profile">
+      <div className={`profile ${winner ? "-winner" : ""}`}>
         <div className="header">
           <Header
             element={
@@ -118,7 +120,9 @@ export const Profile = () => {
                 </div>
               )
             }
-            title={`${isEditMode ? "Edit" : "Profile"}`}
+            title={`${
+              isEditMode ? "Edit" : winner ? "♛ CHAMPION ♛" : "Profile"
+            }`}
             asideElement={
               personalProfileCheck ? (
                 <div className="asideElement" onClick={HandleSignOut}>

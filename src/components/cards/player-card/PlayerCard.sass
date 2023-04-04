@@ -30,12 +30,22 @@
             align-items: center
             gap: 1rem
             & > .icon
-                background: Colors.$black 
+                background: Colors.$black
                 border-radius: 100%
                 padding: .5rem
                 height: 2rem
                 width: 2rem
                 display: flex
                 align-items: center
-                    
-        
+
+    &.-winner
+        background: #333
+        & > .aside
+            & > .title
+                background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
+                -webkit-background-clip: text
+                -webkit-text-fill-color: transparent
+
+            & > .button-container
+                & > .profileButton
+                    background: linear-gradient(to right, #BF953F, #fff7a2, #dfb65f, #FBF5B7, #AA771C)
