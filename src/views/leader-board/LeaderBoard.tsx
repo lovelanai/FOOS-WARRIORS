@@ -3,7 +3,6 @@ import { SliderButton } from "@/components/buttons/slider-button/SliderButton";
 import { LeaderboardCard } from "@/components/cards/leaderboard-card/LeaderboardCard";
 import { Header } from "@/components/header/Header";
 
-import { useUser } from "@/context/UserContext";
 import { UserProps } from "@/utils/props";
 import { PlayerCardSkeleton } from "@/views/find-players/skeleton/PlayerCardSkeleton";
 import { useEffect, useState } from "react";
@@ -116,8 +115,8 @@ export const LeaderBoard = () => {
             <div className="title">
               <p className="text">Info</p>
             </div>
-            <p className="reset-text">1 Win = 3p</p>
-            <p className="reset-text">1 Loss = -2p</p>
+            <p className="reset-text">Win = 3p</p>
+            <p className="reset-text">Loss = 0p</p>
             <p className="reset-text">
               all stats will reset at the start of the month
             </p>
