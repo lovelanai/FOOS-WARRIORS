@@ -22,7 +22,7 @@ export const Profile = () => {
   const params = useParams();
   const userId = params.id;
 
-  const winner = userId === "2KswaJJdJfO278Yqlbgv3fXl1wz2";
+  const winner = userId === "6qe9o1NpaebPn5rgjdYQsTIl6U43";
 
   const userConnectedToProfile: UserProps = users.find(
     ({ id }) => id === userId
