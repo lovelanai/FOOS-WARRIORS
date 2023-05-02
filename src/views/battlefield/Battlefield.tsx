@@ -154,11 +154,13 @@ export const Battlefield = () => {
         let losses = losers?.player1.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
+        let score = losers?.player1.score === 0 ? 0 : losers?.player1.score - 1;
 
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);
@@ -170,11 +172,13 @@ export const Battlefield = () => {
         let losses = losers?.player2.losses! + 1;
         let gamesplayed = wins! + losses!;
         let ratio = (wins! / gamesplayed).toFixed(2);
+        let score = losers?.player2.score === 0 ? 0 : losers?.player2.score - 1;
 
         const updatedStats = {
           wins: wins,
           losses: losses,
           ratio: ratio,
+          score: score,
         };
 
         const ref = doc(db, `users/${playerId}`);

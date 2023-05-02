@@ -116,9 +116,10 @@ export const LeaderBoard = () => {
               <p className="text">Info</p>
             </div>
             <p className="reset-text">Win = 3p</p>
-            <p className="reset-text">Loss = 0p</p>
+            <p className="reset-text">Loss = -1p</p>
             <p className="reset-text">
-              all stats will reset at the start of the month
+              Update 3.0: -1 point per loss but score will never be lower than
+              0, cheers
             </p>
 
             <p
