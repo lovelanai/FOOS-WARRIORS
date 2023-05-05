@@ -41,7 +41,7 @@ export const LandingPage = () => {
         <Logo.BigPlayer className="logo" />
       </div>
       <div className="title">
-        <h1 className="text">FOOS</h1>
+        <h1 className="text">STÄKE</h1>
         <h1 className="text">WARRIORS</h1>
       </div>
       <div className="aside">
