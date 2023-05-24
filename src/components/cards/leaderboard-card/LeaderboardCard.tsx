@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./LeaderboardCard.sass";
 
 interface LeaderboardCard {
@@ -29,39 +28,19 @@ export const LeaderboardCard = ({
 }: LeaderboardCard) => {
   const winner = id === "6qe9o1NpaebPn5rgjdYQsTIl6U43";
 
-  let placementText;
-  switch (placement) {
-    case 1:
-      placementText = "st";
-      break;
-    case 2:
-      placementText = "nd";
-      break;
-    case 3:
-      placementText = "rd";
-      break;
-    case 22:
-      placementText = "nd";
-      break;
-    case 23:
-      placementText = "rd";
-      break;
-    case 32:
-      placementText = "nd";
-      break;
-    case 33:
-      placementText = "rd";
-      break;
-    case 42:
-      placementText = "nd";
-      break;
-    case 43:
-      placementText = "rd";
-      break;
-    default:
-      placementText = "st";
-      break;
-  }
+  const nthNumber = (number: number) => {
+    if (number > 3 && number < 21) return `${number}th`;
+    switch (number % 10) {
+      case 1:
+        return `${number}st`;
+      case 2:
+        return `${number}nd`;
+      case 3:
+        return `${number}rd`;
+      default:
+        return `${number}th`;
+    }
+  };
 
   return (
     <div className={`leaderboardCard ${winner ? "-winner" : ""}`}>
@@ -75,10 +54,7 @@ export const LeaderboardCard = ({
               }}
             />
             {placement ? (
-              <p className="placement">
-                {placement}
-                {placementText}
-              </p>
+              <p className="placement">{nthNumber(placement)}</p>
             ) : null}
           </>
         ) : (
