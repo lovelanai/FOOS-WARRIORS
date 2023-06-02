@@ -21,7 +21,7 @@ export const PlayerCard = ({
   style,
   id,
 }: PlayerCardProps) => {
-  const winner = id === "6qe9o1NpaebPn5rgjdYQsTIl6U43";
+  const winner = id === "YMTcnmu77Thd7CBQ5Af4DT2ZNTk2";
 
   return (
     <div className={`playerCard ${winner ? "-winner" : ""}`} style={style}>

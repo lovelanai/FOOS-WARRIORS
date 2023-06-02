@@ -26,7 +26,7 @@ export const LeaderboardCard = ({
   state,
   score,
 }: LeaderboardCard) => {
-  const winner = id === "6qe9o1NpaebPn5rgjdYQsTIl6U43";
+  const winner = id === "YMTcnmu77Thd7CBQ5Af4DT2ZNTk2";
 
   const nthNumber = (number: number) => {
     if (number > 3 && number < 21) return `${number}th`;
